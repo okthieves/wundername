@@ -14,10 +14,14 @@ config/name="wundername"
 run/main_scene="uid://cvibguqhtkvgu"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+GameManager="*res://game_manager.gd"
+
 [display]
 
-window/size/viewport_width=720
-window/size/viewport_height=720
+window/size/viewport_width=200
+window/size/viewport_height=200
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
