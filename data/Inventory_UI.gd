@@ -32,7 +32,11 @@ func refresh_inventory():
 
 	for id in keys:
 		var item = ItemDB.get_by_id(id)
-		item_list.add_item(item["name"])
+		var amount = inv[id]   # quantity from the dictionary
+		var display_name = "%s ×%s" % [item["name"], str(amount)]
+		print("ADDING:", display_name)
+		
+		item_list.add_item(display_name)
 
 # ==================================================
 #  SELECTION HELPERS
