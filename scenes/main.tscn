@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=4 uid="uid://cvibguqhtkvgu"]
+[gd_scene load_steps=67 format=4 uid="uid://cvibguqhtkvgu"]
 
 [ext_resource type="PackedScene" uid="uid://dpa812tg0foxy" path="res://scenes/player/player.tscn" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cbp5uaq8el22j" path="res://assets/tiles/FINISHED TILES/INVISIBLE.png" id="1_tel4y"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dqp8vb7wrl6bm" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-BLUE.png" id="3_choun"]
 [ext_resource type="Texture2D" uid="uid://bf51x5ck4u3as" path="res://assets/tiles/FINISHED TILES/block_base.png" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://bq58t72yv5y8v" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS.png" id="4_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://bkm3h22tyrwwa" path="res://assets/tiles/FINISHED TILES/block line.png" id="4_qkpxi"]
 [ext_resource type="Texture2D" uid="uid://svwt0yxkwbpl" path="res://assets/tiles/FINISHED TILES/block walls.png" id="4_tbgi4"]
 [ext_resource type="Texture2D" uid="uid://d1yqkrxwfwm6g" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-GREEN.png" id="4_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://c154poeulhswj" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - DRAB_GREY.png" id="5_yc10j"]
@@ -35,14 +36,33 @@
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ty1g6"]
 texture = ExtResource("1_tel4y")
 0:0/0 = 0
+0:0/0/custom_data_0 = "normal"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2jfr"]
 texture = ExtResource("2_tel4y")
 0:0/0 = 0
+0:0/0/custom_data_0 = "station"
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjg73"]
+texture = ExtResource("4_qkpxi")
+0:0/0 = 0
+0:0/0/custom_data_0 = "battle"
+2:0/0 = 0
+2:0/0/custom_data_0 = "shop"
+4:0/0 = 0
+4:0/0/custom_data_0 = "npc"
+6:0/0 = 0
+6:0/0/custom_data_0 = "quest"
+8:0/0 = 0
+8:0/0/custom_data_0 = "extension"
+10:0/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_j2jfr"]
+custom_data_layer_0/name = "slot_type"
+custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_ty1g6")
 sources/1 = SubResource("TileSetAtlasSource_j2jfr")
+sources/2 = SubResource("TileSetAtlasSource_bjg73")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
 texture = ExtResource("3_sugp2")
@@ -652,7 +672,7 @@ script = ExtResource("31_qkpxi")
 
 [node name="TileMapLayer_Board_Slot_Logic" type="TileMapLayer" parent="."]
 editor_description = "Logical tiles where the slots are registered."
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAD8/wAAAAAAAAAAAAAAAP7/AAAAAAAAAAAEAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAPz/AAAAAAAAAAD9/wAAAAAAAAAAAAADAAAAAAAAAAAAAAD+//7/AAAAAAAAAAD+/wIAAAAAAAAAAAACAAIAAAAAAAAAAAACAP7/AAAAAAAAAAACAP3/AAAAAAAAAAD+//3/AAAAAAAAAAD9//3/AAAAAAAAAAD9//7/AAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAAAAAAAAAAD+/wMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAAAAAAAAAAADAAIAAAAAAAAAAAADAP7/AAAAAAAAAAADAP3/AAAAAAAAAAADAPz/AAAAAAAAAAACAPz/AAAAAAAAAAD+//z/AAAAAAAAAAD9//z/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAP7/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAPz/AAAAAAAAAAD+/wAAAAAAAAAAAAAAAP3/AAAAAAAAAAAAAAMAAAAAAAAAAAA=")
+tile_map_data = PackedByteArray("AAD8/wAAAQAAAAAAAAAAAP7/AAAAAAAAAAAEAAAAAQAAAAAAAAAAAAIAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAPz/AAAAAAAAAAD9/wAAAQAAAAAAAAD+//7/AAAAAAAAAAD+/wIAAAAAAAAAAAACAAIAAAAAAAAAAAACAP7/AQAAAAAAAAACAP3/AAAAAAAAAAD+//3/AAAAAAAAAAD9//3/AgACAAAAAAD9//7/AAAAAAAAAAD9/wIAAAAAAAAAAAD9/wMAAgAGAAAAAAD+/wMAAAAAAAAAAAACAAMAAAAAAAAAAAADAAMAAgAGAAAAAAADAAIAAAAAAAAAAAADAP7/AAAAAAAAAAADAP3/AgAGAAAAAAADAPz/AAAAAAAAAAACAPz/AAAAAAAAAAD+//z/AAAAAAAAAAD9//z/AAAAAAAAAAD8//z/AAAAAAAAAAD8//3/AAAAAAAAAAD8//7/AAAAAAAAAAD8/wIAAAAAAAAAAAD8/wMAAAAAAAAAAAD8/wQAAAAAAAAAAAD9/wQAAAAAAAAAAAD+/wQAAAAAAAAAAAACAAQAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAMAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAP7/AAAAAAAAAAAEAP3/AAAAAAAAAAAEAPz/AAAAAAAAAAD+/wAAAAAAAAAAAAAAAP3/AAAAAAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAADAAAAAQAAAAAAAAD6/wAAAgAAAAAAAAAGAAAAAgAEAAAAAAA=")
 tile_set = SubResource("TileSet_j2jfr")
 
 [node name="TileMapLayer_Base_Tiles" type="TileMapLayer" parent="."]

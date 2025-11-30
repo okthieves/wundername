@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbp5uaq8el22j"
-path="res://.godot/imported/INVISIBLE.png-a5a9f4b713e7e6d581cf9f0ab71ff698.ctex"
+uid="uid://d333d084ij6wg"
+path="res://.godot/imported/battle.png-c3c03c0eeeced00ab86d08f0e8b895d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/tiles/FINISHED TILES/INVISIBLE.png"
-dest_files=["res://.godot/imported/INVISIBLE.png-a5a9f4b713e7e6d581cf9f0ab71ff698.ctex"]
+source_file="res://assets/tiles/FINISHED TILES/battle.png"
+dest_files=["res://.godot/imported/battle.png-c3c03c0eeeced00ab86d08f0e8b895d6.ctex"]
 
 [params]
 
