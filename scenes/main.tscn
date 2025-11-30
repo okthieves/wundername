@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=4 uid="uid://cvibguqhtkvgu"]
+[gd_scene load_steps=68 format=4 uid="uid://cvibguqhtkvgu"]
 
 [ext_resource type="PackedScene" uid="uid://dpa812tg0foxy" path="res://scenes/player/player.tscn" id="1_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cbp5uaq8el22j" path="res://assets/tiles/FINISHED TILES/INVISIBLE.png" id="1_tel4y"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://j6u2ld6fwg4s" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - NAVY.png" id="17_yq6so"]
 [ext_resource type="Texture2D" uid="uid://dfcvo5xg61cma" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - ORANGE.png" id="18_fv21b"]
 [ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://scenes/boardcontroller.gd" id="31_qkpxi"]
+[ext_resource type="PackedScene" uid="uid://dnbafs74kfvr7" path="res://scenes/InventoryUI.tscn" id="33_5q0nq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ty1g6"]
 texture = ExtResource("1_tel4y")
@@ -705,3 +706,5 @@ y_sort_enabled = true
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Menu" parent="UI" instance=ExtResource("2_sugp2")]
+
+[node name="Inventory_UI" parent="UI" instance=ExtResource("33_5q0nq")]

@@ -2,9 +2,11 @@ extends Node
 
 @onready var slot_map: TileMapLayer = $"../TileMapLayer_Board_Slot_Logic"
 @onready var player: Node2D = $"../Player"
+@onready var inventory_ui = $"../UI/Inventory_UI"
 
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
+var inventory_open = false
 
 func _ready():
 	build_slot_graph()
@@ -12,8 +14,8 @@ func _ready():
 	print("Slot graph built. Slots:", slot_ids.size())
 	print("READY.")
 	print("BoardController READY")
-	print("Player found? ->", $"Player")
-	print("SlotMap found? ->", $"TileMapLayer_Board_Slot_Logic")
+	print("Player found? ->", $"../Player")
+	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
 	
 
 func build_slot_graph():
@@ -69,7 +71,8 @@ func _unhandled_input(event):
 		move_direction(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
 		move_direction(Vector2i(0, 1))
-
+	if event.is_action_pressed("ui_inventory"):
+		toggle_inventory()
 
 func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	var cell := start + dir
@@ -109,3 +112,11 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			# TODO: story event or quest
 		"normal":
 			print("Normal tile.")
+
+func toggle_inventory():
+	if inventory_open:
+		inventory_ui.close()
+		inventory_open = false
+	else:
+		inventory_ui.open()
+		inventory_open = true

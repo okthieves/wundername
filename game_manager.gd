@@ -1,11 +1,15 @@
 extends Node
 
+# ==========================
+# SAVE DATA
+# ==========================
+
 var save_data := {
 	"player": {
 		"position": Vector2i(0,0),
 		"hp": 100,
 		"max_hp": 100,
-		"inventory": [],
+		"inventory": {},   # { item_id : amount },
 		"cards": [],
 	},
 	"world": {
@@ -15,28 +19,85 @@ var save_data := {
 		"level_name": "level_0",
 	}
 }
+# ==========================
+# PLAYER MANAGEMENT
+# ==========================
 
-func add_item(item_name: String):
-	save_data["player"]["inventory"].append(item_name)
-	print("Added item:", item_name)
 
-func has_item(item_name: String) -> bool:
-	return item_name in save_data["player"]["inventory"]
+func player_heal(amount: int):
+	save_data.player.hp = clamp(
+		save_data.player.hp + amount,
+		0,
+		save_data.player.max_hp
+	)
+	print("Player healed. HP =", save_data.player.hp)
+	
+	
+# ==========================
+# INVENTORY SYSTEM
+# ==========================
 
+func add_item(id: int, amount: int = 1):
+	if not ItemDB.ITEMS.has(id):
+		push_error("Invalid item ID: %s" % id)
+		return
+
+	var inv = save_data["player"]["inventory"]
+
+	if inv.has(id):
+		inv[id] += amount
+	else:
+		inv[id] = amount
+
+	print("Inventory now:", inv)
+
+func remove_item(id: int, amount: int = 1) -> bool:
+	var inv = save_data["player"]["inventory"]
+	if not inv.has(id):
+		return false
+
+	inv[id] -= amount
+	if inv[id] <= 0:
+		inv.erase(id)
+
+	return true
+
+func has_item(id: int, amount: int = 1) -> bool:
+	var inv = save_data["player"]["inventory"]
+	return inv.has(id) and inv[id] >= amount
+
+func get_inventory() -> Dictionary:
+	return save_data["player"]["inventory"]
+
+# ==========================
+# QUEST SYSTEM
+# ==========================
 func set_quest_state(quest_id: String, state: String):
 	save_data["world"]["quests"][quest_id] = state
 
 func get_quest_state(quest_id: String) -> String:
 	return save_data["world"]["quests"].get(quest_id, "not_started")
 
+# ==========================
+# TILE REFERENCE SYSTEM
+# ==========================
 func visit_tile(cell: Vector2i):
 	save_data["world"]["visited_tiles"][cell] = true
 
 func is_tile_visited(cell: Vector2i) -> bool:
 	return save_data["world"]["visited_tiles"].get(cell, false)
 
+# ==========================
+# TIME SYSTEM
+# ==========================
 func set_time(time_string: String):
 	save_data["world"]["time_of_day"] = time_string
 
 func get_time() -> String:
 	return save_data["world"]["time_of_day"]
+
+# ==========================
+# GODOT NATIVE / SYSTEM
+# ==========================
+func _ready():
+	print()
