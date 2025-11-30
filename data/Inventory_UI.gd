@@ -19,7 +19,6 @@ func _ready():
 	add_scrap_btn.pressed.connect(_debug_add_scrap)
 
 	refresh_inventory()
-	
 
 # ==================================================
 #  REFRESH DISPLAY
@@ -84,7 +83,6 @@ func _on_use_pressed():
 	GameManager.remove_item(id)
 	refresh_inventory()
 
-
 func _on_drop_pressed():
 	var id := _get_selected_item_id()
 	if id == -1:
@@ -94,7 +92,6 @@ func _on_drop_pressed():
 	print("Dropping item:", id)
 	GameManager.remove_item(id)
 	refresh_inventory()
-
 
 # ==================================================
 #  DEBUG BUTTONS
@@ -106,7 +103,6 @@ func _debug_add_burger():
 func _debug_add_scrap():
 	GameManager.add_item(3)  # ID 3 is gear_scrap
 	refresh_inventory()
-
 
 # ==================================================
 #  OPEN / CLOSE UI

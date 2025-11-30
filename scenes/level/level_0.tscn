@@ -1,51 +1,51 @@
 [gd_scene load_steps=68 format=4 uid="uid://cvibguqhtkvgu"]
 
-[ext_resource type="PackedScene" uid="uid://dpa812tg0foxy" path="res://scenes/player/player.tscn" id="1_0wfyh"]
-[ext_resource type="Texture2D" uid="uid://cbp5uaq8el22j" path="res://assets/tiles/FINISHED TILES/INVISIBLE.png" id="1_tel4y"]
-[ext_resource type="PackedScene" uid="uid://dcnsq4bmlbv0g" path="res://scenes/UI.tscn" id="2_sugp2"]
-[ext_resource type="Texture2D" uid="uid://cj5wlqdc2yt0n" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE.png" id="2_tefeu"]
-[ext_resource type="Texture2D" uid="uid://bvdvlu4ygej5s" path="res://assets/tiles/FINISHED TILES/station_home.png" id="2_tel4y"]
-[ext_resource type="Texture2D" uid="uid://dqp8vb7wrl6bm" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-BLUE.png" id="3_choun"]
-[ext_resource type="Texture2D" uid="uid://bf51x5ck4u3as" path="res://assets/tiles/FINISHED TILES/block_base.png" id="3_sugp2"]
-[ext_resource type="Texture2D" uid="uid://bq58t72yv5y8v" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS.png" id="4_o6xl0"]
-[ext_resource type="Texture2D" uid="uid://bkm3h22tyrwwa" path="res://assets/tiles/FINISHED TILES/block line.png" id="4_qkpxi"]
-[ext_resource type="Texture2D" uid="uid://svwt0yxkwbpl" path="res://assets/tiles/FINISHED TILES/block walls.png" id="4_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://d1yqkrxwfwm6g" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-GREEN.png" id="4_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://c154poeulhswj" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - DRAB_GREY.png" id="5_yc10j"]
-[ext_resource type="Texture2D" uid="uid://cnhf680kmbgjk" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - DRAB_YELLOW.png" id="6_jscy8"]
-[ext_resource type="Texture2D" uid="uid://b8er2rybv8vcm" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS-BLUE.png" id="7_eb6dy"]
-[ext_resource type="Texture2D" uid="uid://cutfmwuqwm31y" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - ORANGE.png" id="7_pm3ni"]
-[ext_resource type="Texture2D" uid="uid://bk3cuhb7fdw70" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-ICE.png" id="8_y6deb"]
-[ext_resource type="Texture2D" uid="uid://x7nb0e2avmh6" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS-GREEN.png" id="8_ya4ey"]
-[ext_resource type="Texture2D" uid="uid://bgo58h72eedst" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-NAVY_BLUE.png" id="9_og1vs"]
-[ext_resource type="Texture2D" uid="uid://t1ctiv8nfec" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_DRAB_YELLOW.png" id="10_yq6so"]
-[ext_resource type="Texture2D" uid="uid://c7tfiq1eoy7oh" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_GREEN.png" id="11_fv21b"]
-[ext_resource type="Texture2D" uid="uid://q2omfy2j18iw" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_ICE.png" id="12_tel4y"]
-[ext_resource type="Texture2D" uid="uid://31qm8550r34" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_NAVY.png" id="13_qkpxi"]
-[ext_resource type="Texture2D" uid="uid://2kwjpc1yah8l" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - DRAB GREY.png" id="14_2wyq8"]
-[ext_resource type="Texture2D" uid="uid://dqu1kgmwucjjk" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_ORANGE.png" id="14_5q0nq"]
-[ext_resource type="Texture2D" uid="uid://b62xnqsei0wnx" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_RED.png" id="15_dgi5k"]
-[ext_resource type="Texture2D" uid="uid://c4qu5o8x78dv7" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - DRAB YELLOW.png" id="15_vxglm"]
-[ext_resource type="Texture2D" uid="uid://du5m1c0wmtpky" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - ICE.png" id="16_2f3dj"]
-[ext_resource type="Texture2D" uid="uid://dkn2g2avv0k2l" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_BLUE.png" id="16_j8jky"]
-[ext_resource type="Texture2D" uid="uid://bbcn1b3ngyjw2" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_DRAB_GRAY.png" id="17_kmb1v"]
-[ext_resource type="Texture2D" uid="uid://j6u2ld6fwg4s" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - NAVY.png" id="17_yq6so"]
-[ext_resource type="Texture2D" uid="uid://dfcvo5xg61cma" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - ORANGE.png" id="18_fv21b"]
-[ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://scenes/boardcontroller.gd" id="31_qkpxi"]
-[ext_resource type="PackedScene" uid="uid://dnbafs74kfvr7" path="res://scenes/InventoryUI.tscn" id="33_5q0nq"]
+[ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://data/boardcontroller.gd" id="1_ymkkp"]
+[ext_resource type="Texture2D" uid="uid://cbp5uaq8el22j" path="res://assets/tiles/FINISHED TILES/INVISIBLE.png" id="2_a86kt"]
+[ext_resource type="Texture2D" uid="uid://bvdvlu4ygej5s" path="res://assets/tiles/FINISHED TILES/station_home.png" id="3_86yua"]
+[ext_resource type="Texture2D" uid="uid://bkm3h22tyrwwa" path="res://assets/tiles/FINISHED TILES/block line.png" id="4_6fkxt"]
+[ext_resource type="Texture2D" uid="uid://bf51x5ck4u3as" path="res://assets/tiles/FINISHED TILES/block_base.png" id="5_w3if6"]
+[ext_resource type="Texture2D" uid="uid://cj5wlqdc2yt0n" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE.png" id="6_6gydc"]
+[ext_resource type="Texture2D" uid="uid://dqp8vb7wrl6bm" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-BLUE.png" id="7_r1uw3"]
+[ext_resource type="Texture2D" uid="uid://d1yqkrxwfwm6g" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-GREEN.png" id="8_2m7ex"]
+[ext_resource type="Texture2D" uid="uid://c154poeulhswj" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - DRAB_GREY.png" id="9_6s3xt"]
+[ext_resource type="Texture2D" uid="uid://cnhf680kmbgjk" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - DRAB_YELLOW.png" id="10_ujga6"]
+[ext_resource type="Texture2D" uid="uid://cutfmwuqwm31y" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE - ORANGE.png" id="11_6em4s"]
+[ext_resource type="Texture2D" uid="uid://bk3cuhb7fdw70" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-ICE.png" id="12_o63dy"]
+[ext_resource type="Texture2D" uid="uid://bgo58h72eedst" path="res://assets/tiles/FINISHED TILES/SLAB_9_SLICE-NAVY_BLUE.png" id="13_aep6n"]
+[ext_resource type="Texture2D" uid="uid://t1ctiv8nfec" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_DRAB_YELLOW.png" id="14_iikql"]
+[ext_resource type="Texture2D" uid="uid://c7tfiq1eoy7oh" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_GREEN.png" id="15_eo5bt"]
+[ext_resource type="Texture2D" uid="uid://q2omfy2j18iw" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_ICE.png" id="16_3ibfo"]
+[ext_resource type="Texture2D" uid="uid://31qm8550r34" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_NAVY.png" id="17_7cx04"]
+[ext_resource type="Texture2D" uid="uid://dqu1kgmwucjjk" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_ORANGE.png" id="18_orjqc"]
+[ext_resource type="Texture2D" uid="uid://b62xnqsei0wnx" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_RED.png" id="19_xidqu"]
+[ext_resource type="Texture2D" uid="uid://dkn2g2avv0k2l" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_BLUE.png" id="20_d5csc"]
+[ext_resource type="Texture2D" uid="uid://bbcn1b3ngyjw2" path="res://assets/tiles/FINISHED TILES/SLAB_SLOT_DRAB_GRAY.png" id="21_b80a8"]
+[ext_resource type="Texture2D" uid="uid://svwt0yxkwbpl" path="res://assets/tiles/FINISHED TILES/block walls.png" id="22_3wvcb"]
+[ext_resource type="Texture2D" uid="uid://bq58t72yv5y8v" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS.png" id="23_upwap"]
+[ext_resource type="Texture2D" uid="uid://b8er2rybv8vcm" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS-BLUE.png" id="24_wbrg1"]
+[ext_resource type="Texture2D" uid="uid://x7nb0e2avmh6" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS-GREEN.png" id="25_h0n31"]
+[ext_resource type="Texture2D" uid="uid://2kwjpc1yah8l" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - DRAB GREY.png" id="26_aid2t"]
+[ext_resource type="Texture2D" uid="uid://c4qu5o8x78dv7" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - DRAB YELLOW.png" id="27_t72bo"]
+[ext_resource type="Texture2D" uid="uid://du5m1c0wmtpky" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - ICE.png" id="28_lk1cb"]
+[ext_resource type="Texture2D" uid="uid://j6u2ld6fwg4s" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - NAVY.png" id="29_4wolc"]
+[ext_resource type="Texture2D" uid="uid://dfcvo5xg61cma" path="res://assets/tiles/FINISHED TILES/SLAB_WALLS - ORANGE.png" id="30_2k56f"]
+[ext_resource type="PackedScene" uid="uid://dpa812tg0foxy" path="res://scenes/player/player.tscn" id="31_80oba"]
+[ext_resource type="PackedScene" uid="uid://dcnsq4bmlbv0g" path="res://scenes/ui/UI.tscn" id="32_mpkae"]
+[ext_resource type="PackedScene" uid="uid://dnbafs74kfvr7" path="res://scenes/ui/InventoryUI.tscn" id="33_s775s"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ty1g6"]
-texture = ExtResource("1_tel4y")
+texture = ExtResource("2_a86kt")
 0:0/0 = 0
 0:0/0/custom_data_0 = "normal"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j2jfr"]
-texture = ExtResource("2_tel4y")
+texture = ExtResource("3_86yua")
 0:0/0 = 0
 0:0/0/custom_data_0 = "station"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjg73"]
-texture = ExtResource("4_qkpxi")
+texture = ExtResource("4_6fkxt")
 0:0/0 = 0
 0:0/0/custom_data_0 = "battle"
 2:0/0 = 0
@@ -66,7 +66,7 @@ sources/1 = SubResource("TileSetAtlasSource_j2jfr")
 sources/2 = SubResource("TileSetAtlasSource_bjg73")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
-texture = ExtResource("3_sugp2")
+texture = ExtResource("5_w3if6")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
@@ -85,7 +85,7 @@ physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_jyhfs")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o6xl0"]
-texture = ExtResource("2_tefeu")
+texture = ExtResource("6_6gydc")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 0
@@ -143,7 +143,7 @@ texture = ExtResource("2_tefeu")
 2:2/0/terrains_peering_bit/top_side = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_trceg"]
-texture = ExtResource("3_choun")
+texture = ExtResource("7_r1uw3")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 1
@@ -197,7 +197,7 @@ texture = ExtResource("3_choun")
 2:2/0/terrains_peering_bit/top_side = 1
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a8y0u"]
-texture = ExtResource("4_ya4ey")
+texture = ExtResource("8_2m7ex")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 2
@@ -251,7 +251,7 @@ texture = ExtResource("4_ya4ey")
 2:2/0/terrains_peering_bit/top_side = 2
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tel4y"]
-texture = ExtResource("5_yc10j")
+texture = ExtResource("9_6s3xt")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 6
@@ -305,7 +305,7 @@ texture = ExtResource("5_yc10j")
 2:2/0/terrains_peering_bit/top_side = 6
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qkpxi"]
-texture = ExtResource("6_jscy8")
+texture = ExtResource("10_ujga6")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 5
@@ -359,7 +359,7 @@ texture = ExtResource("6_jscy8")
 2:2/0/terrains_peering_bit/top_side = 5
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5q0nq"]
-texture = ExtResource("7_pm3ni")
+texture = ExtResource("11_6em4s")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 3
@@ -413,7 +413,7 @@ texture = ExtResource("7_pm3ni")
 2:2/0/terrains_peering_bit/top_side = 3
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dgi5k"]
-texture = ExtResource("8_y6deb")
+texture = ExtResource("12_o63dy")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 4
@@ -467,7 +467,7 @@ texture = ExtResource("8_y6deb")
 2:2/0/terrains_peering_bit/top_side = 4
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j8jky"]
-texture = ExtResource("9_og1vs")
+texture = ExtResource("13_aep6n")
 0:0/0 = 0
 0:0/0/terrain_set = 0
 0:0/0/terrain = 7
@@ -549,42 +549,42 @@ sources/6 = SubResource("TileSetAtlasSource_dgi5k")
 sources/7 = SubResource("TileSetAtlasSource_j8jky")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5poiv"]
-texture = ExtResource("10_yq6so")
+texture = ExtResource("14_iikql")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2cjbq"]
-texture = ExtResource("11_fv21b")
+texture = ExtResource("15_eo5bt")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_chjal"]
-texture = ExtResource("12_tel4y")
+texture = ExtResource("16_3ibfo")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cjqg0"]
-texture = ExtResource("13_qkpxi")
+texture = ExtResource("17_7cx04")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vchkt"]
-texture = ExtResource("14_5q0nq")
+texture = ExtResource("18_orjqc")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_txyw0"]
-texture = ExtResource("15_dgi5k")
+texture = ExtResource("19_xidqu")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vc5cj"]
-texture = ExtResource("16_j8jky")
+texture = ExtResource("20_d5csc")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nvyfr"]
-texture = ExtResource("17_kmb1v")
+texture = ExtResource("21_b80a8")
 texture_region_size = Vector2i(22, 22)
 0:0/0 = 0
 
@@ -599,7 +599,7 @@ sources/14 = SubResource("TileSetAtlasSource_vchkt")
 sources/15 = SubResource("TileSetAtlasSource_txyw0")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tefeu"]
-texture = ExtResource("4_tbgi4")
+texture = ExtResource("22_3wvcb")
 0:0/0 = 0
 2:0/0 = 0
 4:0/0 = 0
@@ -608,49 +608,49 @@ texture = ExtResource("4_tbgi4")
 10:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tipki"]
-texture = ExtResource("4_o6xl0")
+texture = ExtResource("23_upwap")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jkv2x"]
-texture = ExtResource("7_eb6dy")
+texture = ExtResource("24_wbrg1")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_eb6dy"]
-texture = ExtResource("8_ya4ey")
+texture = ExtResource("25_h0n31")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kmb1v"]
-texture = ExtResource("14_2wyq8")
+texture = ExtResource("26_aid2t")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fuf3a"]
-texture = ExtResource("15_vxglm")
+texture = ExtResource("27_t72bo")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_pibwh"]
-texture = ExtResource("16_2f3dj")
+texture = ExtResource("28_lk1cb")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c6pm6"]
-texture = ExtResource("17_yq6so")
+texture = ExtResource("29_4wolc")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5he1u"]
-texture = ExtResource("18_fv21b")
+texture = ExtResource("30_2k56f")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -669,7 +669,9 @@ sources/8 = SubResource("TileSetAtlasSource_5he1u")
 [node name="level_0" type="Node2D"]
 
 [node name="BoardController" type="Node" parent="."]
-script = ExtResource("31_qkpxi")
+editor_description = "Handles the overworld board where your player moves between gas station blocks, tiles, and interactable zones. The logic that controls the world map and \"board\".
+"
+script = ExtResource("1_ymkkp")
 
 [node name="TileMapLayer_Board_Slot_Logic" type="TileMapLayer" parent="."]
 editor_description = "Logical tiles where the slots are registered."
@@ -697,7 +699,7 @@ tile_set = SubResource("TileSet_o6xl0")
 [node name="TileMapLayer_Board_Extensions" type="TileMapLayer" parent="."]
 editor_description = "Bridges and extension tiles."
 
-[node name="Player" parent="." instance=ExtResource("1_0wfyh")]
+[node name="Player" parent="." instance=ExtResource("31_80oba")]
 z_index = 1
 y_sort_enabled = true
 
@@ -705,6 +707,6 @@ y_sort_enabled = true
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="Menu" parent="UI" instance=ExtResource("2_sugp2")]
+[node name="Menu" parent="UI" instance=ExtResource("32_mpkae")]
 
-[node name="Inventory_UI" parent="UI" instance=ExtResource("33_5q0nq")]
+[node name="Inventory_UI" parent="UI" instance=ExtResource("33_s775s")]
