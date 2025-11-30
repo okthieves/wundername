@@ -39,12 +39,14 @@ func snap_player_to_nearest_slot():
 
 func move_direction(dir: Vector2i):
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
-	var target_cell: Vector2i = player_cell + dir
 
-	print("From:", player_cell, " → To:", target_cell)
+	var target_cell := find_next_slot(player_cell, dir)
 
-	if not slot_ids.has(target_cell):
-		print("INVALID. Not a slot.")
+	print("Scan result: from", player_cell, "→ next slot:", target_cell)
+	
+		# if same cell, nothing found
+	if target_cell == player_cell:
+		print("No valid slot found in that direction.")
 		return
 
 	var target_world := slot_map.map_to_local(target_cell)
@@ -59,3 +61,14 @@ func _unhandled_input(event):
 		move_direction(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
 		move_direction(Vector2i(0, 1))
+
+
+func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
+	var cell := start + dir
+	# Move in the direction until we FIND a slot or FAIL
+	while slot_ids.has(cell) == false:
+		cell += dir
+		# Safety check: stop if we wander too far
+		if cell.x < -999 or cell.x > 9999 or cell.y < -999 or cell.y > 9999:
+			return start  # no valid slot found
+	return cell
