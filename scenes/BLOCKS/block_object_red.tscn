@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://djb71pcccgct5"]
+
+[ext_resource type="Script" uid="uid://cagmt47u76ns3" path="res://scenes/BLOCKS/block_object.gd" id="1_e5wgn"]
+[ext_resource type="Texture2D" uid="uid://cp2kc1jd6tmbm" path="res://assets/tiles/FINISHED TILES/BLOCK_TOP_RED.png" id="1_r6kin"]
+[ext_resource type="Texture2D" uid="uid://c51vhudfou78x" path="res://assets/tiles/FINISHED TILES/BLOCK_WALL_RED.png" id="2_e5wgn"]
+
+[node name="BlockObject_Red" type="Node2D"]
+script = ExtResource("1_e5wgn")
+
+[node name="Top" type="Sprite2D" parent="."]
+position = Vector2(0, -24)
+texture = ExtResource("1_r6kin")
+
+[node name="Wall" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+texture = ExtResource("2_e5wgn")
