@@ -2,9 +2,10 @@ extends Control
 
 @onready var use_button: Button     = $Panel/VBoxContainer/UseButton
 @onready var drop_button: Button    = $Panel/VBoxContainer/DropButton
-@onready var item_list: ItemList    = $Panel/VBoxContainer/ItemList
+@onready var item_list: ItemList    = $Panel/VBoxContainer/ScrollContainer/ItemList
 @onready var add_burger_btn: Button = $Panel/VBoxContainer/AddBurgerButton
 @onready var add_scrap_btn: Button  = $Panel/VBoxContainer/AddScrapButton
+var selected_index: int = -1
 
 
 func _ready():
@@ -24,52 +25,45 @@ func _ready():
 #  REFRESH DISPLAY
 # ==================================================
 func refresh_inventory():
-	print("REFRESH INVENTORY CALLED")
 	item_list.clear()
 
-	var inv := GameManager.get_inventory()   # Example: {2: 1, 3: 1, 2: 3}
-	print("Inventory content:", inv)
+	var inv = GameManager.get_inventory()
+	var keys = inv.keys()
 
-	# IMPORTANT:
-	# Convert dict → ordered list of keys
-	var keys := inv.keys()
-
-	for id in inv.keys():
+	for id in keys:
 		var item = ItemDB.get_by_id(id)
-		print("ADDING:", item["name"])
 		item_list.add_item(item["name"])
-
 
 # ==================================================
 #  SELECTION HELPERS
 # ==================================================
 func _get_selected_item_id() -> int:
-	var sel = item_list.get_selected_items()
-
-	if sel.size() == 0:
+	var selected = item_list.get_selected_items()
+	if selected.size() == 0:
 		return -1
 
-	var index = sel[0]
+	var index = selected[0]
 
-	# Match list index → item id
-	var inv := GameManager.get_inventory()
-	var keys := inv.keys()
+	# Your inventory is a DICTIONARY—convert keys → LIST
+	var inv = GameManager.get_inventory()
+	var keys: Array = inv.keys()
 
-	if index >= keys.size():
+	# Safety
+	if index < 0 or index >= keys.size():
 		return -1
 
-	return keys[index]
-
-
+	var item_id = keys[index]
+	return item_id
+	
 func _on_item_selected(index: int) -> void:
-	print("Selected inventory index:", index)
-
+	selected_index = index
+	print("Selected index:", selected_index)
 
 # ==================================================
 #  BUTTON ACTIONS
 # ==================================================
 func _on_use_pressed():
-	var id := _get_selected_item_id()
+	var id = _get_selected_item_id()
 	if id == -1:
 		print("No item selected.")
 		return
@@ -78,12 +72,11 @@ func _on_use_pressed():
 
 	var item = ItemDB.get_by_id(id)
 
-	# Example: Use burger
+# Example item behavior
 	if item["key"] == "burger":
 		GameManager.save_data.player.hp += 15
 		print("Healed 15 HP!")
 
-	# Remove one instance
 	GameManager.remove_item(id)
 	refresh_inventory()
 
