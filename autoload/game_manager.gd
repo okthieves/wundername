@@ -23,7 +23,6 @@ var save_data := {
 # PLAYER MANAGEMENT
 # ==========================
 
-
 func player_heal(amount: int):
 	save_data.player.hp = clamp(
 		save_data.player.hp + amount,
@@ -31,8 +30,7 @@ func player_heal(amount: int):
 		save_data.player.max_hp
 	)
 	print("Player healed. HP =", save_data.player.hp)
-	
-	
+
 # ==========================
 # INVENTORY SYSTEM
 # ==========================

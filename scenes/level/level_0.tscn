@@ -680,6 +680,7 @@ tile_set = SubResource("TileSet_j2jfr")
 
 [node name="TileMapLayer_Base_Tiles" type="TileMapLayer" parent="."]
 editor_description = "Aesthetic tiles placed for planning and navigation layout. Purely visual."
+visible = false
 y_sort_enabled = true
 tile_set = SubResource("TileSet_tbgi4")
 

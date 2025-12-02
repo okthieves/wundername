@@ -16,7 +16,6 @@ func _ready():
 	print("BoardController READY")
 	print("Player found? ->", $"../Player")
 	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
-	
 
 func build_slot_graph():
 	slot_ids.clear()
@@ -28,7 +27,6 @@ func build_slot_graph():
 		id_to_slot[id] = cell
 		id += 1
 
-
 func snap_player_to_nearest_slot():
 	var cell := slot_map.local_to_map(player.position)
 	if not slot_ids.has(cell):
@@ -37,7 +35,6 @@ func snap_player_to_nearest_slot():
 
 	player.position = slot_map.map_to_local(cell)
 	print("Snapped to slot:", cell)
-
 
 func move_direction(dir: Vector2i):
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
