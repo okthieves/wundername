@@ -4,7 +4,6 @@ extends Node
 @onready var player: Node2D = $"../Player"
 @onready var inventory_ui = $"../UI/Inventory_UI"
 @onready var fx_layer: TileMapLayer = $"../TileMapLayer_FX"
-@onready var wunderpal_ui: Control = $"../UI/Wunderpal"
 
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }

@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpa812tg0foxy"]
 
 [ext_resource type="Script" uid="uid://b3nhcp1s0p1id" path="res://data/player/player.gd" id="1_dovo2"]
-[ext_resource type="Texture2D" uid="uid://d0j33u10pxjbk" path="res://assets/characters/checkers_topDown_white.png" id="2_dovo2"]
+[ext_resource type="Texture2D" uid="uid://dkv7cef5lsohc" path="res://assets/04_CHARACTERS/checkers pawn.png" id="2_dovo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dovo2"]
 size = Vector2(8, 8)
