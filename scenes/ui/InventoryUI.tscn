@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://dnbafs74kfvr7"]
 
-[ext_resource type="Script" uid="uid://bnr8y6eb0c5ac" path="res://data/Inventory_UI.gd" id="1_tahbm"]
+[ext_resource type="Script" uid="uid://bnr8y6eb0c5ac" path="res://data/ui/Inventory_UI.gd" id="1_tahbm"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wqexf"]
 content_margin_left = 16.0
