@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=4 format=3 uid="uid://dcnsq4bmlbv0g"]
 
+[ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Texture2D" uid="uid://e6327qt3us4d" path="res://assets/wunder/TEST_UI_001.png" id="1_lti8b"]
+[ext_resource type="Script" uid="uid://7qqfxjjtlyhi" path="res://data/ui/wunderpal.gd" id="2_6ll6g"]
 
 [node name="HUD" type="Control"]
 custom_minimum_size = Vector2(1920, 1080)
@@ -12,22 +14,37 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Wunderpal" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+custom_minimum_size = Vector2(320, 496)
+anchors_preset = 0
+offset_left = 800.0
+offset_top = 584.0
+offset_right = 1120.0
+offset_bottom = 1080.0
 
 [node name="Frame" type="TextureRect" parent="Wunderpal"]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 320.0
+offset_bottom = 496.0
+texture = ExtResource("1_atyv1")
+stretch_mode = 4
 
-[node name="ScreenArea" type="Control" parent="Wunderpal/Frame"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ScreenArea" type="SubViewportContainer" parent="Wunderpal/Frame"]
+clip_contents = true
+custom_minimum_size = Vector2(288, 262)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 304.0
+offset_bottom = 320.0
+stretch = true
+
+[node name="GameViewport" type="SubViewport" parent="Wunderpal/Frame/ScreenArea"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(288, 304)
+render_target_update_mode = 4
+script = ExtResource("2_6ll6g")
 
 [node name="HUD_Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -37,4 +54,5 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_lti8b")
+expand_mode = 1
 stretch_mode = 6
