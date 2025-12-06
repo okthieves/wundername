@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bevomombry1t1"
-path="res://.godot/imported/Tile2_29.png-b4c1ce533404d7c3535b1e2bcc85a4a4.ctex"
+uid="uid://1sir6nxlr58w"
+path="res://.godot/imported/block line 2.png-0e422043c4ea198594f37dd75baba3b2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/07_SETS/village set/1.1 Tiles/Tile2_29.png"
-dest_files=["res://.godot/imported/Tile2_29.png-b4c1ce533404d7c3535b1e2bcc85a4a4.ctex"]
+source_file="res://assets/tiles/FINISHED TILES/block line 2.png"
+dest_files=["res://.godot/imported/block line 2.png-0e422043c4ea198594f37dd75baba3b2.ctex"]
 
 [params]
 

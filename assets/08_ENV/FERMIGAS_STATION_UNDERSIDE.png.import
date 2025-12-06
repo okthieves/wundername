@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cnglahf6u8pa8"
-path="res://.godot/imported/Tile2_23.png-4a0df38274611f8ae937a15205714b55.ctex"
+uid="uid://drdpyg7tkcrph"
+path="res://.godot/imported/FERMIGAS_STATION_UNDERSIDE.png-cfa5a72cc085bb45f6b6835a238b946a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/07_SETS/village set/1.1 Tiles/Tile2_23.png"
-dest_files=["res://.godot/imported/Tile2_23.png-4a0df38274611f8ae937a15205714b55.ctex"]
+source_file="res://assets/08_ENV/FERMIGAS_STATION_UNDERSIDE.png"
+dest_files=["res://.godot/imported/FERMIGAS_STATION_UNDERSIDE.png-cfa5a72cc085bb45f6b6835a238b946a.ctex"]
 
 [params]
 
