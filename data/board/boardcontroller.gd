@@ -10,7 +10,11 @@ extends Node
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
 var inventory_open = false
-var wunderpal_open := false
+
+var is_wunderpal_open := false
+var wunderpal_open_offset := 584
+var wunderpal_closed_offset := 1080
+var slide_duration := 0.35
 
 func _ready():
 	build_slot_graph()
@@ -20,7 +24,17 @@ func _ready():
 	print("BoardController READY")
 	print("Player found? ->", $"../Player")
 	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
+	
+	# Wunderpal Positioning
+	# Open position = current top offset 
+	wunderpal_open_offset = wunderpal.offset_top
 
+	# Closed position = offscreen below HUD
+	wunderpal_closed_offset = wunderpal_open_offset + 600  # tweak height
+
+	# Start hidden
+	wunderpal.offset_top = wunderpal_closed_offset
+	wunderpal.visible = false
 # --------------------------------------------------------
 # BUILD THE SLOT GRAPH
 # --------------------------------------------------------
@@ -71,12 +85,13 @@ func move_direction(dir: Vector2i):
 # INPUT HANDLING
 # --------------------------------------------------------
 func _unhandled_input(event):
-	# If Wunderpal is open, prevent pawn movement
-	if wunderpal_open:
-		# Only allow closing the Wunderpal
+	# If Wunderpal is OPEN, block all movement and interactions
+	if is_wunderpal_open:
+		# Allow only closing the Wunderpal
 		if event.is_action_pressed("toggle_wunderpal"):
 			toggle_wunderpal()
-		return   # <- stops movement!
+		return  # <- stops ALL other input (movement, interact)
+
 	if event.is_action_pressed("ui_left"):
 		move_direction(Vector2i(-1, 0))
 	elif event.is_action_pressed("ui_right"):
@@ -282,14 +297,26 @@ func toggle_inventory():
 		inventory_ui.open()
 		inventory_open = true
 
+# TOGGLE WUNDERPAL
 func toggle_wunderpal():
-	wunderpal_open = !wunderpal_open
+	slide_wunderpal(!is_wunderpal_open)
 	
-	# Show/hide UI
-	wunderpal.visible = wunderpal_open
+# SLIDE WUNDERPAL
+func slide_wunderpal(open: bool):
+	is_wunderpal_open = open
 
-	# Optional: slide animation instead of instant show
-	if wunderpal_open:
-		print("Wunderpal opened")
+	var tween := get_tree().create_tween()
+	var target_y := wunderpal_open_offset if open else wunderpal_closed_offset
+
+	tween.tween_property(
+		wunderpal,
+		"offset_top",
+		target_y,
+		0.35
+	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	# Make visible only when opening
+	if open:
+		wunderpal.visible = true
 	else:
-		print("Wunderpal closed")
+		tween.tween_callback(func(): wunderpal.visible = false)

@@ -15,11 +15,12 @@ grow_vertical = 2
 
 [node name="Wunderpal" type="Control" parent="."]
 custom_minimum_size = Vector2(320, 496)
-anchors_preset = 0
+layout_mode = 1
+anchor_top = 1.0
+anchor_bottom = 1.0
 offset_left = 800.0
-offset_top = 584.0
+offset_top = -496.0
 offset_right = 1120.0
-offset_bottom = 1080.0
 
 [node name="Frame" type="TextureRect" parent="Wunderpal"]
 layout_mode = 0
