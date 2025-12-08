@@ -7,14 +7,18 @@ extends Node
 @onready var UI = $"../UI/Button_Prompts"
 @onready var wunderpal = $"../HUD_Layer/HUD/Wunderpal"
 
+#region GENERAL VARS
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
 var inventory_open = false
+#endregion
 
+#region WUNDERPAL VARS
 var is_wunderpal_open := false
 var wunderpal_open_offset := 584
 var wunderpal_closed_offset := 1080
 var slide_duration := 0.35
+#endregion
 
 func _ready():
 	build_slot_graph()
@@ -25,7 +29,8 @@ func _ready():
 	print("Player found? ->", $"../Player")
 	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
 	
-	# Wunderpal Positioning
+#region WUNDERPAL READY
+	
 	# Open position = current top offset 
 	wunderpal_open_offset = wunderpal.offset_top
 
@@ -35,9 +40,9 @@ func _ready():
 	# Start hidden
 	wunderpal.offset_top = wunderpal_closed_offset
 	wunderpal.visible = false
-# --------------------------------------------------------
-# BUILD THE SLOT GRAPH
-# --------------------------------------------------------
+#endregion
+
+#region SLOT GRAPH
 func build_slot_graph():
 	slot_ids.clear()
 	id_to_slot.clear()
@@ -47,9 +52,9 @@ func build_slot_graph():
 		slot_ids[cell] = id
 		id_to_slot[id] = cell
 		id += 1
-# --------------------------------------------------------
-# SNAP PLAYER TO THE GRID
-# --------------------------------------------------------
+#endregion
+
+#region SNAP TO GRID
 func snap_player_to_nearest_slot():
 	var cell := slot_map.local_to_map(player.position)
 	if not slot_ids.has(cell):
@@ -58,9 +63,9 @@ func snap_player_to_nearest_slot():
 
 	player.position = slot_map.map_to_local(cell)
 	print("Snapped to slot:", cell)
-# --------------------------------------------------------
-# MOVE THE PLAYER // USES (trigger_slot_action) FOR PROMPT
-# --------------------------------------------------------
+#endregion
+
+#region PLAYER MOVEMENT
 func move_direction(dir: Vector2i):
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
 
@@ -81,9 +86,9 @@ func move_direction(dir: Vector2i):
 	var target_world := slot_map.map_to_local(target_cell)
 	player.move_to(target_world)
 	trigger_slot_action(slot_type,player_cell)
-# --------------------------------------------------------
-# INPUT HANDLING
-# --------------------------------------------------------
+#endregion
+
+#region INPUT HANDLING
 func _unhandled_input(event):
 	# If Wunderpal is OPEN, block all movement and interactions
 	if is_wunderpal_open:
@@ -109,9 +114,9 @@ func _unhandled_input(event):
 	if event.is_action_pressed("toggle_wunderpal"):
 		toggle_wunderpal()
 		return
-# --------------------------------------------------------
-# FIND NEXT SLOT FROM CURRENT SLOT // USES (is_walkable) and (get_slot_type)
-# --------------------------------------------------------
+#endregion
+
+#region FIND NEXT SLOT FROM CURRENT
 func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	var cell := start + dir
 
@@ -132,10 +137,9 @@ func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 		return start
 
 	return cell
+#endregion
 
-# --------------------------------------------------------
-# GETTERS - SLOT TYPE, SUBTYPE, and SCENE OF SUBTYPE
-# --------------------------------------------------------
+#region GETTERS: SLOT TYPE | SUBTYPE | SCENE
 
 func get_slot_type(cell: Vector2i) -> String:
 	var tile_data := slot_map.get_cell_tile_data(cell)
@@ -155,10 +159,9 @@ func get_slot_scene(cell: Vector2i) -> String:
 	if tile_data == null:
 		return ""
 	return tile_data.get_custom_data("scene_path")
+#endregion
 
-# --------------------------------------------------------
-# TRIGGER SLOT ACTIONS // RUNS EVERY MOVE
-# --------------------------------------------------------
+#region TRIGGER SLOT ACTIONS | RUNS EVERY MOVE
 func trigger_slot_action(slot_type: String, cell: Vector2i):
 	match slot_type:
 		"normal":
@@ -181,9 +184,9 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			print(subtype, " tile here. Press [E] to interact.")
 			return
 			
-# --------------------------------------------------------
-# TRY TO INTERACT WITH SLOT // PRESS E
-# --------------------------------------------------------
+#endregion
+
+#region TRY TO INTERACT WITH SLOT | PRESS E
 func try_interact():
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
 
@@ -197,9 +200,9 @@ func try_interact():
 
 	print("Interacting with:", subtype)
 	handle_interact(subtype, scene_path)
-# --------------------------------------------------------
-# HANDLE INTERACTION OF SLOT TYPES
-# --------------------------------------------------------
+#endregion
+
+#region INTERACTION HANDLING | SLOT TYPES
 func handle_interact(subtype: String, scene_path: String):
 	match subtype:
 		# --------------------------
@@ -225,11 +228,12 @@ func handle_interact(subtype: String, scene_path: String):
 			return
 		_:  # default: houses, special zones, etc.
 			open_sidescroller(scene_path)
-# --------------------------------------------------------
-# HELPERS FOR INTERACTION
-# --------------------------------------------------------
+#endregion
+
+#region INTERACTION HELPERS
 func open_shop_ui():
 	$HUD/ShopUI.show()
+	# Maybe make it Wunderpal > ShopMenuUI?
 func open_npc_dialogue():
 	$HUD/DialogueUI.show()
 func open_quest_ui():
@@ -237,15 +241,16 @@ func open_quest_ui():
 func open_rune_ui():
 	pass
 func open_sidescroller(path: String):
+
 	if path == "" or path == null:
 		print("ERROR: No scene assigned for this interact tile.")
 		return
 
 	var scene = load(path).instantiate()
 	$HUD/Wunderpal/ScreenArea/GameViewport.add_child(scene)
-# --------------------------------------------------------
-# GET INTERACT PROMPT TEXT
-# --------------------------------------------------------
+#endregion
+
+#region GET INTERACT PROMPT TEXT
 func get_prompt_text(subtype: String) -> String:
 	match subtype:
 		"shop":
@@ -259,9 +264,9 @@ func get_prompt_text(subtype: String) -> String:
 			return "Press E to enter station"
 		_:
 			return "Press E to interact"
-# --------------------------------------------------------
-# SHOW / HIDE INTERACT TEXT FUNCTIONS
-# --------------------------------------------------------
+#endregion
+
+#region SHOW / HIDE INTERACT TEXT
 func show_prompt(text: String) -> void:
 	if UI:
 		UI.text = text
@@ -270,14 +275,9 @@ func show_prompt(text: String) -> void:
 func hide_prompt() -> void:
 	if UI:
 		UI.visible = false
+#endregion
 
-
-
-
-
-# --------------------------------------------------------
-# HANDLE WALKABLE TILES
-# --------------------------------------------------------
+#region WALKABLE TILE HANDLING
 func is_walkable(slot_type: String) -> bool:
 	match slot_type:
 		"wall":
@@ -286,9 +286,9 @@ func is_walkable(slot_type: String) -> bool:
 			return true
 		_:
 			return true  # default: treat unknown as walkable
-# --------------------------------------------------------
-# INVENTORY UI VISIBILITY
-# --------------------------------------------------------
+#endregion
+
+#region INVENTORY UI VISIBILITY
 func toggle_inventory():
 	if inventory_open:
 		inventory_ui.close()
@@ -296,12 +296,14 @@ func toggle_inventory():
 	else:
 		inventory_ui.open()
 		inventory_open = true
+#endregion
 
-# TOGGLE WUNDERPAL
+#region TOGGLE WUNDERPAL
 func toggle_wunderpal():
 	slide_wunderpal(!is_wunderpal_open)
-	
-# SLIDE WUNDERPAL
+#endregion
+
+#region SLIDE WUNDERPAL
 func slide_wunderpal(open: bool):
 	is_wunderpal_open = open
 
@@ -320,3 +322,4 @@ func slide_wunderpal(open: bool):
 		wunderpal.visible = true
 	else:
 		tween.tween_callback(func(): wunderpal.visible = false)
+#endregion
