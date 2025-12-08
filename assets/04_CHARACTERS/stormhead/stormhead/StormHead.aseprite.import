@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://kkjaqr6112yr"
+path="res://.godot/imported/StormHead.aseprite-3a4e5ae8d8d58e1b164e411ccb777184.res"
+
+[deps]
+
+source_file="res://assets/04_CHARACTERS/stormhead/stormhead/StormHead.aseprite"
+dest_files=["res://.godot/imported/StormHead.aseprite-3a4e5ae8d8d58e1b164e411ccb777184.res"]
+
+[params]
+

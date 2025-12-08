@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://csewu6atswxtq"]
+
+[ext_resource type="Texture2D" uid="uid://uip36biilo2s" path="res://assets/08_ENV/FERMIGAS_STATION_HOME.png" id="1_lvmpv"]
+[ext_resource type="Texture2D" uid="uid://nhy1kvnfqawc" path="res://assets/08_ENV/FERMIGAS_STATION_YARD.png" id="2_8b0np"]
+[ext_resource type="Texture2D" uid="uid://cofi21ay47xsf" path="res://assets/08_ENV/FERMIGAS_STATION_SIDE_LEFT.png" id="3_36jdn"]
+[ext_resource type="Texture2D" uid="uid://drdpyg7tkcrph" path="res://assets/08_ENV/FERMIGAS_STATION_UNDERSIDE.png" id="4_s5qqt"]
+
+[node name="FermiGasStation" type="Node2D"]
+
+[node name="side_left" type="Sprite2D" parent="."]
+position = Vector2(-128, 12)
+texture = ExtResource("3_36jdn")
+
+[node name="side_right" type="Sprite2D" parent="."]
+position = Vector2(128, 13)
+texture = ExtResource("3_36jdn")
+
+[node name="side_under" type="Sprite2D" parent="."]
+position = Vector2(0, 88)
+texture = ExtResource("4_s5qqt")
+
+[node name="yard" type="Sprite2D" parent="."]
+position = Vector2(0, -177)
+texture = ExtResource("2_8b0np")
+
+[node name="station" type="Sprite2D" parent="."]
+texture = ExtResource("1_lvmpv")

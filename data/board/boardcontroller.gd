@@ -5,16 +5,18 @@ extends Node
 @onready var inventory_ui = $"../UI/Inventory_UI"
 @onready var fx_layer: TileMapLayer = $"../TileMapLayer_FX"
 @onready var UI = $"../UI/Button_Prompts"
+@onready var wunderpal = $"../HUD_Layer/HUD/Wunderpal"
 
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
 var inventory_open = false
+var wunderpal_open := false
 
 func _ready():
 	build_slot_graph()
 	snap_player_to_nearest_slot()
 	print("Slot graph built. Slots:", slot_ids.size())
-	print("READY.")
+	print("READY")
 	print("BoardController READY")
 	print("Player found? ->", $"../Player")
 	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
@@ -69,6 +71,12 @@ func move_direction(dir: Vector2i):
 # INPUT HANDLING
 # --------------------------------------------------------
 func _unhandled_input(event):
+	# If Wunderpal is open, prevent pawn movement
+	if wunderpal_open:
+		# Only allow closing the Wunderpal
+		if event.is_action_pressed("toggle_wunderpal"):
+			toggle_wunderpal()
+		return   # <- stops movement!
 	if event.is_action_pressed("ui_left"):
 		move_direction(Vector2i(-1, 0))
 	elif event.is_action_pressed("ui_right"):
@@ -77,10 +85,15 @@ func _unhandled_input(event):
 		move_direction(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
 		move_direction(Vector2i(0, 1))
+	# INVENTORY
 	if event.is_action_pressed("ui_inventory"):
 		toggle_inventory()
 	if event.is_action_pressed("ui_interact"):
 		try_interact()
+	# Toggle Wunderpal
+	if event.is_action_pressed("toggle_wunderpal"):
+		toggle_wunderpal()
+		return
 # --------------------------------------------------------
 # FIND NEXT SLOT FROM CURRENT SLOT // USES (is_walkable) and (get_slot_type)
 # --------------------------------------------------------
@@ -106,7 +119,7 @@ func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	return cell
 
 # --------------------------------------------------------
-# GETTER - SLOT TYPE, SUBTYPE, and SCENE
+# GETTERS - SLOT TYPE, SUBTYPE, and SCENE OF SUBTYPE
 # --------------------------------------------------------
 
 func get_slot_type(cell: Vector2i) -> String:
@@ -129,7 +142,7 @@ func get_slot_scene(cell: Vector2i) -> String:
 	return tile_data.get_custom_data("scene_path")
 
 # --------------------------------------------------------
-# TRIGGER SLOT ACTIONS
+# TRIGGER SLOT ACTIONS // RUNS EVERY MOVE
 # --------------------------------------------------------
 func trigger_slot_action(slot_type: String, cell: Vector2i):
 	match slot_type:
@@ -154,7 +167,7 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			return
 			
 # --------------------------------------------------------
-# TRY TO INTERACT WITH SLOT
+# TRY TO INTERACT WITH SLOT // PRESS E
 # --------------------------------------------------------
 func try_interact():
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
@@ -222,6 +235,7 @@ func get_prompt_text(subtype: String) -> String:
 	match subtype:
 		"shop":
 			return "Press E to open shop"
+			# Change these to the paths for interact prompt gui buttons
 		"npc":
 			return "Press E to talk"
 		"quest":
@@ -267,3 +281,15 @@ func toggle_inventory():
 	else:
 		inventory_ui.open()
 		inventory_open = true
+
+func toggle_wunderpal():
+	wunderpal_open = !wunderpal_open
+	
+	# Show/hide UI
+	wunderpal.visible = wunderpal_open
+
+	# Optional: slide animation instead of instant show
+	if wunderpal_open:
+		print("Wunderpal opened")
+	else:
+		print("Wunderpal closed")

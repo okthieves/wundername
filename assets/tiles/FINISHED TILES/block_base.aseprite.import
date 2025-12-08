@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://by6ou4mwi2now"
+path="res://.godot/imported/block_base.aseprite-4de6293544dca3bb0bfc2017ecfc8627.res"
+
+[deps]
+
+source_file="res://assets/tiles/FINISHED TILES/block_base.aseprite"
+dest_files=["res://.godot/imported/block_base.aseprite-4de6293544dca3bb0bfc2017ecfc8627.res"]
+
+[params]
+

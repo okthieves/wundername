@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cg1npb3dc24v6"
+path="res://.godot/imported/BLOCK_TILESHEET.aseprite-763e4a5833ca6a85361bc33ffe2de3e7.res"
+
+[deps]
+
+source_file="res://assets/wunder/BLOCK_TILESHEET.aseprite"
+dest_files=["res://.godot/imported/BLOCK_TILESHEET.aseprite-763e4a5833ca6a85361bc33ffe2de3e7.res"]
+
+[params]
+

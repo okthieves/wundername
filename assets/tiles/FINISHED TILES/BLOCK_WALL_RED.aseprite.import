@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://26a71m6qwj38"
+path="res://.godot/imported/BLOCK_WALL_RED.aseprite-0a2aa27aa306a5e8880aacfff03cd326.res"
+
+[deps]
+
+source_file="res://assets/tiles/FINISHED TILES/BLOCK_WALL_RED.aseprite"
+dest_files=["res://.godot/imported/BLOCK_WALL_RED.aseprite-0a2aa27aa306a5e8880aacfff03cd326.res"]
+
+[params]
+

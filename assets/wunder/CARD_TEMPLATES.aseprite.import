@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cyde2r3ebsg3a"
+path="res://.godot/imported/CARD_TEMPLATES.aseprite-4000b4db1227d6d0c9034b6752e70620.res"
+
+[deps]
+
+source_file="res://assets/wunder/CARD_TEMPLATES.aseprite"
+dest_files=["res://.godot/imported/CARD_TEMPLATES.aseprite-4000b4db1227d6d0c9034b6752e70620.res"]
+
+[params]
+

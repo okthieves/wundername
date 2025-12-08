@@ -2,6 +2,7 @@ extends Node2D
 
 var is_moving: bool = false
 var move_time := 0.25
+var input_enabled := true
 
 func move_to(target: Vector2):
 	if is_moving:

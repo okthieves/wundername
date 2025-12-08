@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://d1akayi0d5awt"
+path="res://.godot/imported/Sprite-WunderPhone.aseprite-4af1ffc8c57a807da77a3f5da82ea5f9.res"
+
+[deps]
+
+source_file="res://assets/wunder/Sprite-WunderPhone.aseprite"
+dest_files=["res://.godot/imported/Sprite-WunderPhone.aseprite-4af1ffc8c57a807da77a3f5da82ea5f9.res"]
+
+[params]
+

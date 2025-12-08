@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://v1vjwt01mfhi"
+path="res://.godot/imported/soul_pawn.aseprite-23bc14e8c5e9fc7f5118fbbe0e1a87fc.res"
+
+[deps]
+
+source_file="res://assets/04_CHARACTERS/soul_pawn.aseprite"
+dest_files=["res://.godot/imported/soul_pawn.aseprite-23bc14e8c5e9fc7f5118fbbe0e1a87fc.res"]
+
+[params]
+

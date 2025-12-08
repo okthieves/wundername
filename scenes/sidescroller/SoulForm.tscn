@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://dfgek86pqdmsu"]
+
+[ext_resource type="Texture2D" uid="uid://v1cwa0dvn4ed" path="res://assets/04_CHARACTERS/ss_test.png" id="1_ho6b0"]
+[ext_resource type="Script" uid="uid://yubj1yuhe414" path="res://data/side_scroller/soulform.gd" id="1_uaao8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uaao8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ho6b0")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w724j"]
+size = Vector2(16, 16)
+
+[node name="SoulForm" type="CharacterBody2D"]
+script = ExtResource("1_uaao8")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uaao8")
+animation = &"idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_w724j")
+
+[node name="Camera2D" type="Camera2D" parent="."]
