@@ -1,6 +1,7 @@
-[gd_scene load_steps=67 format=4 uid="uid://cvibguqhtkvgu"]
+[gd_scene load_steps=68 format=4 uid="uid://cvibguqhtkvgu"]
 
-[ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://data/board/boardcontroller.gd" id="1_hid1u"]
+[ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://autoload/boardcontroller.gd" id="1_hid1u"]
+[ext_resource type="Script" uid="uid://bx36v6yefrfjb" path="res://data/systems/level.gd" id="1_wdlg4"]
 [ext_resource type="Texture2D" uid="uid://bkm3h22tyrwwa" path="res://assets/tiles/FINISHED TILES/block line.png" id="4_0xvss"]
 [ext_resource type="PackedScene" uid="uid://csewu6atswxtq" path="res://scenes/board/Fermi_Gas_Station.tscn" id="4_hid1u"]
 [ext_resource type="Texture2D" uid="uid://1sir6nxlr58w" path="res://assets/tiles/FINISHED TILES/block line 2.png" id="5_107gd"]
@@ -681,6 +682,7 @@ texture_region_size = Vector2i(22, 22)
 sources/0 = SubResource("TileSetAtlasSource_25hpv")
 
 [node name="level_0" type="Node2D"]
+script = ExtResource("1_wdlg4")
 
 [node name="BoardController" type="Node" parent="."]
 editor_description = "Handles the overworld board where your player moves between gas station blocks, tiles, and interactable zones. The logic that controls the world map and \"board\".
@@ -728,6 +730,7 @@ tile_set = SubResource("TileSet_0xvss")
 [node name="HUD" parent="HUD_Layer" instance=ExtResource("32_uky5x")]
 
 [node name="UI" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Inventory_UI" parent="UI" instance=ExtResource("33_3niwh")]
 

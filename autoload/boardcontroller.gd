@@ -1,11 +1,14 @@
 extends Node
 
+#region @ONREADY
 @onready var slot_map: TileMapLayer = $"../TileMapLayer_Board_Slot_Logic"
 @onready var player: Node2D = $"../Player"
 @onready var inventory_ui = $"../UI/Inventory_UI"
 @onready var fx_layer: TileMapLayer = $"../TileMapLayer_FX"
 @onready var UI = $"../UI/Button_Prompts"
 @onready var wunderpal = $"../HUD_Layer/HUD/Wunderpal"
+@onready var wunder_anim = $"../HUD_Layer/HUD/Wunderpal/AnimationPlayer"
+#endregion
 
 #region GENERAL VARS
 var slot_ids: Dictionary = {}        # { Vector2i : id }
@@ -15,11 +18,12 @@ var inventory_open = false
 
 #region WUNDERPAL VARS
 var is_wunderpal_open := false
-var wunderpal_open_offset := 584
-var wunderpal_closed_offset := 1080
+var wunderpal_open_offset := 224
+var wunderpal_closed_offset := 720
 var slide_duration := 0.35
 #endregion
 
+#region GODOT NATIVE
 func _ready():
 	build_slot_graph()
 	snap_player_to_nearest_slot()
@@ -28,14 +32,15 @@ func _ready():
 	print("BoardController READY")
 	print("Player found? ->", $"../Player")
 	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
-	
+#endregion
+
 #region WUNDERPAL READY
 	
 	# Open position = current top offset 
 	wunderpal_open_offset = wunderpal.offset_top
 
 	# Closed position = offscreen below HUD
-	wunderpal_closed_offset = wunderpal_open_offset + 600  # tweak height
+	wunderpal_closed_offset = wunderpal_open_offset + wunderpal.size.y  # tweak height
 
 	# Start hidden
 	wunderpal.offset_top = wunderpal_closed_offset
@@ -186,6 +191,7 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			
 #endregion
 
+
 #region TRY TO INTERACT WITH SLOT | PRESS E
 func try_interact():
 	var player_cell: Vector2i = slot_map.local_to_map(player.position)
@@ -277,6 +283,7 @@ func hide_prompt() -> void:
 		UI.visible = false
 #endregion
 
+
 #region WALKABLE TILE HANDLING
 func is_walkable(slot_type: String) -> bool:
 	match slot_type:
@@ -288,6 +295,7 @@ func is_walkable(slot_type: String) -> bool:
 			return true  # default: treat unknown as walkable
 #endregion
 
+
 #region INVENTORY UI VISIBILITY
 func toggle_inventory():
 	if inventory_open:
@@ -298,6 +306,7 @@ func toggle_inventory():
 		inventory_open = true
 #endregion
 
+
 #region TOGGLE WUNDERPAL
 func toggle_wunderpal():
 	slide_wunderpal(!is_wunderpal_open)
@@ -307,19 +316,11 @@ func toggle_wunderpal():
 func slide_wunderpal(open: bool):
 	is_wunderpal_open = open
 
-	var tween := get_tree().create_tween()
-	var target_y := wunderpal_open_offset if open else wunderpal_closed_offset
-
-	tween.tween_property(
-		wunderpal,
-		"offset_top",
-		target_y,
-		0.35
-	).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
-	# Make visible only when opening
 	if open:
 		wunderpal.visible = true
+		wunder_anim.play("open_wunderpal")
 	else:
-		tween.tween_callback(func(): wunderpal.visible = false)
+		wunder_anim.play("close_wunderpal")
+		await wunder_anim.animation_finished
+		wunderpal.visible = false
 #endregion

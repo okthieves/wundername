@@ -17,17 +17,14 @@ config/features=PackedStringArray("4.5", "Forward Plus")
 [autoload]
 
 GameManager="*res://autoload/game_manager.gd"
+BoardController="*res://autoload/boardcontroller.gd"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/subwindows/embed_subwindows=false
 window/stretch/mode="canvas_items"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg")
 
 [input]
 

@@ -1,9 +1,6 @@
 extends Node
 
-# ==========================
-# SAVE DATA
-# ==========================
-
+#region SAVE DATA
 var save_data := {
 	"player": {
 		"position": Vector2i(0,0),
@@ -19,10 +16,9 @@ var save_data := {
 		"level_name": "level_0",
 	}
 }
-# ==========================
-# PLAYER MANAGEMENT
-# ==========================
+#endregion
 
+#region PLAYER MANAGEMENT
 func player_heal(amount: int):
 	save_data.player.hp = clamp(
 		save_data.player.hp + amount,
@@ -30,11 +26,9 @@ func player_heal(amount: int):
 		save_data.player.max_hp
 	)
 	print("Player healed. HP =", save_data.player.hp)
+#endregion
 
-# ==========================
-# INVENTORY SYSTEM
-# ==========================
-
+#region INVENTORY
 func add_item(id: int, amount: int = 1):
 	if not ItemDB.ITEMS.has(id):
 		push_error("Invalid item ID: %s" % id)
@@ -66,36 +60,43 @@ func has_item(id: int, amount: int = 1) -> bool:
 
 func get_inventory() -> Dictionary:
 	return save_data["player"]["inventory"]
+#endregion
 
-# ==========================
-# QUEST SYSTEM
-# ==========================
-func set_quest_state(quest_id: String, state: String):
-	save_data["world"]["quests"][quest_id] = state
+#region QUEST
+func set_quest_state(quest_id: String, save_state: String):
+	save_data["world"]["quests"][quest_id] = save_state
 
 func get_quest_state(quest_id: String) -> String:
 	return save_data["world"]["quests"].get(quest_id, "not_started")
+#endregion
 
-# ==========================
-# TILE REFERENCE SYSTEM
-# ==========================
+#region TILE REGISTRATION
 func visit_tile(cell: Vector2i):
 	save_data["world"]["visited_tiles"][cell] = true
 
 func is_tile_visited(cell: Vector2i) -> bool:
 	return save_data["world"]["visited_tiles"].get(cell, false)
+#endregion
 
-# ==========================
-# TIME SYSTEM
-# ==========================
+#region TIME AND DATE
 func set_time(time_string: String):
 	save_data["world"]["time_of_day"] = time_string
 
 func get_time() -> String:
 	return save_data["world"]["time_of_day"]
+#endregion
 
-# ==========================
-# GODOT NATIVE / SYSTEM
-# ==========================
+#region GODOT NATIVE
 func _ready():
-	print()
+	print("Game Manager Loaded")
+#endregion
+
+#region GAMESTATE
+enum GameState {
+	BOARD,
+	SIDESCROLL,
+	MENU_OPEN
+}
+
+var state := GameState.BOARD
+#endregion
