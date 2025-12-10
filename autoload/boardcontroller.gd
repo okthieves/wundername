@@ -1,54 +1,77 @@
 extends Node
+# BoardController Autoload
 
-#region @ONREADY
-@onready var slot_map: TileMapLayer = $"../TileMapLayer_Board_Slot_Logic"
-@onready var player: Node2D = $"../Player"
-@onready var inventory_ui = $"../UI/Inventory_UI"
-@onready var fx_layer: TileMapLayer = $"../TileMapLayer_FX"
-@onready var UI = $"../UI/Button_Prompts"
-@onready var wunderpal = $"../HUD_Layer/HUD/Wunderpal"
-@onready var wunder_anim = $"../HUD_Layer/HUD/Wunderpal/AnimationPlayer"
-#endregion
+# -----------------------------------------------------------
+#  SCENE REFERENCES (assigned by level scripts)
+# -----------------------------------------------------------
+var slot_map: TileMapLayer
+var player: Node2D
+var inventory_ui
+var fx_layer: TileMapLayer
+var UI
+var wunderpal: Control
+var wunder_anim: AnimationPlayer
+var viewport: SubViewport
 
-#region GENERAL VARS
+# -----------------------------------------------------------
+#  REGISTRATION FROM LEVELS
+# -----------------------------------------------------------
+func register_scene_nodes(dict: Dictionary):
+	for key in dict.keys():
+		self.set(key, dict[key])
+	print("[BoardController] Registered scene nodes:", dict.keys())
+
+# -----------------------------------------------------------
+#  GENERAL VARS
+# -----------------------------------------------------------
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
 var inventory_open = false
-#endregion
 
-#region WUNDERPAL VARS
+# -----------------------------------------------------------
+#  WUNDERPAL VARS
+# -----------------------------------------------------------
 var is_wunderpal_open := false
-var wunderpal_open_offset := 224
-var wunderpal_closed_offset := 720
+var wunderpal_open_offset := 0
+var wunderpal_closed_offset := 0
 var slide_duration := 0.35
-#endregion
 
-#region GODOT NATIVE
+# -----------------------------------------------------------
+#  GODOT NATIVE
+# -----------------------------------------------------------
 func _ready():
-	build_slot_graph()
-	snap_player_to_nearest_slot()
-	print("Slot graph built. Slots:", slot_ids.size())
-	print("READY")
-	print("BoardController READY")
-	print("Player found? ->", $"../Player")
-	print("SlotMap found? ->", $"../TileMapLayer_Board_Slot_Logic")
-#endregion
+	print("[BoardController] Autoload ready.")
+	# Will complete initialization once level registers nodes.
 
-#region WUNDERPAL READY
-	
-	# Open position = current top offset 
-	wunderpal_open_offset = wunderpal.offset_top
+# -----------------------------------------------------------
+#  WUNDERPAL READY
+# -----------------------------------------------------------
+func setup_wunderpal():
+	if wunderpal == null:
+		push_warning("Wunderpal is NULL — did you forget to register nodes?")
+		return
 
-	# Closed position = offscreen below HUD
-	wunderpal_closed_offset = wunderpal_open_offset + wunderpal.size.y  # tweak height
+	# Open position = current offset
+	wunderpal_open_offset = wunderpal.position.y
 
-	# Start hidden
-	wunderpal.offset_top = wunderpal_closed_offset
+	# Closed position = offscreen bottom
+	wunderpal_closed_offset = wunderpal_open_offset + wunderpal.size.y
+
+	wunderpal.position.y = wunderpal_closed_offset
 	wunderpal.visible = false
-#endregion
 
-#region SLOT GRAPH
+	print("[BoardController] Wunderpal initialized",
+		"open =", wunderpal_open_offset,
+		"closed =", wunderpal_closed_offset)
+
+# -----------------------------------------------------------
+#  SLOT GRAPH
+# -----------------------------------------------------------
 func build_slot_graph():
+	if slot_map == null:
+		push_error("slot_map is NULL — did level register nodes?")
+		return
+
 	slot_ids.clear()
 	id_to_slot.clear()
 
@@ -57,50 +80,57 @@ func build_slot_graph():
 		slot_ids[cell] = id
 		id_to_slot[id] = cell
 		id += 1
-#endregion
 
-#region SNAP TO GRID
+	print("[BoardController] Slot graph built:", id, "slots")
+
+# -----------------------------------------------------------
+#  SNAP TO GRID
+# -----------------------------------------------------------
 func snap_player_to_nearest_slot():
+	if player == null or slot_map == null:
+		push_error("Cannot snap player — missing player or slot_map.")
+		return
+
 	var cell := slot_map.local_to_map(player.position)
+
 	if not slot_ids.has(cell):
 		print("WARNING: Player not on a valid slot. Using 0,0.")
 		cell = Vector2i.ZERO
 
 	player.position = slot_map.map_to_local(cell)
-	print("Snapped to slot:", cell)
-#endregion
+	print("Snapped player to:", cell)
 
-#region PLAYER MOVEMENT
+# -----------------------------------------------------------
+#  PLAYER MOVEMENT
+# -----------------------------------------------------------
 func move_direction(dir: Vector2i):
-	var player_cell: Vector2i = slot_map.local_to_map(player.position)
-
-	var target_cell := find_next_slot(player_cell, dir)
-
-	print("Scan result: from", player_cell, "→ next slot:", target_cell)
-	
-	# if same cell, nothing found
-	if target_cell == player_cell:
-		print("No valid slot found in that direction.")
+	if player == null:
 		return
 
-	# 🔥 GET TYPE OF TARGET TILE HERE
+	var player_cell: Vector2i = slot_map.local_to_map(player.position)
+	var target_cell := find_next_slot(player_cell, dir)
+
+	if target_cell == player_cell:
+		return
+
+	# GET TYPE
 	var slot_type := get_slot_type(target_cell)
-	print("Target slot type:", slot_type)
 
 	# Move player
 	var target_world := slot_map.map_to_local(target_cell)
 	player.move_to(target_world)
-	trigger_slot_action(slot_type,player_cell)
-#endregion
 
-#region INPUT HANDLING
+	trigger_slot_action(slot_type, player_cell)
+
+# -----------------------------------------------------------
+#  INPUT HANDLING
+# -----------------------------------------------------------
 func _unhandled_input(event):
-	# If Wunderpal is OPEN, block all movement and interactions
+	# Block board input when Wunderpal is open
 	if is_wunderpal_open:
-		# Allow only closing the Wunderpal
 		if event.is_action_pressed("toggle_wunderpal"):
 			toggle_wunderpal()
-		return  # <- stops ALL other input (movement, interact)
+		return  
 
 	if event.is_action_pressed("ui_left"):
 		move_direction(Vector2i(-1, 0))
@@ -110,209 +140,170 @@ func _unhandled_input(event):
 		move_direction(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
 		move_direction(Vector2i(0, 1))
-	# INVENTORY
+
 	if event.is_action_pressed("ui_inventory"):
 		toggle_inventory()
+
 	if event.is_action_pressed("ui_interact"):
 		try_interact()
-	# Toggle Wunderpal
+
 	if event.is_action_pressed("toggle_wunderpal"):
 		toggle_wunderpal()
-		return
-#endregion
 
-#region FIND NEXT SLOT FROM CURRENT
+# -----------------------------------------------------------
+#  FIND NEXT SLOT
+# -----------------------------------------------------------
 func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	var cell := start + dir
 
-	# 👇 Scan as far as needed
-	while slot_ids.has(cell) == false:
+	while not slot_ids.has(cell):
 		cell += dir
-
-		# safety limit
-		if cell.x < -2000 or cell.x > 2000 or cell.y < -2000 or cell.y > 2000:
+		if abs(cell.x) > 2000 or abs(cell.y) > 2000:
 			return start
 
-	# Found a real slot? — check type
 	var slot_type := get_slot_type(cell)
-	
 
 	if not is_walkable(slot_type):
-		print("Blocked:", slot_type, " at", cell)
 		return start
 
 	return cell
-#endregion
 
-#region GETTERS: SLOT TYPE | SUBTYPE | SCENE
-
+# -----------------------------------------------------------
+#  GET SLOT TYPE ETC.
+# -----------------------------------------------------------
 func get_slot_type(cell: Vector2i) -> String:
 	var tile_data := slot_map.get_cell_tile_data(cell)
-	
-	if tile_data == null:
-		return "none"
-	return tile_data.get_custom_data("slot_type")
+	return tile_data.get_custom_data("slot_type") if tile_data else "none"
 
 func get_slot_subtype(cell: Vector2i) -> String:
-	var tile_data = slot_map.get_cell_tile_data(cell)
-	if tile_data == null:
-		return ""
-	return tile_data.get_custom_data("interact_subtype")
+	var tile_data := slot_map.get_cell_tile_data(cell)
+	return tile_data.get_custom_data("interact_subtype") if tile_data else ""
 
 func get_slot_scene(cell: Vector2i) -> String:
-	var tile_data = slot_map.get_cell_tile_data(cell)
-	if tile_data == null:
-		return ""
-	return tile_data.get_custom_data("scene_path")
-#endregion
+	var tile_data := slot_map.get_cell_tile_data(cell)
+	return tile_data.get_custom_data("scene_path") if tile_data else ""
 
-#region TRIGGER SLOT ACTIONS | RUNS EVERY MOVE
+# -----------------------------------------------------------
+#  SLOT ACTIONS
+# -----------------------------------------------------------
 func trigger_slot_action(slot_type: String, cell: Vector2i):
 	match slot_type:
 		"normal":
-			print("This is a normal cell @", cell)
 			hide_prompt()
-			# Add hide for interact ui menus
 			return
-
 		"blocked":
-			print("There is wall @", cell)
 			hide_prompt()
-			# Add hide for interact ui menus
 			return
-
 		"interact":
-			# DO NOT OPEN ANYTHING AUTOMATICALLY
 			var subtype = get_slot_subtype(cell)
 			var prompt_text = get_prompt_text(subtype)
 			show_prompt(prompt_text)
-			print(subtype, " tile here. Press [E] to interact.")
 			return
-			
-#endregion
 
-
-#region TRY TO INTERACT WITH SLOT | PRESS E
+# -----------------------------------------------------------
+#  INTERACT
+# -----------------------------------------------------------
 func try_interact():
-	var player_cell: Vector2i = slot_map.local_to_map(player.position)
+	var cell = slot_map.local_to_map(player.position)
+	var slot_type = get_slot_type(cell)
 
-	var slot_type = get_slot_type(player_cell)
 	if slot_type != "interact":
-		print("No interaction here.")
 		return
 
-	var subtype = get_slot_subtype(player_cell)
-	var scene_path = get_slot_scene(player_cell)
+	var subtype = get_slot_subtype(cell)
+	var scene_path = get_slot_scene(cell)
 
-	print("Interacting with:", subtype)
 	handle_interact(subtype, scene_path)
-#endregion
 
-#region INTERACTION HANDLING | SLOT TYPES
+# -----------------------------------------------------------
+# INTERACTION HANDLING
+# -----------------------------------------------------------
 func handle_interact(subtype: String, scene_path: String):
 	match subtype:
-		# --------------------------
-		# UI-BASED INTERACTIONS
-		# --------------------------
-		"shop":
-			open_shop_ui()
-			return
-		"npc":
-			open_npc_dialogue()
-			return
-		"quest":
-			open_quest_ui()
-			return
-		"rune":
-			open_rune_ui()
-			return
-		# --------------------------
-		# SIDE-SCROLLER LEVELS
-		# --------------------------
+		"shop": open_shop_ui()
+		"npc": open_npc_dialogue()
+		"quest": open_quest_ui()
+		"rune": open_rune_ui()
 		"station", "battle", "house", "dungeon":
 			open_sidescroller(scene_path)
-			return
-		_:  # default: houses, special zones, etc.
+		_:
 			open_sidescroller(scene_path)
-#endregion
 
-#region INTERACTION HELPERS
-func open_shop_ui():
+# -----------------------------------------------------------
+#  INTERACTION HELPERS
+# -----------------------------------------------------------
+func open_shop_ui(): 
 	$HUD/ShopUI.show()
-	# Maybe make it Wunderpal > ShopMenuUI?
+
 func open_npc_dialogue():
 	$HUD/DialogueUI.show()
+
 func open_quest_ui():
 	$HUD/QuestUI.show()
+
 func open_rune_ui():
 	pass
-func open_sidescroller(path: String):
 
+func open_sidescroller(path: String):
 	if path == "" or path == null:
 		print("ERROR: No scene assigned for this interact tile.")
 		return
 
 	var scene = load(path).instantiate()
-	$HUD/Wunderpal/ScreenArea/GameViewport.add_child(scene)
-#endregion
+	viewport.add_child(scene)
 
-#region GET INTERACT PROMPT TEXT
+# -----------------------------------------------------------
+#  PROMPT TEXT
+# -----------------------------------------------------------
 func get_prompt_text(subtype: String) -> String:
 	match subtype:
-		"shop":
-			return "Press E to open shop"
-			# Change these to the paths for interact prompt gui buttons
-		"npc":
-			return "Press E to talk"
-		"quest":
-			return "Press E to view quest"
-		"station":
-			return "Press E to enter station"
-		_:
-			return "Press E to interact"
-#endregion
+		"shop": return "Press E to open shop"
+		"npc": return "Press E to talk"
+		"quest": return "Press E to view quest"
+		"station": return "Press E to enter station"
+		_: return "Press E to interact"
 
-#region SHOW / HIDE INTERACT TEXT
-func show_prompt(text: String) -> void:
+# -----------------------------------------------------------
+#  SHOW / HIDE PROMPT
+# -----------------------------------------------------------
+func show_prompt(text: String):
 	if UI:
 		UI.text = text
 		UI.visible = true
-		
-func hide_prompt() -> void:
+
+func hide_prompt():
 	if UI:
 		UI.visible = false
-#endregion
 
-
-#region WALKABLE TILE HANDLING
+# -----------------------------------------------------------
+#  WALKABLE
+# -----------------------------------------------------------
 func is_walkable(slot_type: String) -> bool:
 	match slot_type:
-		"wall":
-			return false
-		"normal", "interact":
-			return true
-		_:
-			return true  # default: treat unknown as walkable
-#endregion
+		"wall": return false
+		"normal", "interact": return true
+		_: return true
 
-
-#region INVENTORY UI VISIBILITY
+# -----------------------------------------------------------
+#  INVENTORY
+# -----------------------------------------------------------
 func toggle_inventory():
 	if inventory_open:
 		inventory_ui.close()
-		inventory_open = false
 	else:
 		inventory_ui.open()
-		inventory_open = true
-#endregion
 
+	inventory_open = !inventory_open
 
-#region TOGGLE WUNDERPAL
+# -----------------------------------------------------------
+#  WUNDERPAL TOGGLE
+# -----------------------------------------------------------
 func toggle_wunderpal():
 	slide_wunderpal(!is_wunderpal_open)
-#endregion
 
-#region SLIDE WUNDERPAL
+# -----------------------------------------------------------
+#  WUNDERPAL SLIDE (animation)
+# -----------------------------------------------------------
 func slide_wunderpal(open: bool):
 	is_wunderpal_open = open
 
@@ -323,4 +314,3 @@ func slide_wunderpal(open: bool):
 		wunder_anim.play("close_wunderpal")
 		await wunder_anim.animation_finished
 		wunderpal.visible = false
-#endregion

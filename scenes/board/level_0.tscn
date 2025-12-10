@@ -1,6 +1,5 @@
-[gd_scene load_steps=68 format=4 uid="uid://cvibguqhtkvgu"]
+[gd_scene load_steps=67 format=4 uid="uid://cvibguqhtkvgu"]
 
-[ext_resource type="Script" uid="uid://drt83kqt0f2je" path="res://autoload/boardcontroller.gd" id="1_hid1u"]
 [ext_resource type="Script" uid="uid://bx36v6yefrfjb" path="res://data/systems/level.gd" id="1_wdlg4"]
 [ext_resource type="Texture2D" uid="uid://bkm3h22tyrwwa" path="res://assets/tiles/FINISHED TILES/block line.png" id="4_0xvss"]
 [ext_resource type="PackedScene" uid="uid://csewu6atswxtq" path="res://scenes/board/Fermi_Gas_Station.tscn" id="4_hid1u"]
@@ -683,11 +682,6 @@ sources/0 = SubResource("TileSetAtlasSource_25hpv")
 
 [node name="level_0" type="Node2D"]
 script = ExtResource("1_wdlg4")
-
-[node name="BoardController" type="Node" parent="."]
-editor_description = "Handles the overworld board where your player moves between gas station blocks, tiles, and interactable zones. The logic that controls the world map and \"board\".
-"
-script = ExtResource("1_hid1u")
 
 [node name="TileMapLayer_Board_Slot_Logic" type="TileMapLayer" parent="."]
 editor_description = "Logical tiles where the slots are registered."

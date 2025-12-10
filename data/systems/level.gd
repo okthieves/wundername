@@ -15,6 +15,8 @@ func _ready():
 		"viewport": $HUD_Layer/HUD/Wunderpal/ScreenArea/GameViewport,
 	})
 
+	# 2. Initialize Wunderpal BEFORE the player sees anything
+	BoardController.setup_wunderpal()
 	# Initialize the board
 	BoardController.build_slot_graph()
 	BoardController.snap_player_to_nearest_slot()
