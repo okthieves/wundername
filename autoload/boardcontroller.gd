@@ -1,5 +1,6 @@
-extends Node
 # Board Controller Autoload
+extends Node
+
 
 # -----------------------------------------------------------
 #  SCENE REFERENCES (assigned by level scripts)

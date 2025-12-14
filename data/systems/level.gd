@@ -14,7 +14,7 @@ func _ready():
 		"fx_layer": $TileMapLayer_FX,
 		"wunderpal": $HUD_Layer/HUD/Wunderpal,
 		"wunder_anim": $HUD_Layer/HUD/Wunderpal/AnimationPlayer,
-		"viewport": $HUD_Layer/HUD/Wunderpal/Frame/ScreenArea/GameViewport,
+		"viewport": $HUD_Layer/HUD/Wunderpal/Frame/ScreenArea/GameViewportContainer/GameViewport,
 	})
 
 

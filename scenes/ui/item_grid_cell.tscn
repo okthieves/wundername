@@ -13,6 +13,7 @@ offset_bottom = -674.0
 grow_horizontal = 2
 grow_vertical = 2
 icon_alignment = 1
+expand_icon = true
 script = ExtResource("1_eqb0c")
 
 [node name="Frame" type="TextureRect" parent="."]

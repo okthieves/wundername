@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=18 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://7q67aubqnvb2" path="res://scenes/ui/item_grid_cell.tscn" id="5_38nk3"]
 [ext_resource type="Texture2D" uid="uid://c2ianjp8t7nbu" path="res://assets/wunder/2.png" id="5_l20r4"]
 [ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://scenes/ui/inv_detail.gd" id="5_p4k5r"]
+[ext_resource type="PackedScene" uid="uid://y6h8k7nt52b4" path="res://scenes/ui/empty_grid_cell.tscn" id="6_6bi52"]
+[ext_resource type="Texture2D" uid="uid://oom4au4g6wlq" path="res://assets/03_UI/TAB BORDER.png" id="7_38nk3"]
 
 [sub_resource type="Animation" id="Animation_p4k5r"]
 length = 0.001
@@ -136,15 +138,14 @@ visible = false
 anchors_preset = 0
 
 [node name="Inventory_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-layout_mode = 1
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -253.0
-grow_horizontal = 2
-grow_vertical = 0
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 89.0
+offset_right = 263.00034
+offset_bottom = 263.0
 script = ExtResource("4_euikm")
 item_grid_cell = ExtResource("5_38nk3")
+empty_grid_cell = ExtResource("6_6bi52")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List"]
 layout_mode = 1
@@ -155,7 +156,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ItemContainer" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
 columns = 4
 
 [node name="Inventory_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
@@ -164,31 +170,89 @@ anchors_preset = 0
 script = ExtResource("5_p4k5r")
 
 [node name="Tabs" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-anchors_preset = 0
+layout_mode = 1
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -131.0
+offset_top = 11.255
+offset_right = 131.0
+offset_bottom = 41.254993
+grow_horizontal = 2
 
 [node name="Btn_Inventory" type="Button" parent="Wunderpal/Frame/ScreenArea/Tabs"]
-layout_mode = 0
-offset_left = 3.0
-offset_top = 3.0
-offset_right = 102.0
-offset_bottom = 34.0
-text = "INVENTORY"
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -15.5
+offset_right = 82.0
+offset_bottom = 15.5
+grow_vertical = 2
+text = "ITEMS"
+flat = true
+autowrap_trim_flags = 0
+icon_alignment = 1
+
+[node name="TextureRect" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_38nk3")
 
 [node name="Btn_Quests" type="Button" parent="Wunderpal/Frame/ScreenArea/Tabs"]
-layout_mode = 0
-offset_left = 120.0
-offset_top = 3.0
-offset_right = 189.0
-offset_bottom = 34.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.0
+offset_top = -15.5
+offset_right = 41.0
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
 text = "QUESTS"
+flat = true
+icon_alignment = 1
+
+[node name="TextureRect3" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_38nk3")
+region_rect = Rect2(0, 0, 82, 30)
 
 [node name="Btn_Skills" type="Button" parent="Wunderpal/Frame/ScreenArea/Tabs"]
-layout_mode = 0
-offset_left = 223.0
-offset_top = 4.0
-offset_right = 282.0
-offset_bottom = 35.0
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
 text = "SKILLS"
+flat = true
+icon_alignment = 1
+
+[node name="TextureRect2" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("7_38nk3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Wunderpal"]
 libraries = {
@@ -260,7 +324,6 @@ offset_bottom = 720.0
 texture = ExtResource("3_6ll6g")
 stretch_mode = 4
 
-[connection signal="visibility_changed" from="Wunderpal/Frame/ScreenArea/Inventory_List" to="Wunderpal/Frame/ScreenArea/Inventory_List" method="_on_visibility_changed"]
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory" to="." method="show_inventory"]
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests" to="." method="show_quests"]
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills" to="." method="show_skills"]
