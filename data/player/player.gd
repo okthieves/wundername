@@ -1,5 +1,8 @@
 extends Node2D
 
+## Attached to player.tscn
+## Handles pawn movement on the board
+
 var is_moving: bool = false
 var move_time := 0.25
 var input_enabled := true

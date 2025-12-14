@@ -9,6 +9,7 @@ static var ITEMS := {
 		"type": "key",
 		"value": 0,
 		"description": "Lets you instantly travel back to station.",
+		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_28.png",  # Envelope
 	},
 
 	2: {
@@ -18,6 +19,7 @@ static var ITEMS := {
 		"type": "consumable",
 		"value": 15,
 		"description": "Restores 15 HP.",
+		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_19.png",  # Meat
 	},
 
 	3: {
@@ -27,6 +29,7 @@ static var ITEMS := {
 		"type": "material",
 		"value": 5,
 		"description": "Useful for crafting and repairs.",
+		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_33.png",  # Mechanism
 	},
 }
 
@@ -45,3 +48,14 @@ static func get_by_key(key: String) -> Dictionary:
 
 static func get_item_from_id(id: int) -> Dictionary:
 	return ITEMS[id]
+
+static func get_icon(id: int) -> Texture2D:
+	if not ITEMS.has(id):
+		return null
+	
+	var item = ITEMS[id]
+	if not item.has("icon_path") or item["icon_path"] == "":
+		return null
+	
+	var texture = load(item["icon_path"]) as Texture2D
+	return texture

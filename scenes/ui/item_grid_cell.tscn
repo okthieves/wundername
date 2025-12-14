@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://7q67aubqnvb2"]
+
+[ext_resource type="Script" uid="uid://bm7y56rrjup11" path="res://data/ui/item_grid_cell.gd" id="1_eqb0c"]
+[ext_resource type="Texture2D" uid="uid://ex0aelktwvls" path="res://assets/03_UI/ITEM BORDER.png" id="2_5tmo1"]
+
+[node name="ItemGridCell" type="Button"]
+custom_minimum_size = Vector2(46, 46)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1234.0
+offset_bottom = -674.0
+grow_horizontal = 2
+grow_vertical = 2
+icon_alignment = 1
+script = ExtResource("1_eqb0c")
+
+[node name="Frame" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 46.0
+offset_bottom = 46.0
+texture = ExtResource("2_5tmo1")
+
+[node name="Icon" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Amount" type="Label" parent="."]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -24.0
+offset_top = -24.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 1
+vertical_alignment = 1

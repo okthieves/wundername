@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+## Attached to soulform.tscn
+## Handles side scroll character movement
+
+
 ## --------------------------
 ## MOVEMENT SETTINGS
 ## --------------------------
@@ -14,7 +18,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-
 func apply_gravity(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
@@ -22,11 +25,9 @@ func apply_gravity(delta):
 		# Small snap to keep grounded
 		velocity.y = max(velocity.y, 0)
 
-
 func handle_horizontal_input():
 	var input_dir := Input.get_axis("move_left", "move_right")
 	velocity.x = input_dir * speed
-
 
 func handle_jump(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():

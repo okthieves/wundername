@@ -1,4 +1,5 @@
 extends Node
+# Game Manager Autoload
 
 #region SAVE DATA
 var save_data := {
@@ -20,12 +21,12 @@ var save_data := {
 
 #region PLAYER MANAGEMENT
 func player_heal(amount: int):
-	save_data.player.hp = clamp(
-		save_data.player.hp + amount,
+	save_data["player"]["hp"] = clamp(
+		save_data["player"]["hp"] + amount,
 		0,
-		save_data.player.max_hp
+		save_data["player"]["max_hp"]
 	)
-	print("Player healed. HP =", save_data.player.hp)
+	print("Player healed. HP =", save_data["player"]["hp"])
 #endregion
 
 #region INVENTORY
@@ -89,6 +90,7 @@ func get_time() -> String:
 #region GODOT NATIVE
 func _ready():
 	print("Game Manager Loaded")
+	debug_seed_inventory()
 #endregion
 
 #region GAMESTATE
@@ -100,3 +102,16 @@ enum GameState {
 
 var state := GameState.BOARD
 #endregion
+
+signal toggle_wunderpal_requested
+
+func request_toggle_wunderpal():
+	emit_signal("toggle_wunderpal_requested")
+
+func debug_seed_inventory():
+	save_data["player"]["inventory"] = {
+		1: 3,
+		2: 1,
+		3: 12
+	}
+	print("[GameManager] Debug inventory seeded")

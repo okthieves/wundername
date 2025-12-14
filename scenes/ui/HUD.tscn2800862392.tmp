@@ -1,7 +1,7 @@
 [gd_scene load_steps=16 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
-[ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
+[ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://scenes/ui/hud.gd" id="1_l20r4"]
 [ext_resource type="Script" uid="uid://7qqfxjjtlyhi" path="res://data/ui/wunderpal.gd" id="2_6ll6g"]
 [ext_resource type="Texture2D" uid="uid://q2rux1rngary" path="res://assets/wunder/1.png" id="3_6ll6g"]
 [ext_resource type="Texture2D" uid="uid://binechcpffu" path="res://assets/wunder/mid_bar_right.png" id="3_jlufg"]
@@ -89,21 +89,17 @@ offset_bottom = 496.0
 texture = ExtResource("1_atyv1")
 stretch_mode = 4
 
-[node name="ScreenArea" type="Control" parent="Wunderpal/Frame"]
+[node name="ScreenArea" type="SubViewportContainer" parent="Wunderpal/Frame"]
 clip_contents = true
 custom_minimum_size = Vector2(288, 262)
-anchors_preset = 0
+layout_mode = 0
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 304.0
 offset_bottom = 320.0
+stretch = true
 
-[node name="GameViewportContainer" type="SubViewportContainer" parent="Wunderpal/Frame/ScreenArea"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GameViewport" type="SubViewport" parent="Wunderpal/Frame/ScreenArea/GameViewportContainer"]
+[node name="GameViewport" type="SubViewport" parent="Wunderpal/Frame/ScreenArea"]
 disable_3d = true
 transparent_bg = true
 handle_input_locally = false
@@ -113,46 +109,38 @@ script = ExtResource("2_6ll6g")
 
 [node name="Card_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Card_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Skill_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Skill_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Quest_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Quest_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Inventory_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-layout_mode = 1
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -253.0
-grow_horizontal = 2
-grow_vertical = 0
+visible = false
+layout_mode = 2
 script = ExtResource("4_euikm")
 item_grid_cell = ExtResource("5_38nk3")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="ItemContainer" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List/ScrollContainer"]
 layout_mode = 2
@@ -160,11 +148,11 @@ columns = 4
 
 [node name="Inventory_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 visible = false
-anchors_preset = 0
+layout_mode = 2
 script = ExtResource("5_p4k5r")
 
 [node name="Tabs" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-anchors_preset = 0
+layout_mode = 2
 
 [node name="Btn_Inventory" type="Button" parent="Wunderpal/Frame/ScreenArea/Tabs"]
 layout_mode = 0
@@ -255,8 +243,15 @@ stretch_mode = 4
 [node name="top_bar" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 1
-offset_right = 1280.0
-offset_bottom = 720.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 14.0
+offset_top = 5.0
+offset_right = 14.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_6ll6g")
 stretch_mode = 4
 

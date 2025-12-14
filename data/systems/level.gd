@@ -1,5 +1,9 @@
 extends Node
 
+## Attach to each level
+## Registers nodes from the level
+## Add more when we get more nodes so registration occurs
+
 func _ready():
 	print("Initializing level:", self.name)
 
@@ -7,16 +11,13 @@ func _ready():
 	BoardController.register_scene_nodes({
 		"slot_map": $TileMapLayer_Board_Slot_Logic,
 		"player": $Player,
-		"inventory_ui": $UI/Inventory_UI,
 		"fx_layer": $TileMapLayer_FX,
-		"ui_prompt": $UI/Button_Prompts,
 		"wunderpal": $HUD_Layer/HUD/Wunderpal,
 		"wunder_anim": $HUD_Layer/HUD/Wunderpal/AnimationPlayer,
-		"viewport": $HUD_Layer/HUD/Wunderpal/ScreenArea/GameViewport,
+		"viewport": $HUD_Layer/HUD/Wunderpal/Frame/ScreenArea/GameViewport,
 	})
 
-	# 2. Initialize Wunderpal BEFORE the player sees anything
-	BoardController.setup_wunderpal()
+
 	# Initialize the board
 	BoardController.build_slot_graph()
 	BoardController.snap_player_to_nearest_slot()
