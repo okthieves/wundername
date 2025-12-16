@@ -39,16 +39,13 @@ static var ITEMS := {
 
 static func get_by_id(id: int) -> Dictionary:
 	return ITEMS.get(id, {})
-
 static func get_by_key(key: String) -> Dictionary:
 	for item in ITEMS.values():
 		if item["key"] == key:
 			return item
 	return {}
-
 static func get_item_from_id(id: int) -> Dictionary:
 	return ITEMS[id]
-
 static func get_icon(id: int) -> Texture2D:
 	if not ITEMS.has(id):
 		return null

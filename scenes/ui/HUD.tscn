@@ -1,16 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=19 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
 [ext_resource type="Script" uid="uid://7qqfxjjtlyhi" path="res://data/ui/wunderpal.gd" id="2_6ll6g"]
+[ext_resource type="PackedScene" uid="uid://cq36usjpvpuoh" path="res://scenes/ui/tooltip.tscn" id="2_e8r00"]
 [ext_resource type="Texture2D" uid="uid://q2rux1rngary" path="res://assets/wunder/1.png" id="3_6ll6g"]
 [ext_resource type="Texture2D" uid="uid://binechcpffu" path="res://assets/wunder/mid_bar_right.png" id="3_jlufg"]
-[ext_resource type="Script" uid="uid://dn85cuynkhdil" path="res://scenes/ui/inv_list.gd" id="4_euikm"]
+[ext_resource type="Script" uid="uid://dn85cuynkhdil" path="res://data/ui/inv_list.gd" id="4_euikm"]
 [ext_resource type="Texture2D" uid="uid://q2pqujjyfjow" path="res://assets/wunder/3.png" id="4_jlufg"]
 [ext_resource type="Texture2D" uid="uid://bg0h58fywjfar" path="res://assets/wunder/mid_bar_left.png" id="4_l20r4"]
 [ext_resource type="PackedScene" uid="uid://7q67aubqnvb2" path="res://scenes/ui/item_grid_cell.tscn" id="5_38nk3"]
 [ext_resource type="Texture2D" uid="uid://c2ianjp8t7nbu" path="res://assets/wunder/2.png" id="5_l20r4"]
-[ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://scenes/ui/inv_detail.gd" id="5_p4k5r"]
+[ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://data/ui/inv_detail.gd" id="5_p4k5r"]
 [ext_resource type="PackedScene" uid="uid://y6h8k7nt52b4" path="res://scenes/ui/empty_grid_cell.tscn" id="6_6bi52"]
 [ext_resource type="Texture2D" uid="uid://oom4au4g6wlq" path="res://assets/03_UI/TAB BORDER.png" id="7_38nk3"]
 
@@ -66,7 +67,7 @@ _data = {
 &"open_wunderpal": SubResource("Animation_l20r4")
 }
 
-[node name="HUD" type="Control"]
+[node name="HUD" type="Control" groups=["hud"]]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 3
 anchors_preset = 15
@@ -74,6 +75,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 script = ExtResource("1_l20r4")
 
 [node name="Wunderpal" type="Control" parent="."]
@@ -83,11 +85,13 @@ offset_left = 480.0
 offset_top = 224.0
 offset_right = 800.0
 offset_bottom = 720.0047
+mouse_filter = 2
 
 [node name="Frame" type="TextureRect" parent="Wunderpal"]
 layout_mode = 0
 offset_right = 320.0
 offset_bottom = 496.0
+mouse_filter = 2
 texture = ExtResource("1_atyv1")
 stretch_mode = 4
 
@@ -99,84 +103,17 @@ offset_left = 16.0
 offset_top = 16.0
 offset_right = 304.0
 offset_bottom = 320.0
-
-[node name="GameViewportContainer" type="SubViewportContainer" parent="Wunderpal/Frame/ScreenArea"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GameViewport" type="SubViewport" parent="Wunderpal/Frame/ScreenArea/GameViewportContainer"]
-disable_3d = true
-transparent_bg = true
-handle_input_locally = false
-size = Vector2i(288, 304)
-render_target_update_mode = 4
-script = ExtResource("2_6ll6g")
-
-[node name="Card_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Card_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Skill_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Skill_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Quest_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Quest_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-
-[node name="Inventory_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-anchors_preset = 0
-offset_left = 25.0
-offset_top = 89.0
-offset_right = 263.00034
-offset_bottom = 263.0
-script = ExtResource("4_euikm")
-item_grid_cell = ExtResource("5_38nk3")
-empty_grid_cell = ExtResource("6_6bi52")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="ItemContainer" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List/ScrollContainer"]
-custom_minimum_size = Vector2(238, 174)
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/h_separation = 18
-theme_override_constants/v_separation = 18
-columns = 4
-
-[node name="Inventory_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-visible = false
-anchors_preset = 0
-script = ExtResource("5_p4k5r")
+mouse_filter = 2
 
 [node name="Tabs" type="Control" parent="Wunderpal/Frame/ScreenArea"]
 layout_mode = 1
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
 offset_left = -131.0
-offset_top = 11.255
+offset_top = 11.255005
 offset_right = 131.0
-offset_bottom = 41.254993
+offset_bottom = 41.254997
 grow_horizontal = 2
 
 [node name="Btn_Inventory" type="Button" parent="Wunderpal/Frame/ScreenArea/Tabs"]
@@ -254,6 +191,79 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("7_38nk3")
 
+[node name="Card_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Card_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Skill_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Skill_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Quest_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Quest_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+
+[node name="Inventory_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+visible = false
+anchors_preset = 0
+script = ExtResource("5_p4k5r")
+
+[node name="GameViewportContainer" type="SubViewportContainer" parent="Wunderpal/Frame/ScreenArea"]
+layout_mode = 0
+offset_right = 288.0
+offset_bottom = 304.0
+mouse_filter = 2
+
+[node name="GameViewport" type="SubViewport" parent="Wunderpal/Frame/ScreenArea/GameViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(288, 304)
+render_target_update_mode = 4
+script = ExtResource("2_6ll6g")
+
+[node name="Inventory_List" type="Control" parent="Wunderpal/Frame/ScreenArea"]
+anchors_preset = 0
+offset_left = 25.0
+offset_top = 89.0
+offset_right = 263.00034
+offset_bottom = 263.0
+mouse_filter = 2
+script = ExtResource("4_euikm")
+item_grid_cell = ExtResource("5_38nk3")
+empty_grid_cell = ExtResource("6_6bi52")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ItemContainer" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/Inventory_List/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Wunderpal"]
 libraries = {
 &"": SubResource("AnimationLibrary_38nk3")
@@ -323,6 +333,17 @@ offset_right = 1280.0
 offset_bottom = 720.0
 texture = ExtResource("3_6ll6g")
 stretch_mode = 4
+
+[node name="Tooltip" parent="." instance=ExtResource("2_e8r00")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 150.0
+offset_bottom = 100.0
+grow_horizontal = 1
+grow_vertical = 1
 
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory" to="." method="show_inventory"]
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests" to="." method="show_quests"]

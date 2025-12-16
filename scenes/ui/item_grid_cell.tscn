@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://7q67aubqnvb2"]
+[gd_scene load_steps=4 format=3 uid="uid://7q67aubqnvb2"]
 
 [ext_resource type="Script" uid="uid://bm7y56rrjup11" path="res://data/ui/item_grid_cell.gd" id="1_eqb0c"]
 [ext_resource type="Texture2D" uid="uid://ex0aelktwvls" path="res://assets/03_UI/ITEM BORDER.png" id="2_5tmo1"]
+[ext_resource type="Texture2D" uid="uid://c2vdl5xckcox5" path="res://assets/03_UI/ITEM BORDER SELECTED.png" id="3_06ml0"]
 
 [node name="ItemGridCell" type="Button"]
 custom_minimum_size = Vector2(46, 46)
@@ -12,6 +13,7 @@ offset_right = -1234.0
 offset_bottom = -674.0
 grow_horizontal = 2
 grow_vertical = 2
+focus_mode = 0
 icon_alignment = 1
 expand_icon = true
 script = ExtResource("1_eqb0c")
@@ -20,6 +22,7 @@ script = ExtResource("1_eqb0c")
 layout_mode = 0
 offset_right = 46.0
 offset_bottom = 46.0
+mouse_filter = 2
 texture = ExtResource("2_5tmo1")
 
 [node name="Icon" type="TextureRect" parent="."]
@@ -35,6 +38,7 @@ offset_right = 8.0
 offset_bottom = 8.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Amount" type="Label" parent="."]
 custom_minimum_size = Vector2(24, 24)
@@ -50,3 +54,14 @@ grow_horizontal = 0
 grow_vertical = 0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Glow" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_06ml0")

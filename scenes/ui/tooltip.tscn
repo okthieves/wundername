@@ -1,0 +1,34 @@
+[gd_scene load_steps=2 format=3 uid="uid://cq36usjpvpuoh"]
+
+[ext_resource type="Script" uid="uid://cjw8rb45s2ocy" path="res://data/ui/item_tooltip.gd" id="1_mtwet"]
+
+[node name="Tooltip" type="Panel"]
+custom_minimum_size = Vector2(150, 100)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1130.0
+offset_bottom = -620.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_mtwet")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(150, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="NameLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 8

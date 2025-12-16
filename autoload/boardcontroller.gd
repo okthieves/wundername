@@ -2,9 +2,6 @@
 extends Node
 
 
-# -----------------------------------------------------------
-#  SCENE REFERENCES (assigned by level scripts)
-# -----------------------------------------------------------
 #region SCENE REFERENCES
 var slot_map: TileMapLayer
 var player: Node2D
@@ -14,9 +11,6 @@ var wunder_anim: AnimationPlayer
 var viewport: SubViewport
 #endregion
 
-# -----------------------------------------------------------
-#  REGISTRATION FROM LEVELS
-# -----------------------------------------------------------
 #region REGISTRATION FROM LEVELS
 func register_scene_nodes(dict: Dictionary):
 	for key in dict.keys():
@@ -24,28 +18,18 @@ func register_scene_nodes(dict: Dictionary):
 	print("[BoardController] Registered scene nodes:", dict.keys())
 #endregion
 
-# -----------------------------------------------------------
-#  GENERAL VARS
-# -----------------------------------------------------------
 #region GENERAL VARS
 var slot_ids: Dictionary = {}        # { Vector2i : id }
 var id_to_slot: Dictionary = {}      # { id : Vector2i }
 var inventory_open = false
 #endregion
 
-
-# -----------------------------------------------------------
-#  GODOT NATIVE
-# -----------------------------------------------------------
 #region GODOT NATIVE
 func _ready():
 	print("[BoardController] Autoload ready.")
 	# Will complete initialization once level registers nodes.
 #endregion
 
-# -----------------------------------------------------------
-#  SLOT GRAPH
-# -----------------------------------------------------------
 #region SLOT GRAPH
 func build_slot_graph():
 	if slot_map == null:
@@ -64,9 +48,6 @@ func build_slot_graph():
 	print("[BoardController] Slot graph built:", id, "slots")
 #endregion
 
-# -----------------------------------------------------------
-#  SNAP TO GRID
-# -----------------------------------------------------------
 #region SNAP TO GRID
 func snap_player_to_nearest_slot():
 	if player == null or slot_map == null:
@@ -83,9 +64,6 @@ func snap_player_to_nearest_slot():
 	print("Snapped player to:", cell)
 #endregion
 
-# -----------------------------------------------------------
-#  PLAYER MOVEMENT
-# -----------------------------------------------------------
 #region PLAYER MOVEMENT
 func move_direction(dir: Vector2i):
 	if player == null:
@@ -107,11 +85,9 @@ func move_direction(dir: Vector2i):
 	trigger_slot_action(slot_type, player_cell)
 #endregion
 
-# -----------------------------------------------------------
-#  INPUT HANDLING
-# -----------------------------------------------------------
 #region INPUT HANDLING
 func _unhandled_input(event):
+	pass
 	if event.is_action_pressed("toggle_wunderpal"):
 		GameManager.request_toggle_wunderpal()
 	if GameManager.state == GameManager.GameState.MENU_OPEN:
@@ -130,9 +106,6 @@ func _unhandled_input(event):
 
 #endregion
 
-# -----------------------------------------------------------
-#  FIND NEXT SLOT
-# -----------------------------------------------------------
 #region FIND NEXT SLOT
 func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	var cell := start + dir
@@ -150,9 +123,6 @@ func find_next_slot(start: Vector2i, dir: Vector2i) -> Vector2i:
 	return cell
 #endregion
 
-# -----------------------------------------------------------
-#  GET SLOT TYPE ETC.
-# -----------------------------------------------------------
 #region GET SLOT TYPE ETC.
 func get_slot_type(cell: Vector2i) -> String:
 	var tile_data := slot_map.get_cell_tile_data(cell)
@@ -167,9 +137,6 @@ func get_slot_scene(cell: Vector2i) -> String:
 	return tile_data.get_custom_data("scene_path") if tile_data else ""
 #endregion
 
-# -----------------------------------------------------------
-#  SLOT ACTIONS
-# -----------------------------------------------------------
 #region SLOT ACTIONS
 func trigger_slot_action(slot_type: String, cell: Vector2i):
 	match slot_type:
@@ -186,9 +153,6 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			return
 #endregion
 
-# -----------------------------------------------------------
-#  INTERACT
-# -----------------------------------------------------------
 #region INTERACT
 func try_interact():
 	var cell = slot_map.local_to_map(player.position)
@@ -203,9 +167,6 @@ func try_interact():
 	handle_interact(subtype, scene_path)
 #endregion
 
-# -----------------------------------------------------------
-# INTERACTION HANDLING
-# -----------------------------------------------------------
 #region INTERACTION HANDLING
 func handle_interact(subtype: String, scene_path: String):
 	match subtype:
@@ -219,9 +180,6 @@ func handle_interact(subtype: String, scene_path: String):
 			open_sidescroller(scene_path)
 #endregion
 
-# -----------------------------------------------------------
-#  INTERACTION HELPERS
-# -----------------------------------------------------------
 #region INTERACTION HELPERS
 func open_shop_ui(): 
 	$HUD/ShopUI.show()
@@ -244,9 +202,6 @@ func open_sidescroller(path: String):
 	viewport.add_child(scene)
 #endregion
 
-# -----------------------------------------------------------
-#  WALKABLE
-# -----------------------------------------------------------
 #region WALKABLE
 func is_walkable(slot_type: String) -> bool:
 	match slot_type:

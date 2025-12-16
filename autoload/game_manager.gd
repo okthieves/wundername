@@ -1,6 +1,9 @@
 extends Node
 # Game Manager Autoload
 
+var hud: HUD
+
+
 #region SAVE DATA
 var save_data := {
 	"player": {
@@ -103,11 +106,16 @@ enum GameState {
 var state := GameState.BOARD
 #endregion
 
+#region SIGNALS
 signal toggle_wunderpal_requested
+#endregion
 
+#region REQUEST WUNDERPAL TOGGLE
 func request_toggle_wunderpal():
 	emit_signal("toggle_wunderpal_requested")
+#endregion
 
+#region DEBUG SEED INVENTORY
 func debug_seed_inventory():
 	save_data["player"]["inventory"] = {
 		1: 3,
@@ -115,3 +123,4 @@ func debug_seed_inventory():
 		3: 12
 	}
 	print("[GameManager] Debug inventory seeded")
+#endregion

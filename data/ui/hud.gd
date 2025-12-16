@@ -1,11 +1,14 @@
 extends Control
+class_name HUD
 
+## General Variables ##
 @onready var wunderpal = $Wunderpal
 @onready var wunder_anim = $Wunderpal/AnimationPlayer
 @onready var ss_container := $Wunderpal/Frame/ScreenArea/GameViewportContainer
 @onready var ss_viewport := $Wunderpal/Frame/ScreenArea/GameViewportContainer/GameViewport
+
+## Tab Variables ##
 var current_tab : String = ""
-# Tab References
 @onready var inventory_list = $Wunderpal/Frame/ScreenArea/Inventory_List
 @onready var inventory_detail = $Wunderpal/Frame/ScreenArea/Inventory_Detail
 
@@ -18,19 +21,21 @@ var current_tab : String = ""
 @onready var btn_inventory = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory
 @onready var btn_quests = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests
 @onready var btn_skills = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills
-
 @onready var tab_buttons = {
 	"inventory": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory,
 	"quests": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests,
 	"skills": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills
 }
 
-
+## Tooltip Variables ##
+@onready var tooltip: Control = $Tooltip
+@onready var tooltip_name: Label = $Tooltip/VBoxContainer/NameLabel
+@onready var tooltip_desc: Label = $Tooltip/VBoxContainer/DescLabel
 
 #region READY
 func _ready():
 	GameManager.toggle_wunderpal_requested.connect(_on_toggle_wunderpal)
-
+	GameManager.hud = self
 	tab_buttons["inventory"].pressed.connect(func():
 		show_tab("inventory")
 	)
@@ -45,6 +50,8 @@ func _ready():
 	show_tab("inventory")
 	
 	setup_wunderpal()
+	
+	tooltip.visible = false
 #endregion
 
 #region WUNDERPAL VARS
@@ -101,9 +108,8 @@ func _on_toggle_wunderpal():
 #endregion
 
 
-# -------------------------------------------------
-# WUNDERPAL SCREENS
-# -------------------------------------------------
+
+## WUNDERPAL SCREENS AND HELPERS
 
 func show_tab(tab_name: String):
 	current_tab = tab_name
@@ -128,3 +134,12 @@ func _hide_all_screens():
 	quest_detail.visible = false
 	skill_list.visible = false
 	skill_detail.visible = false
+
+func show_tooltip(item_data: Dictionary, pos: Vector2):
+	tooltip.visible = true
+	tooltip.global_position = pos + Vector2(16, 16)
+	tooltip_name.text = item_data.name
+	tooltip_desc.text = item_data.description
+	
+func hide_tooltip():
+	tooltip.visible = false
