@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ck8okvgp8sumq"
-path="res://.godot/imported/Double-Chevron-Arrow-Right.png-f87ab744a0640a80a6fb362dae787d55.ctex"
+path="res://.godot/imported/Double-Chevron-Arrow-Right.png-10a112b832353eed7e10dc16d1cb4723.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Double-Chevron-Arrow-Right.png"
-dest_files=["res://.godot/imported/Double-Chevron-Arrow-Right.png-f87ab744a0640a80a6fb362dae787d55.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Double-Chevron-Arrow-Right.png"
+dest_files=["res://.godot/imported/Double-Chevron-Arrow-Right.png-10a112b832353eed7e10dc16d1cb4723.ctex"]
 
 [params]
 

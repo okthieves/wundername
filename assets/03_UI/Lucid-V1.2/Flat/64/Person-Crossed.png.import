@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dqwqk7cujpir3"
-path="res://.godot/imported/Person-Crossed.png-dcc4266eac1b569377c819ce42777052.ctex"
+path="res://.godot/imported/Person-Crossed.png-da965b3665fe3091320a05d82a117028.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Person-Crossed.png"
-dest_files=["res://.godot/imported/Person-Crossed.png-dcc4266eac1b569377c819ce42777052.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Person-Crossed.png"
+dest_files=["res://.godot/imported/Person-Crossed.png-da965b3665fe3091320a05d82a117028.ctex"]
 
 [params]
 

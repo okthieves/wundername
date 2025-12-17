@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dyvirgs53tyib"
-path="res://.godot/imported/Mouse-Right.png-49f3b087b9303d522c78972af199951f.ctex"
+path="res://.godot/imported/Mouse-Right.png-5270d8b99fb93e16addf865bfd8ef9d9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Mouse-Right.png"
-dest_files=["res://.godot/imported/Mouse-Right.png-49f3b087b9303d522c78972af199951f.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Mouse-Right.png"
+dest_files=["res://.godot/imported/Mouse-Right.png-5270d8b99fb93e16addf865bfd8ef9d9.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://jc4fws8bg6u3"
-path="res://.godot/imported/Pause.png-477a049b10422b2cb7b3696701d66b41.ctex"
+path="res://.godot/imported/Pause.png-5ad7bc69166e489806e7c1b122ec97b3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Pause.png"
-dest_files=["res://.godot/imported/Pause.png-477a049b10422b2cb7b3696701d66b41.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Pause.png"
+dest_files=["res://.godot/imported/Pause.png-5ad7bc69166e489806e7c1b122ec97b3.ctex"]
 
 [params]
 

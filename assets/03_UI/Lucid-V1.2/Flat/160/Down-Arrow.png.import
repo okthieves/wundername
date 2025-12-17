@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjdf22ptl8pj"
-path="res://.godot/imported/Down-Arrow.png-51ed91bfc3daeff2a8cc584a255cd4f2.ctex"
+path="res://.godot/imported/Down-Arrow.png-ca54448628730fccf5387fc3064e605c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Down-Arrow.png"
-dest_files=["res://.godot/imported/Down-Arrow.png-51ed91bfc3daeff2a8cc584a255cd4f2.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Down-Arrow.png"
+dest_files=["res://.godot/imported/Down-Arrow.png-ca54448628730fccf5387fc3064e605c.ctex"]
 
 [params]
 

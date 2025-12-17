@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d0ufqpmvs8tnd"
-path="res://.godot/imported/Asperand-Sign.png-4946b05af45e3d1e92a9be1abcb6a871.ctex"
+path="res://.godot/imported/Asperand-Sign.png-9a5a8fce4cf746de235fc4fdea6862cb.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Asperand-Sign.png"
-dest_files=["res://.godot/imported/Asperand-Sign.png-4946b05af45e3d1e92a9be1abcb6a871.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Asperand-Sign.png"
+dest_files=["res://.godot/imported/Asperand-Sign.png-9a5a8fce4cf746de235fc4fdea6862cb.ctex"]
 
 [params]
 

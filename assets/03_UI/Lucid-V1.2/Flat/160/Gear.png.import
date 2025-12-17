@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://baw5fcjp4cgov"
-path="res://.godot/imported/Gear.png-d3010e7b7626526d26ee8d3185b39d00.ctex"
+path="res://.godot/imported/Gear.png-df9e8bd42b96b3113857831a3e3a8636.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Gear.png"
-dest_files=["res://.godot/imported/Gear.png-d3010e7b7626526d26ee8d3185b39d00.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Gear.png"
+dest_files=["res://.godot/imported/Gear.png-df9e8bd42b96b3113857831a3e3a8636.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b6xk0b4g0fykw"
-path="res://.godot/imported/Speaker-1.png-1ccb73f61abc504ff672ad396218796e.ctex"
+path="res://.godot/imported/Speaker-1.png-bd6463e00d27e853652d1fc6a3fabc91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Speaker-1.png"
-dest_files=["res://.godot/imported/Speaker-1.png-1ccb73f61abc504ff672ad396218796e.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Speaker-1.png"
+dest_files=["res://.godot/imported/Speaker-1.png-bd6463e00d27e853652d1fc6a3fabc91.ctex"]
 
 [params]
 

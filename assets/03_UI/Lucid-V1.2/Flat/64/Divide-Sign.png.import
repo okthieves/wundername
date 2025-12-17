@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bso1kxcn7xa1f"
-path="res://.godot/imported/Divide-Sign.png-0246bf1b4588de1d46feeaa49024168f.ctex"
+path="res://.godot/imported/Divide-Sign.png-a09d7f9985b68ddd971a288a72284109.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Divide-Sign.png"
-dest_files=["res://.godot/imported/Divide-Sign.png-0246bf1b4588de1d46feeaa49024168f.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Divide-Sign.png"
+dest_files=["res://.godot/imported/Divide-Sign.png-a09d7f9985b68ddd971a288a72284109.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bwp7dk354pxt5"
-path="res://.godot/imported/Mail.png-afceaee3b1467774942f1ee17dd8096f.ctex"
+path="res://.godot/imported/Mail.png-2f578c627601a0dc469b241ee0cbbe65.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Mail.png"
-dest_files=["res://.godot/imported/Mail.png-afceaee3b1467774942f1ee17dd8096f.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Mail.png"
+dest_files=["res://.godot/imported/Mail.png-2f578c627601a0dc469b241ee0cbbe65.ctex"]
 
 [params]
 

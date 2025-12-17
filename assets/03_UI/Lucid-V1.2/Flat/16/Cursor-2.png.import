@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bw0uwh6f5w3nd"
-path="res://.godot/imported/Cursor-2.png-c263dfc032a234b925dfc66554ea22af.ctex"
+path="res://.godot/imported/Cursor-2.png-f44441fbfcc4f933ddb07f9ac1072bf9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Cursor-2.png"
-dest_files=["res://.godot/imported/Cursor-2.png-c263dfc032a234b925dfc66554ea22af.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Cursor-2.png"
+dest_files=["res://.godot/imported/Cursor-2.png-f44441fbfcc4f933ddb07f9ac1072bf9.ctex"]
 
 [params]
 

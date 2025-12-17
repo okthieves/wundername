@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dwfnuf86p5ot5"
-path="res://.godot/imported/Bulleted-List.png-5b414ecc0850abd693cfa625dac7ace9.ctex"
+path="res://.godot/imported/Bulleted-List.png-27023ab22e7fdb5fd5285cb0d95ace74.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Bulleted-List.png"
-dest_files=["res://.godot/imported/Bulleted-List.png-5b414ecc0850abd693cfa625dac7ace9.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Bulleted-List.png"
+dest_files=["res://.godot/imported/Bulleted-List.png-27023ab22e7fdb5fd5285cb0d95ace74.ctex"]
 
 [params]
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://nrye34n43lju"
-path="res://.godot/imported/Chevron-Arrow-Down.png-2e1e004ba7dcaef9be48f9b90cd9bb28.ctex"
+path="res://.godot/imported/Chevron-Arrow-Down.png-0390e124946819a8fa99898fbf39b594.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Chevron-Arrow-Down.png"
-dest_files=["res://.godot/imported/Chevron-Arrow-Down.png-2e1e004ba7dcaef9be48f9b90cd9bb28.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Chevron-Arrow-Down.png"
+dest_files=["res://.godot/imported/Chevron-Arrow-Down.png-0390e124946819a8fa99898fbf39b594.ctex"]
 
 [params]
 

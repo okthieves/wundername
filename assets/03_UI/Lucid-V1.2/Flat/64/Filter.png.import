@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bowhmthktqdf2"
-path="res://.godot/imported/Filter.png-45aa475194bcec479faaa5a7987f652b.ctex"
+path="res://.godot/imported/Filter.png-0d4954e4c7c4534242505d5c062a65f8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Filter.png"
-dest_files=["res://.godot/imported/Filter.png-45aa475194bcec479faaa5a7987f652b.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Filter.png"
+dest_files=["res://.godot/imported/Filter.png-0d4954e4c7c4534242505d5c062a65f8.ctex"]
 
 [params]
 

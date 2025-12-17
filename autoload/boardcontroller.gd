@@ -87,13 +87,12 @@ func move_direction(dir: Vector2i):
 
 #region INPUT HANDLING
 func _unhandled_input(event):
-	pass
 	if event.is_action_pressed("toggle_wunderpal"):
 		GameManager.request_toggle_wunderpal()
 	if GameManager.state == GameManager.GameState.MENU_OPEN:
 		return
 	
-	if event.is_action_pressed("ui_left"):
+	elif event.is_action_pressed("ui_left"):
 		move_direction(Vector2i(-1, 0))
 	elif event.is_action_pressed("ui_right"):
 		move_direction(Vector2i(1, 0))
@@ -101,7 +100,7 @@ func _unhandled_input(event):
 		move_direction(Vector2i(0, -1))
 	elif event.is_action_pressed("ui_down"):
 		move_direction(Vector2i(0, 1))
-	if event.is_action_pressed("ui_interact"):
+	elif event.is_action_pressed("ui_interact"):
 		try_interact()
 
 #endregion

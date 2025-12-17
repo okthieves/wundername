@@ -91,6 +91,8 @@ func slide_wunderpal(open: bool):
 	is_wunderpal_open = open
 	GameManager.state = GameManager.GameState.MENU_OPEN if open else GameManager.GameState.BOARD
 	
+	ss_viewport.gui_disable_input = open
+	
 	if open:
 		wunderpal.visible = true
 		show_tab("inventory") # ← important
@@ -126,7 +128,7 @@ func show_tab(tab_name: String):
 			skill_list.visible = true
 
 func _hide_all_screens():
-	ss_container.visible = false
+	ss_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 	inventory_list.visible = false
 	inventory_detail.visible = false

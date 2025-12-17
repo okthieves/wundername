@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3vxsn1yj1onj"
-path="res://.godot/imported/Exclamation-Mark.png-906cffb6dcfa6847ecceb0b9c292d614.ctex"
+path="res://.godot/imported/Exclamation-Mark.png-85c1aff253d6dfc00908f6c81ae95a04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Exclamation-Mark.png"
-dest_files=["res://.godot/imported/Exclamation-Mark.png-906cffb6dcfa6847ecceb0b9c292d614.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Exclamation-Mark.png"
+dest_files=["res://.godot/imported/Exclamation-Mark.png-85c1aff253d6dfc00908f6c81ae95a04.ctex"]
 
 [params]
 

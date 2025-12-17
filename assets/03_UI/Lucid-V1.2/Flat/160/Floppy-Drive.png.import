@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://tu34vxnul2gm"
-path="res://.godot/imported/Floppy-Drive.png-5cb8b8e8f837b87e99972408aa450eba.ctex"
+path="res://.godot/imported/Floppy-Drive.png-643bb624085dffa16fb3b2027a6667d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Floppy-Drive.png"
-dest_files=["res://.godot/imported/Floppy-Drive.png-5cb8b8e8f837b87e99972408aa450eba.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Floppy-Drive.png"
+dest_files=["res://.godot/imported/Floppy-Drive.png-643bb624085dffa16fb3b2027a6667d4.ctex"]
 
 [params]
 

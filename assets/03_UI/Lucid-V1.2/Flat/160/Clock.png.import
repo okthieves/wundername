@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://meaxstdc1s3x"
-path="res://.godot/imported/Clock.png-fb47c3144e57a15c2ca8b6565948bb22.ctex"
+path="res://.godot/imported/Clock.png-308f926785e6b5164130ecbdbc0b967a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Clock.png"
-dest_files=["res://.godot/imported/Clock.png-fb47c3144e57a15c2ca8b6565948bb22.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Clock.png"
+dest_files=["res://.godot/imported/Clock.png-308f926785e6b5164130ecbdbc0b967a.ctex"]
 
 [params]
 

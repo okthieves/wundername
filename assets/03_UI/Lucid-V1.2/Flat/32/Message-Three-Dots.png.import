@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://k416gcxaoauf"
-path="res://.godot/imported/Message-Three-Dots.png-cd0f319613af2f970129f49c70195b62.ctex"
+path="res://.godot/imported/Message-Three-Dots.png-60fdfec2d68c9f41241b959514ab52c7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Message-Three-Dots.png"
-dest_files=["res://.godot/imported/Message-Three-Dots.png-cd0f319613af2f970129f49c70195b62.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Message-Three-Dots.png"
+dest_files=["res://.godot/imported/Message-Three-Dots.png-60fdfec2d68c9f41241b959514ab52c7.ctex"]
 
 [params]
 

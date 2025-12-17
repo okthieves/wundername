@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://drkhs530fthj8"
-path="res://.godot/imported/Three-Dots-Vertical.png-81d584f5e39ef2fda4f37f87921d37c7.ctex"
+path="res://.godot/imported/Three-Dots-Vertical.png-7ef0fa10d1003e0723720c536ae69c26.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Three-Dots-Vertical.png"
-dest_files=["res://.godot/imported/Three-Dots-Vertical.png-81d584f5e39ef2fda4f37f87921d37c7.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Three-Dots-Vertical.png"
+dest_files=["res://.godot/imported/Three-Dots-Vertical.png-7ef0fa10d1003e0723720c536ae69c26.ctex"]
 
 [params]
 

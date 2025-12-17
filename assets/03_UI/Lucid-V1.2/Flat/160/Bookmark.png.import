@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b7ki1j3g3vtqt"
-path="res://.godot/imported/Bookmark.png-ae5ff5fe06f3088bb754f6df7a210e4d.ctex"
+path="res://.godot/imported/Bookmark.png-23a1b6671d152de13f8d9cde090e60f6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Bookmark.png"
-dest_files=["res://.godot/imported/Bookmark.png-ae5ff5fe06f3088bb754f6df7a210e4d.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Bookmark.png"
+dest_files=["res://.godot/imported/Bookmark.png-23a1b6671d152de13f8d9cde090e60f6.ctex"]
 
 [params]
 

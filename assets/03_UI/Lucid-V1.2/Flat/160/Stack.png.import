@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://crw78cacmyreb"
-path="res://.godot/imported/Stack.png-619aefdb851044a2cc9156f65399c81f.ctex"
+path="res://.godot/imported/Stack.png-3e471c21acafcc574c8625eb000796af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Stack.png"
-dest_files=["res://.godot/imported/Stack.png-619aefdb851044a2cc9156f65399c81f.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Stack.png"
+dest_files=["res://.godot/imported/Stack.png-3e471c21acafcc574c8625eb000796af.ctex"]
 
 [params]
 

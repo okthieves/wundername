@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cbakvi4crr2uy"
-path="res://.godot/imported/Grid.png-9cbee46117c82873b0c551cb4eb9cd67.ctex"
+path="res://.godot/imported/Grid.png-f6624d6cb4fede87bb6691d0f5c3057d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Grid.png"
-dest_files=["res://.godot/imported/Grid.png-9cbee46117c82873b0c551cb4eb9cd67.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Grid.png"
+dest_files=["res://.godot/imported/Grid.png-f6624d6cb4fede87bb6691d0f5c3057d.ctex"]
 
 [params]
 

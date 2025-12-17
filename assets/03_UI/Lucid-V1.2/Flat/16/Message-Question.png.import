@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dpkltgm462cy2"
-path="res://.godot/imported/Message-Question.png-759c4c6c8ebd4b9e7f451d62f22e5274.ctex"
+path="res://.godot/imported/Message-Question.png-acfd63b7b4daaa30cfa4017eddedf276.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Message-Question.png"
-dest_files=["res://.godot/imported/Message-Question.png-759c4c6c8ebd4b9e7f451d62f22e5274.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Message-Question.png"
+dest_files=["res://.godot/imported/Message-Question.png-acfd63b7b4daaa30cfa4017eddedf276.ctex"]
 
 [params]
 

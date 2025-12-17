@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dro8b0vrklw6"
-path="res://.godot/imported/Cart.png-6917d295c9a41d324c0a32743b5c5d5a.ctex"
+path="res://.godot/imported/Cart.png-35df6abb45570198282b094cd609567d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Cart.png"
-dest_files=["res://.godot/imported/Cart.png-6917d295c9a41d324c0a32743b5c5d5a.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Cart.png"
+dest_files=["res://.godot/imported/Cart.png-35df6abb45570198282b094cd609567d.ctex"]
 
 [params]
 

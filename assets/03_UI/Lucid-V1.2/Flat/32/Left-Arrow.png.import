@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bxmjpfrjjlnfx"
-path="res://.godot/imported/Left-Arrow.png-c1461e528708263ab257362b94b87869.ctex"
+path="res://.godot/imported/Left-Arrow.png-ddad94f2ee037305f87f36473d41728a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Left-Arrow.png"
-dest_files=["res://.godot/imported/Left-Arrow.png-c1461e528708263ab257362b94b87869.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Left-Arrow.png"
+dest_files=["res://.godot/imported/Left-Arrow.png-ddad94f2ee037305f87f36473d41728a.ctex"]
 
 [params]
 

@@ -12,6 +12,9 @@ var jump_force := 260.0
 var gravity := 600.0
 
 func _physics_process(delta):
+	if GameManager.state == GameManager.GameState.MENU_OPEN:
+		velocity = Vector2.ZERO
+		return
 	apply_gravity(delta)
 	handle_horizontal_input()
 	handle_jump(delta)

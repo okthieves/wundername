@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cgbkrb7qam7vm"
-path="res://.godot/imported/Signal-0.png-8faea8a043b88e528d269eb0e9d6fb55.ctex"
+path="res://.godot/imported/Signal-0.png-387cfb8c51568f1195c34e8a563d24a1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Signal-0.png"
-dest_files=["res://.godot/imported/Signal-0.png-8faea8a043b88e528d269eb0e9d6fb55.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Signal-0.png"
+dest_files=["res://.godot/imported/Signal-0.png-387cfb8c51568f1195c34e8a563d24a1.ctex"]
 
 [params]
 

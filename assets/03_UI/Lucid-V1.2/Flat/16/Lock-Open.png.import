@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dbk5mvih8ul1"
-path="res://.godot/imported/Lock-Open.png-08f083437c637ccb08f2396393bb8304.ctex"
+path="res://.godot/imported/Lock-Open.png-5cff7578706f6d33435b919a0a2e0b44.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Lock-Open.png"
-dest_files=["res://.godot/imported/Lock-Open.png-08f083437c637ccb08f2396393bb8304.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Lock-Open.png"
+dest_files=["res://.godot/imported/Lock-Open.png-5cff7578706f6d33435b919a0a2e0b44.ctex"]
 
 [params]
 

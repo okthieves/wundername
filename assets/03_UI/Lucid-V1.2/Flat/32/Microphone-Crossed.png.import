@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://sciylrygsla8"
-path="res://.godot/imported/Microphone-Crossed.png-24526f24a7c54e5a54da5a2b13b67d41.ctex"
+path="res://.godot/imported/Microphone-Crossed.png-ae8b4d45194f944f1f0ee92f15d7db7c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/32/Microphone-Crossed.png"
-dest_files=["res://.godot/imported/Microphone-Crossed.png-24526f24a7c54e5a54da5a2b13b67d41.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/32/Microphone-Crossed.png"
+dest_files=["res://.godot/imported/Microphone-Crossed.png-ae8b4d45194f944f1f0ee92f15d7db7c.ctex"]
 
 [params]
 

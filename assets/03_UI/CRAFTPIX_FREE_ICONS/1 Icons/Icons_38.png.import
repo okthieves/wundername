@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://bycfwtyum0ia4"
-path="res://.godot/imported/Icons_38.png-c869254808403f16c3cb692786966d21.ctex"
+path="res://.godot/imported/Icons_38.png-89e5622f1413f1a7c850cfb4c19a5ca5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_38.png"
-dest_files=["res://.godot/imported/Icons_38.png-c869254808403f16c3cb692786966d21.ctex"]
+source_file="res://assets/03_UI/CRAFTPIX_FREE_ICONS/1 Icons/Icons_38.png"
+dest_files=["res://.godot/imported/Icons_38.png-89e5622f1413f1a7c850cfb4c19a5ca5.ctex"]
 
 [params]
 

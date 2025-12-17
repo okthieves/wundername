@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2xga7y8rvlxr"
-path="res://.godot/imported/Percentage.png-baba2d48902695b8cf0e273c0004d6ad.ctex"
+path="res://.godot/imported/Percentage.png-5b5999fedc2fa08f9ab507c8346bcd3c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Percentage.png"
-dest_files=["res://.godot/imported/Percentage.png-baba2d48902695b8cf0e273c0004d6ad.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Percentage.png"
+dest_files=["res://.godot/imported/Percentage.png-5b5999fedc2fa08f9ab507c8346bcd3c.ctex"]
 
 [params]
 

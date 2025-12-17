@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://ciprnyetrowl7"
-path="res://.godot/imported/Up-Arrow.png-2fa8630657fdebf83473b9409794d740.ctex"
+path="res://.godot/imported/Up-Arrow.png-7c5ff6f956f09a60f6f6580c5a302737.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Up-Arrow.png"
-dest_files=["res://.godot/imported/Up-Arrow.png-2fa8630657fdebf83473b9409794d740.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Up-Arrow.png"
+dest_files=["res://.godot/imported/Up-Arrow.png-7c5ff6f956f09a60f6f6580c5a302737.ctex"]
 
 [params]
 

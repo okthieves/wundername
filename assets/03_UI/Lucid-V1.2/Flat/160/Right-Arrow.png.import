@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cp8jeo23c3utg"
-path="res://.godot/imported/Right-Arrow.png-b7f38911adcacdab5e2f43f6830a48d6.ctex"
+path="res://.godot/imported/Right-Arrow.png-f50d68805934be8fb3c760b76e0d8294.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Right-Arrow.png"
-dest_files=["res://.godot/imported/Right-Arrow.png-b7f38911adcacdab5e2f43f6830a48d6.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Right-Arrow.png"
+dest_files=["res://.godot/imported/Right-Arrow.png-f50d68805934be8fb3c760b76e0d8294.ctex"]
 
 [params]
 

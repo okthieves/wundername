@@ -9,7 +9,7 @@ static var ITEMS := {
 		"type": "key",
 		"value": 0,
 		"description": "Lets you instantly travel back to station.",
-		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_28.png",  # Envelope
+		"icon_path": "res://assets/03_UI/CRAFTPIX_FREE_ICONS/1 Icons/Icons_28.png",  # Envelope
 	},
 
 	2: {
@@ -19,7 +19,7 @@ static var ITEMS := {
 		"type": "consumable",
 		"value": 15,
 		"description": "Restores 15 HP.",
-		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_19.png",  # Meat
+		"icon_path": "res://assets/03_UI/CRAFTPIX_FREE_ICONS/1 Icons/Icons_19.png",  # Meat
 	},
 
 	3: {
@@ -29,7 +29,7 @@ static var ITEMS := {
 		"type": "material",
 		"value": 5,
 		"description": "Useful for crafting and repairs.",
-		"icon_path": "res://assets/03_UI/craftpix-net-972304-free-40-loot-icons-pixel-art/1 Icons/Icons_33.png",  # Mechanism
+		"icon_path": "res://assets/03_UI/CRAFTPIX_FREE_ICONS/1 Icons/Icons_33.png",  # Mechanism
 	},
 }
 

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1whisa6vu6fn"
-path="res://.godot/imported/Folder-Music.png-a8251c507fd10515acb2091d5ac80992.ctex"
+path="res://.godot/imported/Folder-Music.png-e2e26b45bfc4b1a5b9874758af7dd43f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/160/Folder-Music.png"
-dest_files=["res://.godot/imported/Folder-Music.png-a8251c507fd10515acb2091d5ac80992.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/160/Folder-Music.png"
+dest_files=["res://.godot/imported/Folder-Music.png-e2e26b45bfc4b1a5b9874758af7dd43f.ctex"]
 
 [params]
 

@@ -2,12 +2,14 @@ extends SubViewport
 
 
 # Attached to $HUD/Wunderpal/Frame/ScreenArea/GameViewport
-# Loads the test side scroller scene
+# Loads the appropriate side scroll scene
 
+func load_scene(scene_path: String):
+	clear()
+	var scene = load(scene_path)
+	if scene:
+		add_child(scene.instantiate())
 
-func _ready():
-	# Load the test side-scroller scene
-	var test_scene = load("res://scenes/sidescroller/test_scene.tscn")
-	var instance = test_scene.instantiate()
-
-	add_child(instance)  # Put it into the viewport
+func clear():
+	for c in get_children():
+		c.queue_free()

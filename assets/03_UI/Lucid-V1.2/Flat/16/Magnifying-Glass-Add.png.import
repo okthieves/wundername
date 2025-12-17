@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b4g7jg33xgfwi"
-path="res://.godot/imported/Magnifying-Glass-Add.png-b8de6bbf743de0769e6133f3fa23ae53.ctex"
+path="res://.godot/imported/Magnifying-Glass-Add.png-4cedf7848dbdc47d7d2dc0d72643d033.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/16/Magnifying-Glass-Add.png"
-dest_files=["res://.godot/imported/Magnifying-Glass-Add.png-b8de6bbf743de0769e6133f3fa23ae53.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/16/Magnifying-Glass-Add.png"
+dest_files=["res://.godot/imported/Magnifying-Glass-Add.png-4cedf7848dbdc47d7d2dc0d72643d033.ctex"]
 
 [params]
 

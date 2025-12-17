@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjplxkgrpk31o"
-path="res://.godot/imported/5.png-96acb16c8cdd6d6d0417e1537db2bb59.ctex"
+path="res://.godot/imported/5.png-b592d07e279cfca5611f14e28827ddc3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/BACKGROUNDS/CLOUD BACKGROUNDS/3. NEW CLOUDS/5.png"
-dest_files=["res://.godot/imported/5.png-96acb16c8cdd6d6d0417e1537db2bb59.ctex"]
+source_file="res://assets/03_UI/BACKGROUNDS/DARK_CLOUD_SKY_1/5.png"
+dest_files=["res://.godot/imported/5.png-b592d07e279cfca5611f14e28827ddc3.ctex"]
 
 [params]
 

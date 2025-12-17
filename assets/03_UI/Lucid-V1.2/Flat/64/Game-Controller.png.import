@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://daopxpeipoqrk"
-path="res://.godot/imported/Game-Controller.png-bc31b27581e6700d020b05d90d4ec6c1.ctex"
+path="res://.godot/imported/Game-Controller.png-340ee0b786706c3aeb755c20f89ec9bc.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/03_UI/Lucid-V1.2/Lucid V1.2/PNG/Flat/64/Game-Controller.png"
-dest_files=["res://.godot/imported/Game-Controller.png-bc31b27581e6700d020b05d90d4ec6c1.ctex"]
+source_file="res://assets/03_UI/Lucid-V1.2/Flat/64/Game-Controller.png"
+dest_files=["res://.godot/imported/Game-Controller.png-340ee0b786706c3aeb755c20f89ec9bc.ctex"]
 
 [params]
 
