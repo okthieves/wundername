@@ -1,4 +1,4 @@
-extends Button
+extends Control
 class_name ItemGridCell
 
 @onready var frame: TextureRect = $Frame
@@ -9,15 +9,15 @@ class_name ItemGridCell
 var item_data: Dictionary
 
 func _ready():
-	glow.visible = false
+	mouse_filter = Control.MOUSE_FILTER_STOP
+	focus_mode = Control.FOCUS_NONE
 
-	mouse_entered.connect(func():
-		glow.visible = true
-	)
+	# Glow setup
+	glow.visible = true
+	glow.self_modulate = Color(1, 1, 1, 0)
 
-	mouse_exited.connect(func():
-		glow.visible = false
-	)
+	mouse_entered.connect(_on_hover)
+	mouse_exited.connect(_on_unhover)
 
 func setup(id: int, amount: int):
 	item_data = ItemDB.ITEMS.get(id)
@@ -28,15 +28,17 @@ func setup(id: int, amount: int):
 	icon_texture.texture = load(item_data.icon_path)
 	glow.visible = false
 
-	mouse_entered.connect(_on_hovered)
-	mouse_exited.connect(_on_unhovered)
+	mouse_entered.connect(_on_hover)
+	mouse_exited.connect(_on_unhover)
 	mouse_entered.connect(func():
 		print("HOVER WORKS")
 	)
-func _on_hovered():
+func _on_hover():
 	glow.visible = true
+	glow.self_modulate.a = 1
 	GameManager.hud.show_tooltip(item_data, global_position)
 
-func _on_unhovered():
+func _on_unhover():
 	glow.visible = false
+	glow.self_modulate.a = 0
 	GameManager.hud.hide_tooltip()

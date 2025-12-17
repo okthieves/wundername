@@ -78,6 +78,76 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_l20r4")
 
+[node name="mid_bar_right" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_jlufg")
+stretch_mode = 4
+
+[node name="zone_singlered" type="Control" parent="mid_bar_right"]
+custom_minimum_size = Vector2(68, 100)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="zone_redscroller" type="Control" parent="mid_bar_right"]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="mid_bar_left" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_l20r4")
+
+[node name="bot_bar" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_jlufg")
+stretch_mode = 4
+
+[node name="legend" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("5_l20r4")
+stretch_mode = 4
+
+[node name="top_bar" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+offset_right = 1280.0
+offset_bottom = 720.0
+mouse_filter = 2
+texture = ExtResource("3_6ll6g")
+stretch_mode = 4
+
 [node name="Wunderpal" type="Control" parent="."]
 custom_minimum_size = Vector2(320, 496)
 anchors_preset = 0
@@ -267,76 +337,6 @@ mouse_filter = 0
 theme_override_constants/h_separation = 18
 theme_override_constants/v_separation = 18
 columns = 4
-
-[node name="mid_bar_right" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("3_jlufg")
-stretch_mode = 4
-
-[node name="zone_singlered" type="Control" parent="mid_bar_right"]
-custom_minimum_size = Vector2(68, 100)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="zone_redscroller" type="Control" parent="mid_bar_right"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="mid_bar_left" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_l20r4")
-
-[node name="bot_bar" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("4_jlufg")
-stretch_mode = 4
-
-[node name="legend" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("5_l20r4")
-stretch_mode = 4
-
-[node name="top_bar" type="TextureRect" parent="."]
-custom_minimum_size = Vector2(1280, 720)
-layout_mode = 1
-offset_right = 1280.0
-offset_bottom = 720.0
-mouse_filter = 2
-texture = ExtResource("3_6ll6g")
-stretch_mode = 4
 
 [node name="Tooltip" parent="." instance=ExtResource("2_e8r00")]
 visible = false
