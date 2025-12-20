@@ -4,7 +4,24 @@
 extends Control
 class_name HUD
 
+var active_sidescroll: Node = null
 
+@onready var debug_state_label: Label = $DebugStateLabel
+
+func _process(_delta):
+	update_debug_state_label()
+	
+func update_debug_state_label():
+	var state_name = GameManager.GameState.keys()[GameManager.state]
+	debug_state_label.text = "STATE: " + state_name
+
+	match GameManager.state:
+		GameManager.GameState.BOARD:
+			debug_state_label.modulate = Color.LIGHT_GREEN
+		GameManager.GameState.MENU_OPEN:
+			debug_state_label.modulate = Color.YELLOW
+		GameManager.GameState.SIDESCROLL:
+			debug_state_label.modulate = Color.ORANGE
 ## --------------------------
 ## GENERAL NODE REFERENCES
 ## --------------------------
@@ -27,26 +44,27 @@ class_name HUD
 ## TAB STATE AND REFERENCES
 ## --------------------------
 
+@onready var inventory_root := $Wunderpal/Frame/ScreenArea/MENU_HUB
 ## Name of the currently active Wunderpal tab.
 var current_tab : String = ""
 
 ## Inventory list UI (grid of items).
-@onready var inventory_list = $Wunderpal/Frame/ScreenArea/Inventory_List
+@onready var inventory_list = $Wunderpal/Frame/ScreenArea/MENU_HUB/Inventory_List
 
 ## Inventory detail panel (selected item information).
-@onready var inventory_detail = $Wunderpal/Frame/ScreenArea/Inventory_Detail
+@onready var inventory_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Inventory_Detail
 
 ## Quest list UI.
-@onready var quest_list     = $Wunderpal/Frame/ScreenArea/Quest_List
+@onready var quest_list     = $Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_List
 
 ## Quest detail panel.
-@onready var quest_detail = $Wunderpal/Frame/ScreenArea/Quest_Detail
+@onready var quest_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_Detail
 
 ## Skill list UI.
-@onready var skill_list     = $Wunderpal/Frame/ScreenArea/Skill_List
+@onready var skill_list     = $Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_List
 
 ## Skill detail panel.
-@onready var skill_detail = $Wunderpal/Frame/ScreenArea/Skill_Detail
+@onready var skill_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_Detail
 
 
 ## --------------------------
@@ -54,20 +72,20 @@ var current_tab : String = ""
 ## --------------------------
 
 ## Inventory tab button.
-@onready var btn_inventory = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory
+@onready var btn_inventory = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory
 
 ## Quests tab button.
-@onready var btn_quests = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests
+@onready var btn_quests = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests
 
 ## Skills tab button.
-@onready var btn_skills = $Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills
+@onready var btn_skills = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills
 
 ## Mapping of tab names to their corresponding buttons.
 ## Used for simplified tab switching logic.
 @onready var tab_buttons = {
-	"inventory": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory,
-	"quests": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests,
-	"skills": $Wunderpal/Frame/ScreenArea/Tabs/Btn_Skills
+	"inventory": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory,
+	"quests": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests,
+	"skills": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills
 }
 
 
@@ -172,6 +190,9 @@ func toggle_wunderpal():
 ## Updates game state and input routing accordingly.
 ## @param open Whether the Wunderpal should be opened.
 func slide_wunderpal(open: bool):
+		# Do not allow menu logic during side-scroll
+	if GameManager.state == GameManager.GameState.SIDESCROLL:
+		return
 	is_wunderpal_open = open
 	GameManager.state = GameManager.GameState.MENU_OPEN if open else GameManager.GameState.BOARD
 	
@@ -179,9 +200,10 @@ func slide_wunderpal(open: bool):
 	ss_viewport.gui_disable_input = open
 	
 	if open:
+		exit_sidescroll_mode()
 		wunderpal.visible = true
 		show_tab("inventory") # Ensure a valid default screen
-		inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"])
+		inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"]["items"])
 		wunder_anim.play("open_wunderpal")
 	else:
 		wunder_anim.play("close_wunderpal")
@@ -214,7 +236,7 @@ func show_tab(tab_name: String):
 	match tab_name:
 		"inventory":
 			inventory_list.visible = true
-			inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"])
+			inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"]["items"])
 		"quests":
 			quest_list.visible = true
 		"skills":
@@ -225,7 +247,6 @@ func show_tab(tab_name: String):
 ## for the SubViewport container.
 func _hide_all_screens():
 	ss_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
-
 	inventory_list.visible = false
 	inventory_detail.visible = false
 	quest_list.visible = false
@@ -238,6 +259,8 @@ func _hide_all_screens():
 ## @param item_data Dictionary containing item name and description.
 ## @param pos Global mouse position for tooltip placement.
 func show_tooltip(item_data: Dictionary, pos: Vector2):
+	if GameManager.state == GameManager.GameState.SIDESCROLL:
+		return
 	tooltip.visible = true
 	tooltip.global_position = pos + Vector2(16, 16)
 	tooltip_name.text = item_data.name
@@ -247,3 +270,98 @@ func show_tooltip(item_data: Dictionary, pos: Vector2):
 ## Hides the currently visible tooltip.
 func hide_tooltip():
 	tooltip.visible = false
+
+## --------------------------
+## SIDESCROLL OPEN / CLOSE
+## --------------------------
+func open_sidescroll(scene_path: String):
+	if scene_path == "" or scene_path == null:
+		push_warning("No side-scroll scene path provided.")
+		return
+		
+	if GameManager.state == GameManager.GameState.SIDESCROLL:
+		return
+		
+	
+	# If something is already loaded, remove it cleanly first
+	if active_sidescroll and is_instance_valid(active_sidescroll):
+		active_sidescroll.queue_free()
+		active_sidescroll = null
+		await get_tree().process_frame  # let frees resolve
+		
+	set_inventory_interactive(false)
+	enter_sidescroll_mode()
+	GameManager.set_state(GameManager.GameState.SIDESCROLL)
+	
+	wunderpal.visible = true
+	wunderpal.show()
+	wunder_anim.play("open_wunderpal")
+	is_wunderpal_open = true
+	tooltip.visible = false
+	
+	var scene = load(scene_path).instantiate()
+	ss_viewport.add_child(scene)
+	active_sidescroll = scene
+	
+func exit_sidescroll():
+	if GameManager.state != GameManager.GameState.SIDESCROLL:
+		return
+		
+	if active_sidescroll and is_instance_valid(active_sidescroll):
+		active_sidescroll.queue_free()
+		active_sidescroll = null
+		await get_tree().process_frame
+		
+	exit_sidescroll_mode()
+	
+	set_inventory_interactive(true)
+	set_tabs_enabled(true)
+
+	
+	wunder_anim.play("close_wunderpal")
+	await wunder_anim.animation_finished
+	is_wunderpal_open = false
+	wunderpal.visible = false
+	
+	GameManager.set_state(GameManager.GameState.BOARD)
+	
+## Inventory Interactability
+func set_inventory_interactive(enabled: bool):
+	var filter := Control.MOUSE_FILTER_STOP if enabled else Control.MOUSE_FILTER_IGNORE
+
+	inventory_root.mouse_filter = filter
+
+	for child in inventory_root.get_children():
+		if child is Control:
+			child.mouse_filter = filter
+
+func set_tabs_enabled(enabled: bool):
+	for btn in tab_buttons.values():
+		btn.disabled = not enabled
+
+func enter_sidescroll_mode():
+	_hide_all_screens()
+	tooltip.visible = false
+
+	# Hide tabs
+	for btn in tab_buttons.values():
+		btn.visible = false
+	
+	# Show device + sidescroll viewport
+	wunderpal.visible = true
+	wunderpal.show() # extra force for sanity
+	wunderpal.position.y = wunderpal_open_offset
+	
+	ss_container.visible = true
+	ss_viewport.gui_disable_input = false
+
+func exit_sidescroll_mode():
+	# Restore tabs
+	for btn in tab_buttons.values():
+		btn.visible = true
+
+	# Hide side-scroll container
+	ss_container.visible = false
+	ss_viewport.gui_disable_input = true
+	# Default back to inventory tab
+	show_tab("inventory")

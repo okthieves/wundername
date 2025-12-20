@@ -18,12 +18,18 @@ var jump_force := 260.0
 ## Simulates gravity for the side-scrolling scene.
 var gravity := 600.0
 
+var spawn_locked := true
+
 
 ## Handles physics-based movement every physics frame.
 ## Movement is disabled while the Wunderpal menu is open.
 ## @param delta Time elapsed since the last physics frame.
 func _physics_process(delta):
-	if GameManager.state == GameManager.GameState.MENU_OPEN:
+	
+	if spawn_locked:
+		return
+		
+	if GameManager.state != GameManager.GameState.SIDESCROLL:
 		velocity = Vector2.ZERO
 		return
 
@@ -58,3 +64,10 @@ func handle_horizontal_input():
 func handle_jump(delta):
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = -jump_force
+
+func _ready() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	spawn_locked = false
+	velocity = Vector2.ZERO
+	position = Vector2.ZERO

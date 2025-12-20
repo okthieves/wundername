@@ -11,7 +11,7 @@ const GRID_SIZE := 12   # 3x4 grid like your mockup
 func _ready():
 	refresh()
 func refresh():
-	var inventory := GameManager.get_inventory()
+	var inventory := GameManager.get_inventory_items()
 	populate_inventory(inventory)
 func populate_inventory(inventory: Dictionary):
 	clear_grid()

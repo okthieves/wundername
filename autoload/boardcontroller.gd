@@ -141,9 +141,18 @@ func move_direction(dir: Vector2i):
 ## Disabled while menus are open.
 func _unhandled_input(event):
 	if event.is_action_pressed("toggle_wunderpal"):
-		GameManager.request_toggle_wunderpal()
+		match GameManager.state:
+			GameManager.GameState.BOARD:
+				GameManager.request_toggle_wunderpal()
+			GameManager.GameState.MENU_OPEN:
+				GameManager.request_toggle_wunderpal()
+			GameManager.GameState.SIDESCROLL:
+				GameManager.hud.exit_sidescroll()
 
 	if GameManager.state == GameManager.GameState.MENU_OPEN:
+		return
+	
+	if GameManager.state != GameManager.GameState.BOARD:
 		return
 	
 	elif event.is_action_pressed("ui_left"):
@@ -278,10 +287,14 @@ func open_sidescroller(path: String):
 	if path == "" or path == null:
 		print("ERROR: No scene assigned for this interact tile.")
 		return
+	GameManager.set_state(GameManager.GameState.SIDESCROLL)
 
+	GameManager.hud.open_sidescroll(path)
+	
 	var scene = load(path).instantiate()
 	viewport.add_child(scene)
 
+	
 #endregion
 
 #region WALKABLE
