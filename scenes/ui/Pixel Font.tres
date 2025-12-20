@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://x61hrmplejsw"]
+
+[ext_resource type="FontFile" uid="uid://cllgfsgjn6brj" path="res://assets/03_UI/PixelifySans-VariableFont_wght.ttf" id="1_ixkak"]
+
+[resource]
+font = ExtResource("1_ixkak")

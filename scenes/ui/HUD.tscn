@@ -1,19 +1,40 @@
-[gd_scene load_steps=19 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=29 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
 [ext_resource type="Script" uid="uid://7qqfxjjtlyhi" path="res://data/ui/wunderpal.gd" id="2_6ll6g"]
 [ext_resource type="PackedScene" uid="uid://cq36usjpvpuoh" path="res://scenes/ui/tooltip.tscn" id="2_e8r00"]
+[ext_resource type="Texture2D" uid="uid://d1rat8jlj3wgi" path="res://assets/wunder/tv_telly.png" id="2_ffvok"]
 [ext_resource type="Texture2D" uid="uid://q2rux1rngary" path="res://assets/wunder/1.png" id="3_6ll6g"]
 [ext_resource type="Texture2D" uid="uid://binechcpffu" path="res://assets/wunder/mid_bar_right.png" id="3_jlufg"]
+[ext_resource type="Texture2D" uid="uid://dy23gxdveusj5" path="res://assets/wunder/tv_light.png" id="3_rfrwv"]
 [ext_resource type="Script" uid="uid://dn85cuynkhdil" path="res://data/ui/inv_list.gd" id="4_euikm"]
 [ext_resource type="Texture2D" uid="uid://q2pqujjyfjow" path="res://assets/wunder/3.png" id="4_jlufg"]
 [ext_resource type="Texture2D" uid="uid://bg0h58fywjfar" path="res://assets/wunder/mid_bar_left.png" id="4_l20r4"]
+[ext_resource type="Texture2D" uid="uid://dyhd1puktyylv" path="res://assets/wunder/tv_light_on.png" id="4_oteo6"]
 [ext_resource type="PackedScene" uid="uid://7q67aubqnvb2" path="res://scenes/ui/item_grid_cell.tscn" id="5_38nk3"]
 [ext_resource type="Texture2D" uid="uid://c2ianjp8t7nbu" path="res://assets/wunder/2.png" id="5_l20r4"]
 [ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://data/ui/inv_detail.gd" id="5_p4k5r"]
 [ext_resource type="PackedScene" uid="uid://y6h8k7nt52b4" path="res://scenes/ui/empty_grid_cell.tscn" id="6_6bi52"]
+[ext_resource type="Texture2D" uid="uid://db6nv8eyw2h6s" path="res://assets/03_UI/Lucid-V1.2/Flat/16/Heart.png" id="7_4wy6o"]
 [ext_resource type="Texture2D" uid="uid://oom4au4g6wlq" path="res://assets/03_UI/TAB BORDER.png" id="7_38nk3"]
+[ext_resource type="FontFile" uid="uid://cllgfsgjn6brj" path="res://assets/03_UI/PixelifySans-VariableFont_wght.ttf" id="8_blesy"]
+[ext_resource type="LabelSettings" uid="uid://x61hrmplejsw" path="res://scenes/ui/Pixel Font.tres" id="8_rfrwv"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ffvok"]
+font = ExtResource("8_blesy")
+
+[sub_resource type="LabelSettings" id="LabelSettings_rfrwv"]
+font = ExtResource("8_blesy")
+
+[sub_resource type="FontVariation" id="FontVariation_blesy"]
+base_font = ExtResource("8_blesy")
+
+[sub_resource type="LabelSettings" id="LabelSettings_lo123"]
+font = SubResource("FontVariation_blesy")
+font_size = 21
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
 
 [sub_resource type="Animation" id="Animation_p4k5r"]
 length = 0.001
@@ -78,6 +99,30 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_l20r4")
 
+[node name="Television" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="tv_telly" type="TextureRect" parent="Television"]
+layout_mode = 0
+offset_right = 1280.0
+offset_bottom = 720.0
+texture = ExtResource("2_ffvok")
+
+[node name="tv_light_off" type="TextureRect" parent="Television"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("3_rfrwv")
+
+[node name="tv_light_on" type="TextureRect" parent="Television"]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("4_oteo6")
+
 [node name="mid_bar_right" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 1
@@ -115,6 +160,53 @@ grow_vertical = 2
 mouse_filter = 2
 texture = ExtResource("4_l20r4")
 
+[node name="Dialogue_Box" type="BoxContainer" parent="mid_bar_left"]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 553.0
+offset_right = 447.0
+offset_bottom = 648.0
+
+[node name="Label" type="Label" parent="mid_bar_left/Dialogue_Box"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "This area will display the text of dialogue. I hope I can load multiple pieces of text here."
+label_settings = SubResource("LabelSettings_ffvok")
+autowrap_mode = 3
+
+[node name="Name_Box" type="BoxContainer" parent="mid_bar_left"]
+custom_minimum_size = Vector2(158, 23)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 553.0
+offset_right = 162.0
+offset_bottom = 576.0
+
+[node name="Label" type="Label" parent="mid_bar_left/Name_Box"]
+custom_minimum_size = Vector2(158, 14)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Character Name"
+label_settings = SubResource("LabelSettings_rfrwv")
+
+[node name="Profession_Box" type="BoxContainer" parent="mid_bar_left"]
+custom_minimum_size = Vector2(154, 23)
+layout_mode = 0
+offset_left = 8.0
+offset_top = 576.0
+offset_right = 162.0
+offset_bottom = 599.0
+
+[node name="Label" type="Label" parent="mid_bar_left/Profession_Box"]
+custom_minimum_size = Vector2(158, 23)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+text = "Profession"
+label_settings = ExtResource("8_rfrwv")
+
 [node name="bot_bar" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(1280, 720)
 layout_mode = 1
@@ -147,6 +239,51 @@ offset_bottom = 720.0
 mouse_filter = 2
 texture = ExtResource("3_6ll6g")
 stretch_mode = 4
+
+[node name="top_bar_hbox" type="HBoxContainer" parent="top_bar"]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 1271.0
+offset_bottom = 39.0
+alignment = 1
+
+[node name="top_bar_health" type="Control" parent="top_bar/top_bar_hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="top_bar/top_bar_hbox/top_bar_health"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="top_bar/top_bar_hbox/top_bar_health/HBoxContainer"]
+custom_minimum_size = Vector2(16, 16)
+layout_mode = 2
+texture = ExtResource("7_4wy6o")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="top_bar/top_bar_hbox/top_bar_health/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+text = "100/100"
+label_settings = SubResource("LabelSettings_lo123")
+horizontal_alignment = 1
+
+[node name="top_bar_itemcount" type="Control" parent="top_bar/top_bar_hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="top_bar_area_name" type="Control" parent="top_bar/top_bar_hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="top_bar_deck" type="Control" parent="top_bar/top_bar_hbox"]
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="Wunderpal" type="Control" parent="."]
 custom_minimum_size = Vector2(320, 496)
@@ -348,7 +485,6 @@ offset_right = 150.0
 offset_bottom = 100.0
 grow_horizontal = 1
 grow_vertical = 1
-mouse_filter = 2
 
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Inventory" to="." method="show_inventory"]
 [connection signal="pressed" from="Wunderpal/Frame/ScreenArea/Tabs/Btn_Quests" to="." method="show_quests"]

@@ -1,8 +1,6 @@
 extends Node
 
-## Attach to each level
-## Registers nodes from the level
-## Add more when we get more nodes so registration occurs
+# Attach to each level
 
 func _ready():
 	print("Initializing level:", self.name)
