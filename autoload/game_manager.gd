@@ -6,11 +6,11 @@
 ## global, non-scene-specific logic only.
 extends Node
 
-
 ## Reference to the active HUD instance.
 ## Assigned by the HUD on initialization.
 var hud: HUD
 
+#region DEBUG INPUT COMMANDS
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_merlin"):
 		set_player_name("Merlin")
@@ -22,63 +22,90 @@ func _unhandled_input(event: InputEvent) -> void:
 		print(GameManager.get_stat("resilience"))
 		print(GameManager.get_stat("speed"))
 		print(GameManager.get_stat("modifiers"))
+#endregion
+
 #region SAVE DATA
 
 ## Primary save data dictionary.
 ## Stores all persistent player and world information.
 ## This structure is intended to be serializable for save/load.
 var save_data := {
+	# ─────────────────────────────
+	# PLAYER STATE
+	# ─────────────────────────────
 	"player": {
-		## Stable player identity (rarely changes)
+
+		# ─────────────────────────────
+		# IDENTITY (rarely changes)
+		# ─────────────────────────────
 		"identity": {
 			"name": "Traveler",
 			"element_affinity": "neutral",
-			"tags": []  # semantic traits, e.g. ["human", "resonant"]
+			"tags": []  # semantic traits: ["human", "resonant", "marked"]
 		},
 
-		## Player combat / movement stats
+		# ─────────────────────────────
+		# STATS (frequently read, sometimes modified)
+		# ─────────────────────────────
 		"stats": {
 			"hp": 100,
 			"max_hp": 100,
 			"speed": 1.0,
-			"modifiers": {},
-			"luck": 0,             # drops, events, dialogue
-			"resilience": 0,       # status resistance (later)
+			"luck": 0,
+			"resilience": 0,
+
+			# Temporary or conditional modifiers
+			# e.g. { "speed": +0.2, "luck": -1 }
+			"modifiers": {}
 		},
 
-		## Player inventory & systems
+		# ─────────────────────────────
+		# INVENTORY SYSTEMS
+		# ─────────────────────────────
 		"inventory": {
-			"items": {},    # { item_id : amount }
-			"cards": []     # future system
+			"items": {},   # { item_id : amount }
+			"cards": []    # card_ids (Phase 2)
 		},
 
-		## Player board position (board game layer)
+		# ─────────────────────────────
+		# BOARD POSITION (turn-based layer)
+		# ─────────────────────────────
 		"position": {
 			"board_id": "level_0",
 			"cell": Vector2i(0, 0)
 		},
+
+		# ─────────────────────────────
+		# PROGRESS FLAGS
+		# ─────────────────────────────
 		"progress": {
 			"boards_visited": [],
-			"npcs_met": {},
-			"secrets_found": {},
+			"npcs_met": {},       # { npc_id : true }
+			"secrets_found": {}   # { secret_id : true }
 		}
 	},
+
+	# ─────────────────────────────
+	# WORLD STATE
+	# ─────────────────────────────
 	"world": {
-		"visited_tiles": {},
-		"quests": {},
+		"visited_tiles": {},     # { Vector2i : true }
+		"quests": {},            # { quest_id : state }
 		"time_of_day": "morning",
 		"level_name": "level_0",
+
+		# Side-scroll persistence (Phase 1 minimal)
 		"sidescroll": {
 			"active_scene": "",
 			"spawn_point": "default",
-			"scene_state": {},
+			"scene_state": {}   # { scene_path : { position, flags } }
 		}
 	}
 }
 
 #endregion
 
-#region PLAYER IDENTITY
+#region PLAYER NAME | ELEMENT AFFINITY | TAGS
 
 func get_player_name() -> String:
 	return save_data["player"]["identity"]["name"]
@@ -86,26 +113,23 @@ func get_player_name() -> String:
 func set_player_name(new_name: String):
 	save_data["player"]["identity"]["name"] = new_name
 
-
 func get_element_affinity() -> String:
 	return save_data["player"]["identity"]["element_affinity"]
 
 func set_element_affinity(affinity: String):
 	save_data["player"]["identity"]["element_affinity"] = affinity
 
-
 func add_player_tag(tag: String):
 	var tags = save_data["player"]["identity"]["tags"]
 	if not tags.has(tag):
 		tags.append(tag)
-
 
 func has_player_tag(tag: String) -> bool:
 	return save_data["player"]["identity"]["tags"].has(tag)
 
 #endregion
 
-#region PLAYER MANAGEMENT
+#region PLAYER STAT MANAGEMENT
 
 ## Heals the player by a given amount.
 ## Health is clamped between 0 and max HP.
@@ -130,7 +154,7 @@ func set_stat(stat_name: String, value):
 		return
 
 	save_data["player"]["stats"][stat_name] = value
-	
+
 func modify_stat(stat_name: String, delta):
 	if not save_data["player"]["stats"].has(stat_name):
 		push_warning("Attempted to modify unknown stat: %s" % stat_name)
@@ -139,26 +163,15 @@ func modify_stat(stat_name: String, delta):
 	save_data["player"]["stats"][stat_name] += delta
 #endregion
 
-
 #region INVENTORY
 
 ## Adds an item to the player's inventory.
 ## @param id Item ID from ItemDB.
 ## @param amount Number of items to add.
+
 func add_item(id: int, amount: int = 1):
-	if not ItemDB.ITEMS.has(id):
-		push_error("Invalid item ID: %s" % id)
-		return
-
-	var inv = save_data["player"]["inventory"]["items"]
-
-	if inv.has(id):
-		inv[id] += amount
-	else:
-		inv[id] = amount
-
-	print("Inventory now:", inv)
-
+	var items = save_data["player"]["inventory"]["items"]
+	items[id] = items.get(id, 0) + amount
 
 ## Removes an item from the player's inventory.
 ## Automatically removes the entry if the count reaches zero.
@@ -193,9 +206,8 @@ func get_inventory() -> Dictionary:
 
 
 func get_inventory_items() -> Dictionary:
-	return save_data["player"]["inventory"].get("items", {})
+	return save_data["player"]["inventory"]["items"]
 #endregion
-
 
 #region QUESTS
 
@@ -215,7 +227,6 @@ func get_quest_state(quest_id: String) -> String:
 
 #endregion
 
-
 #region TILE REGISTRATION
 
 ## Marks a board tile as visited.
@@ -232,7 +243,6 @@ func is_tile_visited(cell: Vector2i) -> bool:
 
 #endregion
 
-
 #region TIME AND DATE
 
 ## Sets the current time-of-day state.
@@ -248,7 +258,6 @@ func get_time() -> String:
 
 #endregion
 
-
 #region GODOT NATIVE
 
 ## Called when the GameManager autoload is initialized.
@@ -258,7 +267,6 @@ func _ready():
 	debug_seed_inventory()
 
 #endregion
-
 
 #region GAME STATE
 
@@ -282,7 +290,6 @@ func set_state(new_state: GameState):
 	
 #endregion
 
-
 #region SIGNALS
 
 ## Emitted when the Wunderpal should be toggled.
@@ -290,7 +297,6 @@ func set_state(new_state: GameState):
 signal toggle_wunderpal_requested
 
 #endregion
-
 
 #region REQUEST WUNDERPAL TOGGLE
 
@@ -300,7 +306,6 @@ func request_toggle_wunderpal():
 	emit_signal("toggle_wunderpal_requested")
 
 #endregion
-
 
 #region DEBUG SEED INVENTORY
 
@@ -313,4 +318,40 @@ func debug_seed_inventory():
 		3: 12
 	}
 	print("[GameManager] Debug inventory seeded")
+#endregion
+
+#region SIDESCROLL PERSISTENCE
+
+func set_active_sidescroll(scene_path: String):
+	save_data["world"]["sidescroll"]["active_scene"] = scene_path
+
+func set_sidescroll_position(scene_path: String, pos: Vector2) -> void:
+	save_data["world"]["sidescroll"]["scene_state"][scene_path] = {
+		"player_pos": pos
+	}
+
+func get_sidescroll_position(scene_path: String) -> Vector2:
+	var state = save_data["world"]["sidescroll"]["scene_state"]
+	if state.has(scene_path):
+		return state[scene_path].get("player_pos", Vector2.ZERO)
+	return Vector2.ZERO
+
+func clear_sidescroll_state(scene_path: String) -> void:
+	save_data["world"]["sidescroll"]["scene_state"].erase(scene_path)
+
+#endregion
+
+#region SIDESCROLL SCENE REGISTRY
+const SIDESCROLL_SCENES := {
+	"test_scene": {
+		"path": "res://scenes/sidescroller/test_scene.tscn",
+		"default_spawn": "Spawn_Default"
+	},
+	"house_01": {
+		"path": "res://scenes/sidescroller/house_01.tscn",
+		"default_spawn": "Door_In"
+	}
+}
+
+
 #endregion

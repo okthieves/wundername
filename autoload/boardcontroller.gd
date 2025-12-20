@@ -287,14 +287,8 @@ func open_sidescroller(path: String):
 	if path == "" or path == null:
 		print("ERROR: No scene assigned for this interact tile.")
 		return
-	GameManager.set_state(GameManager.GameState.SIDESCROLL)
 
 	GameManager.hud.open_sidescroll(path)
-	
-	var scene = load(path).instantiate()
-	viewport.add_child(scene)
-
-	
 #endregion
 
 #region WALKABLE

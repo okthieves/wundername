@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=4 uid="uid://cuve078m1wco2"]
 
-[ext_resource type="Script" uid="uid://nsipupwuuagc" path="res://scenes/sidescroller/side_scroll.gd" id="1_chfv4"]
+[ext_resource type="Script" uid="uid://nsipupwuuagc" path="res://data/side_scroll.gd" id="1_chfv4"]
 [ext_resource type="Texture2D" uid="uid://codqqyry5qhqh" path="res://assets/07_SETS/OKT_SETS/STOLEN/1 Tiles/Tileset.png" id="2_cufpa"]
 [ext_resource type="PackedScene" uid="uid://dfgek86pqdmsu" path="res://scenes/sidescroller/SoulForm.tscn" id="3_chfv4"]
 
