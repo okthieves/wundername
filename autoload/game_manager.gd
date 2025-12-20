@@ -98,7 +98,7 @@ var save_data := {
 		"sidescroll": {
 			"active_scene": "",
 			"spawn_point": "default",
-			"scene_state": {}   # { scene_path : { position, flags } }
+			"scene_state": {}   # { scene_id : { position, flags } }
 		}
 	}
 }
@@ -322,36 +322,51 @@ func debug_seed_inventory():
 
 #region SIDESCROLL PERSISTENCE
 
-func set_active_sidescroll(scene_path: String):
-	save_data["world"]["sidescroll"]["active_scene"] = scene_path
+func set_active_sidescroll(scene_id: String):
+	save_data["world"]["sidescroll"]["active_scene"] = scene_id
 
-func set_sidescroll_position(scene_path: String, pos: Vector2) -> void:
-	save_data["world"]["sidescroll"]["scene_state"][scene_path] = {
+func set_sidescroll_position(scene_id: String, pos: Vector2) -> void:
+	save_data["world"]["sidescroll"]["scene_state"][scene_id] = {
 		"player_pos": pos
 	}
 
-func get_sidescroll_position(scene_path: String) -> Vector2:
+func get_sidescroll_position(scene_id: String) -> Vector2:
 	var state = save_data["world"]["sidescroll"]["scene_state"]
-	if state.has(scene_path):
-		return state[scene_path].get("player_pos", Vector2.ZERO)
+	if state.has(scene_id):
+		return state[scene_id].get("player_pos", Vector2.ZERO)
 	return Vector2.ZERO
 
-func clear_sidescroll_state(scene_path: String) -> void:
-	save_data["world"]["sidescroll"]["scene_state"].erase(scene_path)
+func clear_sidescroll_state(scene_id: String) -> void:
+	save_data["world"]["sidescroll"]["scene_state"].erase(scene_id)
 
 #endregion
 
 #region SIDESCROLL SCENE REGISTRY
 const SIDESCROLL_SCENES := {
-	"test_scene": {
-		"path": "res://scenes/sidescroller/test_scene.tscn",
-		"default_spawn": "Spawn_Default"
-	},
-	"house_01": {
-		"path": "res://scenes/sidescroller/house_01.tscn",
-		"default_spawn": "Door_In"
-	}
+	"station_test": "res://scenes/sidescroller/test_scene.tscn"
 }
 
+func has_sidescroll_scene(scene_id: String) -> bool:
+	return SIDESCROLL_SCENES.has(scene_id)
 
+func get_sidescroll_path(scene_id: String) -> String:
+	if not has_sidescroll_scene(scene_id):
+		push_error("Unknown sidescroll scene_id: %s" % scene_id)
+		return ""
+	return SIDESCROLL_SCENES[scene_id]
+
+func enter_sidescroll(scene_id: String):
+	if not has_sidescroll_scene(scene_id):
+		return
+
+	save_data["world"]["sidescroll"]["active_scene"] = scene_id
+	set_state(GameState.SIDESCROLL)
+
+	hud.open_sidescroll(scene_id)
+	
+func resolve_scene_path(scene_id: String) -> String:
+	if not SIDESCROLL_SCENES.has(scene_id):
+		push_error("Unknown scene_id: %s" % scene_id)
+		return ""
+	return SIDESCROLL_SCENES[scene_id]
 #endregion

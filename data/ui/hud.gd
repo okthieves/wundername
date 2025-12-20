@@ -269,10 +269,10 @@ func hide_tooltip():
 
 
 #region SIDESCROLL OPEN AND CLOSE
-func open_sidescroll(scene_path: String):
-	print("HUD.open_sidescroll:", scene_path)
+func open_sidescroll(scene_id: String):
+	print("HUD.open_sidescroll:", scene_id)
 
-	if scene_path == "":
+	if scene_id == "":
 		return
 	if GameManager.state == GameManager.GameState.SIDESCROLL:
 		return
@@ -284,8 +284,8 @@ func open_sidescroll(scene_path: String):
 		await get_tree().process_frame
 
 	GameManager.set_state(GameManager.GameState.SIDESCROLL)
-	GameManager.save_data["world"]["sidescroll"]["active_scene"] = scene_path
-	GameManager.set_active_sidescroll(scene_path)
+	GameManager.save_data["world"]["sidescroll"]["active_scene"] = scene_id
+	GameManager.set_active_sidescroll(scene_id)
 	
 	
 	# 🔑 FORCE Wunderpal visible (no animation logic here)
@@ -299,7 +299,12 @@ func open_sidescroll(scene_path: String):
 	set_tabs_enabled(false)
 
 	# Load scene
-	var scene = load(scene_path).instantiate()
+	var path := GameManager.resolve_scene_path(scene_id)
+	if path == "":
+		return
+
+	var scene = load(path).instantiate()
+	
 	ss_viewport.add_child(scene)
 	active_sidescroll = scene
 	ss_container.visible = true
@@ -313,7 +318,7 @@ func open_sidescroll(scene_path: String):
 		push_warning("SoulForm missing in sidescroll scene")
 		return
 
-	var saved_pos := GameManager.get_sidescroll_position(scene_path)
+	var saved_pos := GameManager.get_sidescroll_position(scene_id)
 	if saved_pos != Vector2.ZERO:
 		player.global_position = saved_pos
 
