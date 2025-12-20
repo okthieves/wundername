@@ -370,3 +370,62 @@ func resolve_scene_path(scene_id: String) -> String:
 		return ""
 	return SIDESCROLL_SCENES[scene_id]
 #endregion
+
+#region CARDS — OWNERSHIP & QUERIES
+func add_card(card_id: String) -> void:
+	if not CardRegistry.has_card(card_id):
+		push_error("Attempted to add unknown card_id: %s" % card_id)
+		return
+
+	var cards = save_data["player"]["inventory"]["cards"]
+
+	if cards.has(card_id):
+		return  # no duplicates (for now)
+
+	cards.append(card_id)
+	print("[Cards] Added:", card_id)
+
+func remove_card(card_id: String) -> void:
+	var cards = save_data["player"]["inventory"]["cards"]
+
+	if cards.has(card_id):
+		cards.erase(card_id)
+		print("[Cards] Removed:", card_id)
+
+func get_cards() -> Array:
+	return save_data["player"]["inventory"]["cards"]
+
+func get_card_data(card_id: String) -> Dictionary:
+	return CardRegistry.get_card(card_id)
+
+func get_cards_by_type(card_type: String) -> Array:
+	var result := []
+
+	for card_id in get_cards():
+		var card = CardRegistry.get_card(card_id)
+		if card.get("type") == card_type:
+			result.append(card_id)
+
+	return result
+
+func get_cards_with_tag(tag: String) -> Array:
+	var result := []
+
+	for card_id in get_cards():
+		var card = CardRegistry.get_card(card_id)
+		if tag in card.get("tags", []):
+			result.append(card_id)
+
+	return result
+
+func get_cards_by_element(element: String) -> Array:
+	var result := []
+
+	for card_id in get_cards():
+		var card = CardRegistry.get_card(card_id)
+		if card.get("element") == element:
+			result.append(card_id)
+
+	return result
+
+#endregion
