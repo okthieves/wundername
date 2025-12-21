@@ -53,7 +53,6 @@ const CARD_TYPES := {
 	}
 }
 
-
 const CARD_TAGS := {
 	"memory": [
 		"childhood",
