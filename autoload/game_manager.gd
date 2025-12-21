@@ -14,6 +14,7 @@ var hud: HUD
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_merlin"):
 		set_player_name("Merlin")
+		GameManager.add_card("connection_fire_blood")
 	if event.is_action_pressed("debug_show_stats"):
 		print(GameManager.get_player_name())
 		print(GameManager.get_inventory())
@@ -22,6 +23,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		print(GameManager.get_stat("resilience"))
 		print(GameManager.get_stat("speed"))
 		print(GameManager.get_stat("modifiers"))
+		print(GameManager.get_card_instances("deck"))
 #endregion
 
 #region SAVE DATA
@@ -63,10 +65,20 @@ var save_data := {
 		# INVENTORY SYSTEMS
 		# ─────────────────────────────
 		"inventory": {
-			"items": {},   # { item_id : amount }
-			"cards": []    # card_ids (Phase 2)
+			"items": {}, # { item_id : amount }   
+		
+		# ─────────────────────────────
+		# CARD SYSTEM (Phase 2)
+		# ─────────────────────────────
+			"cards": {
+				"owned": [],        # ALL cards the player has ever obtained
+				"deck": [],         # playable cards (subset of owned)
+				"hand": [],
+				"discard": [],
+				"memory": [],       # permanent narrative cards (subset of owned)
+				"connections": []   # active connection cards (subset of owned)
+},
 		},
-
 		# ─────────────────────────────
 		# BOARD POSITION (turn-based layer)
 		# ─────────────────────────────
@@ -227,6 +239,7 @@ func get_quest_state(quest_id: String) -> String:
 
 #endregion
 
+
 #region TILE REGISTRATION
 
 ## Marks a board tile as visited.
@@ -371,61 +384,70 @@ func resolve_scene_path(scene_id: String) -> String:
 	return SIDESCROLL_SCENES[scene_id]
 #endregion
 
-#region CARDS — OWNERSHIP & QUERIES
+#region CARDS — OWNERSHIP (Phase 2)
+
 func add_card(card_id: String) -> void:
 	if not CardRegistry.has_card(card_id):
-		push_error("Attempted to add unknown card_id: %s" % card_id)
+		push_error("Unknown card_id: %s" % card_id)
 		return
 
 	var cards = save_data["player"]["inventory"]["cards"]
 
-	if cards.has(card_id):
-		return  # no duplicates (for now)
+	if not cards["owned"].has(card_id):
+		cards["owned"].append(card_id)
 
-	cards.append(card_id)
+	var card = CardRegistry.get_card(card_id)
+	match card.type:
+		"memory":
+			if not cards["memory"].has(card_id):
+				cards["memory"].append(card_id)
+
+		"connection":
+			if not cards["connections"].has(card_id):
+				cards["connections"].append(card_id)
+
 	print("[Cards] Added:", card_id)
-
-func remove_card(card_id: String) -> void:
+func remove_card(card_id: String, pile := "deck") -> void:
 	var cards = save_data["player"]["inventory"]["cards"]
 
-	if cards.has(card_id):
-		cards.erase(card_id)
-		print("[Cards] Removed:", card_id)
+	if not cards.has(pile):
+		push_warning("Unknown card pile: %s" % pile)
+		return
 
-func get_cards() -> Array:
-	return save_data["player"]["inventory"]["cards"]
+	cards[pile].erase(card_id)
 
-func get_card_data(card_id: String) -> Dictionary:
-	return CardRegistry.get_card(card_id)
+func get_cards(pile := "deck") -> Array:
+	return save_data["player"]["inventory"]["cards"].get(pile, [])
 
-func get_cards_by_type(card_type: String) -> Array:
-	var result := []
+#endregion
 
-	for card_id in get_cards():
-		var card = CardRegistry.get_card(card_id)
-		if card.get("type") == card_type:
-			result.append(card_id)
+#region CARDS — INSTANCE ADAPTER (Phase 2)
 
-	return result
+func build_card_instance(card_id: String) -> Dictionary:
+	if not CardRegistry.has_card(card_id):
+		push_error("Invalid card_id: %s" % card_id)
+		return {}
 
-func get_cards_with_tag(tag: String) -> Array:
-	var result := []
+	var base := CardRegistry.get_card(card_id)
 
-	for card_id in get_cards():
-		var card = CardRegistry.get_card(card_id)
-		if tag in card.get("tags", []):
-			result.append(card_id)
+	return {
+		"id": card_id,
+		"name": base.get("name", ""),
+		"type": base.get("type", ""),
+		"element": base.get("element", ""),
+		"description": base.get("description", ""),
+		"tags": base.get("tags", []).duplicate(),
+		"stats": base.get("stats", {}).duplicate(),
+		"flags": base.get("flags", {}).duplicate(),
+		"meta": base.get("meta", {}).duplicate()
+	}
 
-	return result
+func get_card_instances(pile := "deck") -> Array:
+	var instances := []
 
-func get_cards_by_element(element: String) -> Array:
-	var result := []
+	for card_id in get_cards(pile):
+		instances.append(build_card_instance(card_id))
 
-	for card_id in get_cards():
-		var card = CardRegistry.get_card(card_id)
-		if card.get("element") == element:
-			result.append(card_id)
-
-	return result
+	return instances
 
 #endregion

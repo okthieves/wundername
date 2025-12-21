@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=31 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://oom4au4g6wlq" path="res://assets/03_UI/TAB BORDER.png" id="7_38nk3"]
 [ext_resource type="FontFile" uid="uid://cllgfsgjn6brj" path="res://assets/03_UI/PixelifySans-VariableFont_wght.ttf" id="8_blesy"]
 [ext_resource type="LabelSettings" uid="uid://x61hrmplejsw" path="res://scenes/ui/Pixel Font.tres" id="8_rfrwv"]
+[ext_resource type="Texture2D" uid="uid://c5vdqida5bm23" path="res://assets/03_UI/WUNDERPAL LOGO.png" id="15_wp0rr"]
 [ext_resource type="PackedScene" uid="uid://bk5spltxwrg4q" path="res://scenes/ui/map_scene.tscn" id="21_oteo6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ffvok"]
@@ -348,7 +349,16 @@ offset_right = 255.0
 offset_bottom = 41.254997
 grow_horizontal = 2
 
+[node name="TextureRect" type="TextureRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
+layout_mode = 0
+offset_left = -13.0
+offset_top = -11.255005
+offset_right = 275.0
+offset_bottom = 33.744995
+texture = ExtResource("15_wp0rr")
+
 [node name="Btn_Inventory" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
+visible = false
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
@@ -372,6 +382,7 @@ grow_vertical = 2
 texture = ExtResource("7_38nk3")
 
 [node name="Btn_Quests" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -399,6 +410,7 @@ texture = ExtResource("7_38nk3")
 region_rect = Rect2(0, 0, 82, 30)
 
 [node name="Btn_Skills" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
+visible = false
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
