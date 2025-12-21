@@ -37,10 +37,69 @@ func update_debug_state_label():
 @onready var debug_state_label: Label = $DebugStateLabel
 
 var active_sidescroll: Node = null
+
+@onready var main_menu := $Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu
+@onready var main_menu_vbox := $Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu/VBoxContainer
 #endregion
 
 
-#region TAB STATE AND REFERENCES
+#region WUNDERPAL SECTIONS
+const WUNDERPAL_SECTIONS := {
+	"inventory": {
+		"label": "Inventory",
+		"panel": "Inventory_List",
+		"requires": null
+	},
+	"cards": {
+		"label": "Cards",
+		"panel": "Cards_Panel",
+		"requires": null
+	},
+	"skills": {
+		"label": "Skills",
+		"panel": "Skill_List",
+		"requires": null
+	},
+	"quests": {
+		"label": "Quests",
+		"panel": "Quest_List",
+		"requires": null
+	},
+	"rune": {
+		"label": "Rune",
+		"panel": "Rune_Panel",
+		"requires": "rune_tile"
+	},
+	"shop": {
+		"label": "Shop",
+		"panel": "Shop_Panel",
+		"requires": "shop_tile"
+	}
+}
+#endregion
+
+func clear_children(node: Node) -> void:
+	for c in node.get_children():
+		c.queue_free()
+		
+func build_main_menu():
+	clear_children(main_menu_vbox)
+
+	for section_id in WUNDERPAL_SECTIONS.keys():
+		var data = WUNDERPAL_SECTIONS[section_id]
+
+		var btn := Button.new()
+		btn.text = data.label
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.focus_mode = Control.FOCUS_ALL
+
+		btn.pressed.connect(func():
+			show_section(section_id)
+		)
+
+		main_menu_vbox.add_child(btn)
+
+#region PAGE STATE AND REFERENCES
 
 @onready var inventory_root := $Wunderpal/Frame/ScreenArea/MENU_HUB
 ## Name of the currently active Wunderpal tab.
@@ -66,26 +125,6 @@ var current_tab : String = ""
 #endregion
 
 
-#region TAB BUTTON REFERENCES
-
-## Inventory tab button.
-@onready var btn_inventory = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory
-
-## Quests tab button.
-@onready var btn_quests = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests
-
-## Skills tab button.
-@onready var btn_skills = $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills
-
-## Mapping of tab names to their corresponding buttons.
-## Used for simplified tab switching logic.
-@onready var tab_buttons = {
-	"inventory": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory,
-	"quests": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests,
-	"skills": $Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills
-}
-#endregion
-
 
 #region TOOLTIP REFERENCES
 
@@ -108,20 +147,11 @@ func _ready():
 	GameManager.toggle_wunderpal_requested.connect(_on_toggle_wunderpal)
 	GameManager.hud = self
 
-	tab_buttons["inventory"].pressed.connect(func():
-		show_tab("inventory")
-	)
-	tab_buttons["quests"].pressed.connect(func():
-		show_tab("quests")
-	)
-	tab_buttons["skills"].pressed.connect(func():
-		show_tab("skills")
-	)
-
 	# Set default tab on startup
-	show_tab("inventory")
+	_show_legacy_tab("inventory")
 	
 	setup_wunderpal()
+	build_main_menu()
 	
 	tooltip.visible = false
 
@@ -199,7 +229,7 @@ func slide_wunderpal(open: bool):
 	if open:
 		exit_sidescroll_mode()
 		wunderpal.visible = true
-		show_tab("inventory") # Ensure a valid default screen
+		_show_legacy_tab("inventory") # Ensure a valid default screen
 		inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"]["items"])
 		wunder_anim.play("open_wunderpal")
 	else:
@@ -220,9 +250,9 @@ func _on_toggle_wunderpal():
 
 
 #region WUNDERPAL SCREENS & HELPERS
-## Displays the requested tab and hides all others.
+## LEGACY: Displays the requested tab and hides all others.
 ## @param tab_name Name of the tab to show.
-func show_tab(tab_name: String):
+func _show_legacy_tab(tab_name: String):
 	current_tab = tab_name
 
 	_hide_all_screens()
@@ -236,6 +266,7 @@ func show_tab(tab_name: String):
 		"skills":
 			skill_list.visible = true
 
+
 ## Hides all Wunderpal screens and disables mouse input
 ## for the SubViewport container.
 func _hide_all_screens():
@@ -246,6 +277,50 @@ func _hide_all_screens():
 	quest_detail.visible = false
 	skill_list.visible = false
 	skill_detail.visible = false
+	if has_node("Cards_Panel"):
+		$Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel.visible = false
+	if has_node("Rune_Panel"):
+		$Wunderpal/Frame/ScreenArea/MENU_HUB/Rune_Panel.visible = false
+	if has_node("Shop_Panel"):
+		$Wunderpal/Frame/ScreenArea/MENU_HUB/Shop_Panel.visible = false
+
+	
+func show_section(section: String):
+	if not WUNDERPAL_SECTIONS.has(section):
+		push_warning("Unknown section: %s" % section)
+		return
+
+	if not _section_is_allowed(section):
+		print("[Wunderpal] Section blocked:", section)
+		return
+
+	current_tab = section
+	_hide_all_screens()
+
+	var panel_name = WUNDERPAL_SECTIONS[section].panel
+
+	if has_node("Wunderpal/Frame/ScreenArea/MENU_HUB/" + panel_name):
+		var panel = get_node(
+			"Wunderpal/Frame/ScreenArea/MENU_HUB/" + panel_name
+		)
+		panel.visible = true
+	else:
+		# fallback to legacy behavior
+		_show_legacy_tab(section)
+
+func _section_is_allowed(section: String) -> bool:
+	var rule = WUNDERPAL_SECTIONS[section]["requires"]
+
+	if rule == null:
+		return true
+
+	match rule:
+		"shop_tile":
+			return GameManager.save_data["world"].get("active_shop_id", "") != ""
+		"rune_tile":
+			return GameManager.save_data["world"].get("on_rune_tile", false)
+
+	return false
 #endregion
 
 
@@ -296,7 +371,6 @@ func open_sidescroll(scene_id: String):
 	# UI rules for sidescroll
 	enter_sidescroll_mode()
 	set_inventory_interactive(false)
-	set_tabs_enabled(false)
 
 	# Load scene
 	var path := GameManager.resolve_scene_path(scene_id)
@@ -346,7 +420,6 @@ func exit_sidescroll():
 	is_wunderpal_open = false
 	
 	set_inventory_interactive(true)
-	set_tabs_enabled(true)
 
 	GameManager.set_state(GameManager.GameState.BOARD)
 
@@ -360,9 +433,6 @@ func set_inventory_interactive(enabled: bool):
 		if child is Control:
 			child.mouse_filter = filter
 
-func set_tabs_enabled(enabled: bool):
-	for btn in tab_buttons.values():
-		btn.disabled = not enabled
 
 ## Helper function for entering side scroll mode
 func enter_sidescroll_mode():
@@ -370,8 +440,6 @@ func enter_sidescroll_mode():
 	tooltip.visible = false
 
 	# Hide tabs
-	for btn in tab_buttons.values():
-		btn.visible = false
 	
 	# Show device + sidescroll viewport
 	wunderpal.visible = true
@@ -383,13 +451,10 @@ func enter_sidescroll_mode():
 
 ## Helper function for exiting side scroll mode
 func exit_sidescroll_mode():
-	# Restore tabs
-	for btn in tab_buttons.values():
-		btn.visible = true
 
 	# Hide side-scroll container
 	ss_container.visible = false
 	ss_viewport.gui_disable_input = true
 	# Default back to inventory tab
-	show_tab("inventory")
+	_show_legacy_tab("inventory")
 #endregion
