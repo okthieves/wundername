@@ -67,6 +67,7 @@ func _ready():
 
 #endregion
 
+
 #region SLOT GRAPH
 
 ## Builds a graph of all valid board slots from the slot TileMapLayer.
@@ -134,6 +135,7 @@ func move_direction(dir: Vector2i):
 	trigger_slot_action(slot_type, player_cell)
 
 #endregion
+
 
 #region INPUT HANDLING
 
@@ -226,6 +228,7 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 			return
 
 #endregion
+
 
 #region INTERACT
 

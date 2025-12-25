@@ -78,26 +78,6 @@ const WUNDERPAL_SECTIONS := {
 }
 #endregion
 
-func clear_children(node: Node) -> void:
-	for c in node.get_children():
-		c.queue_free()
-		
-func build_main_menu():
-	clear_children(main_menu_vbox)
-
-	for section_id in WUNDERPAL_SECTIONS.keys():
-		var data = WUNDERPAL_SECTIONS[section_id]
-
-		var btn := Button.new()
-		btn.text = data.label
-		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		btn.focus_mode = Control.FOCUS_ALL
-
-		btn.pressed.connect(func():
-			show_section(section_id)
-		)
-
-		main_menu_vbox.add_child(btn)
 
 #region PAGE STATE AND REFERENCES
 
@@ -123,7 +103,6 @@ var current_tab : String = ""
 ## Skill detail panel.
 @onready var skill_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_Detail
 #endregion
-
 
 
 #region TOOLTIP REFERENCES
@@ -321,6 +300,28 @@ func _section_is_allowed(section: String) -> bool:
 			return GameManager.save_data["world"].get("on_rune_tile", false)
 
 	return false
+
+func clear_children(node: Node) -> void:
+	for c in node.get_children():
+		c.queue_free()
+		
+func build_main_menu():
+	clear_children(main_menu_vbox)
+
+	for section_id in WUNDERPAL_SECTIONS.keys():
+		var data = WUNDERPAL_SECTIONS[section_id]
+
+		var btn := Button.new()
+		btn.text = data.label
+		btn.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		btn.focus_mode = Control.FOCUS_ALL
+
+		btn.pressed.connect(func():
+			show_section(section_id)
+		)
+
+		main_menu_vbox.add_child(btn)
+
 #endregion
 
 

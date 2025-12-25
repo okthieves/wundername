@@ -271,6 +271,7 @@ func get_time() -> String:
 
 #endregion
 
+
 #region GODOT NATIVE
 
 ## Called when the GameManager autoload is initialized.
@@ -280,6 +281,7 @@ func _ready():
 	debug_seed_inventory()
 
 #endregion
+
 
 #region GAME STATE
 
@@ -311,6 +313,7 @@ signal toggle_wunderpal_requested
 
 #endregion
 
+
 #region REQUEST WUNDERPAL TOGGLE
 
 ## Requests the HUD to toggle the Wunderpal UI.
@@ -332,6 +335,7 @@ func debug_seed_inventory():
 	}
 	print("[GameManager] Debug inventory seeded")
 #endregion
+
 
 #region SIDESCROLL PERSISTENCE
 
@@ -383,6 +387,7 @@ func resolve_scene_path(scene_id: String) -> String:
 		return ""
 	return SIDESCROLL_SCENES[scene_id]
 #endregion
+
 
 #region CARDS — OWNERSHIP (Phase 2)
 
