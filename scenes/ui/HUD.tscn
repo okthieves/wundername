@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=30 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dyhd1puktyylv" path="res://assets/wunder/tv_light_on.png" id="4_oteo6"]
 [ext_resource type="PackedScene" uid="uid://7q67aubqnvb2" path="res://scenes/ui/item_grid_cell.tscn" id="5_38nk3"]
 [ext_resource type="Texture2D" uid="uid://c2ianjp8t7nbu" path="res://assets/wunder/2.png" id="5_l20r4"]
-[ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://data/ui/inv_detail.gd" id="5_p4k5r"]
 [ext_resource type="PackedScene" uid="uid://y6h8k7nt52b4" path="res://scenes/ui/empty_grid_cell.tscn" id="6_6bi52"]
 [ext_resource type="Texture2D" uid="uid://db6nv8eyw2h6s" path="res://assets/03_UI/Lucid-V1.2/Flat/16/Heart.png" id="7_4wy6o"]
 [ext_resource type="FontFile" uid="uid://cllgfsgjn6brj" path="res://assets/03_UI/PixelifySans-VariableFont_wght.ttf" id="8_blesy"]
@@ -349,34 +348,59 @@ offset_right = 288.0
 offset_bottom = 45.0
 texture = ExtResource("15_wp0rr")
 
-[node name="Card_List" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-visible = false
-anchors_preset = 0
-
-[node name="Card_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-visible = false
-anchors_preset = 0
-
 [node name="Skill_List" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Skill_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-visible = false
-anchors_preset = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_List/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
 
 [node name="Quest_List" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
-anchors_preset = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Quest_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-visible = false
-anchors_preset = 0
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_List"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Inventory_Detail" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-visible = false
-anchors_preset = 0
-script = ExtResource("5_p4k5r")
+[node name="Grid" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_List/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
 
 [node name="Inventory_List" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 anchors_preset = 0
@@ -409,9 +433,30 @@ columns = 4
 
 [node name="Cards_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
 
 [node name="Rune_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
@@ -419,11 +464,47 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Rune_Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Rune_Panel/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
+
 [node name="Shop_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Shop_Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grid" type="GridContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Shop_Panel/ScrollContainer"]
+custom_minimum_size = Vector2(238, 174)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 0
+theme_override_constants/h_separation = 18
+theme_override_constants/v_separation = 18
+columns = 4
 
 [node name="Main_Menu" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 layout_mode = 1

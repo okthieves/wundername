@@ -131,20 +131,21 @@ var current_tab : String = ""
 ## Inventory list UI (grid of items).
 @onready var inventory_list = $Wunderpal/Frame/ScreenArea/MENU_HUB/Inventory_List
 
-## Inventory detail panel (selected item information).
-@onready var inventory_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Inventory_Detail
-
 ## Quest list UI.
 @onready var quest_list     = $Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_List
-
-## Quest detail panel.
-@onready var quest_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_Detail
 
 ## Skill list UI.
 @onready var skill_list     = $Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_List
 
-## Skill detail panel.
-@onready var skill_detail = $Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_Detail
+
+@onready var skill_grid: GridContainer = \
+	$Wunderpal/Frame/ScreenArea/MENU_HUB/Skill_List/ScrollContainer/Grid
+
+@onready var quest_grid: GridContainer = \
+	$Wunderpal/Frame/ScreenArea/MENU_HUB/Quest_List/ScrollContainer/Grid
+
+@onready var cards_grid: GridContainer = \
+	$Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel/ScrollContainer/Grid
 #endregion
 
 
@@ -278,37 +279,69 @@ func _on_toggle_wunderpal():
 ## @param tab_name Name of the tab to show.
 func _show_legacy_tab(tab_name: String):
 	current_tab = tab_name
-
 	_hide_all_screens()
-	
+
 	match tab_name:
 		"inventory":
 			inventory_list.visible = true
-			inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"]["items"])
+			inventory_list.populate_inventory(
+				GameManager.save_data["player"]["inventory"]["items"]
+			)
+
 		"quests":
 			quest_list.visible = true
+			populate_empty_grid(quest_grid, 8)
+
 		"skills":
 			skill_list.visible = true
+			populate_empty_grid(skill_grid, 12)
 
-
+		"cards":
+			$Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel.visible = true
+			populate_empty_grid(cards_grid, 6)
+		
+		
+		"rune", "shop":
+			_show_placeholder(tab_name)
 ## Hides all Wunderpal screens and disables mouse input
 ## for the SubViewport container.
 func _hide_all_screens():
 	ss_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	inventory_list.visible = false
-	inventory_detail.visible = false
+	# inventory_detail.visible = false
 	quest_list.visible = false
-	quest_detail.visible = false
+	# quest_detail.visible = false
 	skill_list.visible = false
-	skill_detail.visible = false
-	if has_node("Cards_Panel"):
-		$Wunderpal/Frame/ScreenArea/MENU_HUB/Cards_Panel.visible = false
-	if has_node("Rune_Panel"):
-		$Wunderpal/Frame/ScreenArea/MENU_HUB/Rune_Panel.visible = false
-	if has_node("Shop_Panel"):
-		$Wunderpal/Frame/ScreenArea/MENU_HUB/Shop_Panel.visible = false
+	# skill_detail.visible = false
+	var menu_hub := $Wunderpal/Frame/ScreenArea/MENU_HUB
 
+	if menu_hub.has_node("Cards_Panel"):
+		menu_hub.get_node("Cards_Panel").visible = false
+
+	if menu_hub.has_node("Rune_Panel"):
+		menu_hub.get_node("Rune_Panel").visible = false
+
+	if menu_hub.has_node("Shop_Panel"):
+		menu_hub.get_node("Shop_Panel").visible = false
+
+func _show_placeholder(section: String):
+	for c in inventory_root.get_children():
+		if c is Label and c.text.ends_with("(Coming Soon)"):
+			c.queue_free()
 	
+	print("[HUD] Placeholder panel for:", section)
+
+	# Simple visual confirmation for now
+	var label := Label.new()
+	label.text = section.capitalize() + " (Coming Soon)"
+	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	label.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+	inventory_root.add_child(label)
+	label.visible = true
+
 func show_section(section: String):
 	
 	if not WUNDERPAL_SECTIONS.has(section):
@@ -331,7 +364,7 @@ func show_section(section: String):
 		panel.visible = true
 	else:
 		# fallback to legacy behavior
-		open_page(section)
+		push_warning("Panel missing for section: %s" % section)
 
 func _section_is_allowed(section: String) -> bool:
 	var rule = WUNDERPAL_SECTIONS[section]["requires"]
@@ -509,4 +542,25 @@ func exit_sidescroll_mode():
 	ss_viewport.gui_disable_input = true
 	# Default back to inventory tab
 	open_page("inventory")
+#endregion
+
+#region POPULATE EMPTY GRIDS
+
+func populate_empty_grid(
+	grid: GridContainer,
+	slot_count: int = 16
+) -> void:
+	# Clear old slots
+	for c in grid.get_children():
+		c.queue_free()
+
+	for i in range(slot_count):
+		var slot := Panel.new()
+		slot.custom_minimum_size = Vector2(48, 48)
+		slot.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		slot.add_theme_stylebox_override(
+			"panel",
+			get_theme_stylebox("panel", "Panel")
+		)
+		grid.add_child(slot)
 #endregion
