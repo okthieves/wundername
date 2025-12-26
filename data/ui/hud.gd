@@ -42,6 +42,65 @@ var active_sidescroll: Node = null
 @onready var main_menu_vbox := $Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu/VBoxContainer
 #endregion
 
+## Page Router ##
+@onready var page_host: Control = $Wunderpal/Frame/ScreenArea
+
+var current_page_id: String = ""
+var current_page: Control = null
+var page_cache: Dictionary = {}
+
+const PAGE_REGISTRY := {
+	"inventory": preload("res://scenes/ui/inventory.tscn"),
+	# scaffolding (add later)
+	# "cards": preload("res://data/ui/cards_page.tscn"),
+	# "skills": preload("res://data/ui/skills_page.tscn"),
+	# "runes": preload("res://data/ui/runes_page.tscn"),
+	# "quests": preload("res://data/ui/quests_page.tscn"),
+}
+
+func open_page(page_id: String) -> void:
+	if not PAGE_REGISTRY.has(page_id):
+		push_warning("HUD.open_page(): Unknown page id: %s" % page_id)
+		return
+
+	# Open wunderpal if needed
+	if not is_wunderpal_open:
+		open_wunderpal()
+
+	# Same page? Do nothing
+	if current_page_id == page_id:
+		return
+
+	_clear_current_page()
+
+	var page: Control
+	if page_cache.has(page_id):
+		page = page_cache[page_id]
+	else:
+		page = PAGE_REGISTRY[page_id].instantiate()
+		page_cache[page_id] = page
+
+	page_host.add_child(page)
+	page.set_anchors_preset(Control.PRESET_FULL_RECT)
+	page.offset_left = 0
+	page.offset_top = 0
+	page.offset_right = 0
+	page.offset_bottom = 0
+
+	current_page = page
+	current_page_id = page_id
+
+func _clear_current_page() -> void:
+	if current_page and is_instance_valid(current_page):
+		current_page.queue_free()
+
+	current_page = null
+	current_page_id = ""
+
+func close_all_pages() -> void:
+	_clear_current_page()
+	page_cache.clear()
+
 
 #region WUNDERPAL SECTIONS
 const WUNDERPAL_SECTIONS := {
