@@ -7,7 +7,7 @@ class_name HUD
 
 func _process(_delta):
 	update_debug_state_label()
-	
+
 func update_debug_state_label():
 	var state_name = GameManager.GameState.keys()[GameManager.state]
 	debug_state_label.text = "STATE: " + state_name
@@ -42,7 +42,8 @@ var active_sidescroll: Node = null
 @onready var main_menu_vbox := $Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu/VBoxContainer
 #endregion
 
-## Page Router ##
+
+#region PAGE ROUTER
 @onready var page_host: Control = $Wunderpal/Frame/ScreenArea
 
 var current_page_id: String = ""
@@ -50,7 +51,7 @@ var current_page: Control = null
 var page_cache: Dictionary = {}
 
 const PAGE_REGISTRY := {
-	"inventory": preload("res://scenes/ui/inventory.tscn"),
+	# "inventory": preload("res://scenes/ui/inventory.tscn"),
 	# scaffolding (add later)
 	# "cards": preload("res://data/ui/cards_page.tscn"),
 	# "skills": preload("res://data/ui/skills_page.tscn"),
@@ -59,35 +60,18 @@ const PAGE_REGISTRY := {
 }
 
 func open_page(page_id: String) -> void:
-	if not PAGE_REGISTRY.has(page_id):
+	# Ensure section exists
+	if not WUNDERPAL_SECTIONS.has(page_id):
 		push_warning("HUD.open_page(): Unknown page id: %s" % page_id)
 		return
 
 	# Open wunderpal if needed
 	if not is_wunderpal_open:
-		open_wunderpal()
+		slide_wunderpal(true)
 
-	# Same page? Do nothing
-	if current_page_id == page_id:
-		return
+	# Switch logical section (legacy-safe)
+	_show_legacy_tab(page_id)
 
-	_clear_current_page()
-
-	var page: Control
-	if page_cache.has(page_id):
-		page = page_cache[page_id]
-	else:
-		page = PAGE_REGISTRY[page_id].instantiate()
-		page_cache[page_id] = page
-
-	page_host.add_child(page)
-	page.set_anchors_preset(Control.PRESET_FULL_RECT)
-	page.offset_left = 0
-	page.offset_top = 0
-	page.offset_right = 0
-	page.offset_bottom = 0
-
-	current_page = page
 	current_page_id = page_id
 
 func _clear_current_page() -> void:
@@ -98,8 +82,8 @@ func _clear_current_page() -> void:
 	current_page_id = ""
 
 func close_all_pages() -> void:
-	_clear_current_page()
-	page_cache.clear()
+	current_page_id = ""
+#endregion
 
 
 #region WUNDERPAL SECTIONS
@@ -185,12 +169,9 @@ func _ready():
 	GameManager.toggle_wunderpal_requested.connect(_on_toggle_wunderpal)
 	GameManager.hud = self
 
-	# Set default tab on startup
-	_show_legacy_tab("inventory")
 	
 	setup_wunderpal()
 	build_main_menu()
-	
 	tooltip.visible = false
 
 #endregion
@@ -255,7 +236,7 @@ func toggle_wunderpal():
 ## Updates game state and input routing accordingly.
 ## @param open Whether the Wunderpal should be opened.
 func slide_wunderpal(open: bool):
-		# Do not allow menu logic during side-scroll
+	# Do not allow menu logic during side-scroll
 	if GameManager.state == GameManager.GameState.SIDESCROLL:
 		return
 	is_wunderpal_open = open
@@ -267,8 +248,13 @@ func slide_wunderpal(open: bool):
 	if open:
 		exit_sidescroll_mode()
 		wunderpal.visible = true
-		_show_legacy_tab("inventory") # Ensure a valid default screen
-		inventory_list.populate_inventory(GameManager.save_data["player"]["inventory"]["items"])
+
+		if current_page_id == "":
+			_show_legacy_tab("inventory")
+
+		inventory_list.populate_inventory(
+			GameManager.save_data["player"]["inventory"]["items"]
+		)
 		wunder_anim.play("open_wunderpal")
 	else:
 		wunder_anim.play("close_wunderpal")
@@ -345,7 +331,7 @@ func show_section(section: String):
 		panel.visible = true
 	else:
 		# fallback to legacy behavior
-		_show_legacy_tab(section)
+		open_page(section)
 
 func _section_is_allowed(section: String) -> bool:
 	var rule = WUNDERPAL_SECTIONS[section]["requires"]
@@ -377,7 +363,7 @@ func build_main_menu():
 		btn.focus_mode = Control.FOCUS_ALL
 
 		btn.pressed.connect(func():
-			show_section(section_id)
+			open_page(section_id)
 		)
 
 		main_menu_vbox.add_child(btn)
@@ -522,5 +508,5 @@ func exit_sidescroll_mode():
 	ss_container.visible = false
 	ss_viewport.gui_disable_input = true
 	# Default back to inventory tab
-	_show_legacy_tab("inventory")
+	open_page("inventory")
 #endregion
