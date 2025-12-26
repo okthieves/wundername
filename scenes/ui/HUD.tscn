@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=31 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
@@ -17,9 +17,9 @@
 [ext_resource type="Script" uid="uid://wwm1unwwitku" path="res://data/ui/inv_detail.gd" id="5_p4k5r"]
 [ext_resource type="PackedScene" uid="uid://y6h8k7nt52b4" path="res://scenes/ui/empty_grid_cell.tscn" id="6_6bi52"]
 [ext_resource type="Texture2D" uid="uid://db6nv8eyw2h6s" path="res://assets/03_UI/Lucid-V1.2/Flat/16/Heart.png" id="7_4wy6o"]
-[ext_resource type="Texture2D" uid="uid://oom4au4g6wlq" path="res://assets/03_UI/TAB BORDER.png" id="7_38nk3"]
 [ext_resource type="FontFile" uid="uid://cllgfsgjn6brj" path="res://assets/03_UI/PixelifySans-VariableFont_wght.ttf" id="8_blesy"]
 [ext_resource type="LabelSettings" uid="uid://x61hrmplejsw" path="res://scenes/ui/Pixel Font.tres" id="8_rfrwv"]
+[ext_resource type="Texture2D" uid="uid://c5vdqida5bm23" path="res://assets/03_UI/WUNDERPAL LOGO.png" id="15_wp0rr"]
 [ext_resource type="PackedScene" uid="uid://bk5spltxwrg4q" path="res://scenes/ui/map_scene.tscn" id="21_oteo6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_ffvok"]
@@ -88,6 +88,8 @@ _data = {
 &"close_wunderpal": SubResource("Animation_38nk3"),
 &"open_wunderpal": SubResource("Animation_l20r4")
 }
+
+[sub_resource type="Theme" id="Theme_oteo6"]
 
 [node name="HUD" type="Control" groups=["hud"]]
 custom_minimum_size = Vector2(1280, 720)
@@ -333,95 +335,19 @@ render_target_update_mode = 4
 script = ExtResource("2_6ll6g")
 
 [node name="MENU_HUB" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Tabs" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -7.0
-offset_top = 11.255005
-offset_right = 255.0
-offset_bottom = 41.254997
-grow_horizontal = 2
-
-[node name="Btn_Inventory" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -15.5
-offset_right = 82.0
-offset_bottom = 15.5
-grow_vertical = 2
-text = "ITEMS"
-flat = true
-autowrap_trim_flags = 0
-icon_alignment = 1
-
-[node name="TextureRect" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_38nk3")
 
-[node name="Btn_Quests" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -41.0
-offset_top = -15.5
-offset_right = 41.0
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "QUESTS"
-flat = true
-icon_alignment = 1
-
-[node name="TextureRect3" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_38nk3")
-region_rect = Rect2(0, 0, 82, 30)
-
-[node name="Btn_Skills" type="Button" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -82.0
-offset_top = -15.5
-offset_bottom = 15.5
-grow_horizontal = 0
-grow_vertical = 2
-text = "SKILLS"
-flat = true
-icon_alignment = 1
-
-[node name="TextureRect2" type="NinePatchRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("7_38nk3")
+[node name="TextureRect" type="TextureRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
+visible = false
+layout_mode = 0
+offset_right = 288.0
+offset_bottom = 45.0
+texture = ExtResource("15_wp0rr")
 
 [node name="Card_List" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
@@ -481,6 +407,42 @@ theme_override_constants/h_separation = 18
 theme_override_constants/v_separation = 18
 columns = 4
 
+[node name="Cards_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Rune_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Shop_Panel" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Main_Menu" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_oteo6")
+theme_override_constants/separation = 8
+
 [node name="Tooltip" parent="." instance=ExtResource("2_e8r00")]
 visible = false
 layout_mode = 0
@@ -493,7 +455,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="MapScene" parent="." instance=ExtResource("21_oteo6")]
-position = Vector2(1080, 73)
+position = Vector2(1166, 149)
 
 [node name="DebugStateLabel" type="Label" parent="."]
 layout_mode = 0
@@ -501,7 +463,3 @@ offset_left = 123.0
 offset_top = 56.0
 offset_right = 163.0
 offset_bottom = 79.0
-
-[connection signal="pressed" from="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Inventory" to="." method="show_inventory"]
-[connection signal="pressed" from="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Quests" to="." method="show_quests"]
-[connection signal="pressed" from="Wunderpal/Frame/ScreenArea/MENU_HUB/Tabs/Btn_Skills" to="." method="show_skills"]

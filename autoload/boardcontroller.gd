@@ -67,6 +67,7 @@ func _ready():
 
 #endregion
 
+
 #region SLOT GRAPH
 
 ## Builds a graph of all valid board slots from the slot TileMapLayer.
@@ -134,6 +135,7 @@ func move_direction(dir: Vector2i):
 	trigger_slot_action(slot_type, player_cell)
 
 #endregion
+
 
 #region INPUT HANDLING
 
@@ -204,11 +206,10 @@ func get_slot_subtype(cell: Vector2i) -> String:
 	var tile_data := slot_map.get_cell_tile_data(cell)
 	return tile_data.get_custom_data("interact_subtype") if tile_data else ""
 
-## Retrieves the scene path associated with an interact slot.
-func get_slot_scene(cell: Vector2i) -> String:
+## Pulls the scene from the registry with the associated name
+func get_slot_scene_id_id(cell: Vector2i) -> String:
 	var tile_data := slot_map.get_cell_tile_data(cell)
-	return tile_data.get_custom_data("scene_path") if tile_data else ""
-
+	return tile_data.get_custom_data("scene_id") if tile_data else ""
 #endregion
 
 #region SLOT ACTIONS
@@ -228,21 +229,28 @@ func trigger_slot_action(slot_type: String, cell: Vector2i):
 
 #endregion
 
+
 #region INTERACT
 
 ## Attempts to interact with the current slot.
 ## Only valid on slots marked as interactable.
 func try_interact():
 	var cell = slot_map.local_to_map(player.position)
-	var slot_type = get_slot_type(cell)
-
+	
+	var slot_type = get_slot_type(cell)	
+	var scene_id = get_slot_scene_id_id(cell)
+	
 	if slot_type != "interact":
 		return
+		
 
 	var subtype = get_slot_subtype(cell)
-	var scene_path = get_slot_scene(cell)
 
-	handle_interact(subtype, scene_path)
+	print("[INTERACT]",
+		" subtype:", subtype,
+		" scene_id:", scene_id
+	)
+	handle_interact(subtype, scene_id)
 
 #endregion
 
@@ -250,16 +258,16 @@ func try_interact():
 
 ## Routes interaction logic based on slot subtype.
 ## Determines whether to open UI or load a side-scroller scene.
-func handle_interact(subtype: String, scene_path: String):
+func handle_interact(subtype: String, scene_id: String):
 	match subtype:
 		"shop": open_shop_ui()
 		"npc": open_npc_dialogue()
 		"quest": open_quest_ui()
 		"rune": open_rune_ui()
 		"station", "battle", "house", "dungeon":
-			open_sidescroller(scene_path)
+			open_sidescroller(scene_id)
 		_:
-			open_sidescroller(scene_path)
+			open_sidescroller(scene_id)
 
 #endregion
 
@@ -283,18 +291,12 @@ func open_rune_ui():
 
 ## Loads and displays a side-scrolling scene in the SubViewport.
 ## @param path Path to the scene file to load.
-func open_sidescroller(path: String):
-	if path == "" or path == null:
+func open_sidescroller(scene_id: String):
+	if scene_id == "" or scene_id == null:
 		print("ERROR: No scene assigned for this interact tile.")
 		return
-	GameManager.set_state(GameManager.GameState.SIDESCROLL)
 
-	GameManager.hud.open_sidescroll(path)
-	
-	var scene = load(path).instantiate()
-	viewport.add_child(scene)
-
-	
+	GameManager.hud.open_sidescroll(scene_id)
 #endregion
 
 #region WALKABLE

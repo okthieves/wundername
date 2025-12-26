@@ -50,13 +50,11 @@ func apply_gravity(delta):
 		# Prevents downward accumulation when grounded
 		velocity.y = max(velocity.y, 0)
 
-
 ## Reads horizontal input and applies it to the character velocity.
 ## Uses input actions "move_left" and "move_right".
 func handle_horizontal_input():
 	var input_dir := Input.get_axis("move_left", "move_right")
 	velocity.x = input_dir * speed
-
 
 ## Handles jump input when the character is grounded.
 ## Uses the "jump" input action.
@@ -70,4 +68,3 @@ func _ready() -> void:
 	await get_tree().process_frame
 	spawn_locked = false
 	velocity = Vector2.ZERO
-	position = Vector2.ZERO

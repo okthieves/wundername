@@ -6,14 +6,15 @@
 ## global, non-scene-specific logic only.
 extends Node
 
-
 ## Reference to the active HUD instance.
 ## Assigned by the HUD on initialization.
 var hud: HUD
 
+#region DEBUG INPUT COMMANDS
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_merlin"):
 		set_player_name("Merlin")
+		GameManager.add_card("connection_fire_blood")
 	if event.is_action_pressed("debug_show_stats"):
 		print(GameManager.get_player_name())
 		print(GameManager.get_inventory())
@@ -22,63 +23,101 @@ func _unhandled_input(event: InputEvent) -> void:
 		print(GameManager.get_stat("resilience"))
 		print(GameManager.get_stat("speed"))
 		print(GameManager.get_stat("modifiers"))
+		print(GameManager.get_card_instances("deck"))
+#endregion
+
 #region SAVE DATA
 
 ## Primary save data dictionary.
 ## Stores all persistent player and world information.
 ## This structure is intended to be serializable for save/load.
 var save_data := {
+	# ─────────────────────────────
+	# PLAYER STATE
+	# ─────────────────────────────
 	"player": {
-		## Stable player identity (rarely changes)
+
+		# ─────────────────────────────
+		# IDENTITY (rarely changes)
+		# ─────────────────────────────
 		"identity": {
 			"name": "Traveler",
 			"element_affinity": "neutral",
-			"tags": []  # semantic traits, e.g. ["human", "resonant"]
+			"tags": []  # semantic traits: ["human", "resonant", "marked"]
 		},
 
-		## Player combat / movement stats
+		# ─────────────────────────────
+		# STATS (frequently read, sometimes modified)
+		# ─────────────────────────────
 		"stats": {
 			"hp": 100,
 			"max_hp": 100,
 			"speed": 1.0,
-			"modifiers": {},
-			"luck": 0,             # drops, events, dialogue
-			"resilience": 0,       # status resistance (later)
+			"luck": 0,
+			"resilience": 0,
+
+			# Temporary or conditional modifiers
+			# e.g. { "speed": +0.2, "luck": -1 }
+			"modifiers": {}
 		},
 
-		## Player inventory & systems
+		# ─────────────────────────────
+		# INVENTORY SYSTEMS
+		# ─────────────────────────────
 		"inventory": {
-			"items": {},    # { item_id : amount }
-			"cards": []     # future system
+			"items": {}, # { item_id : amount }   
+		
+		# ─────────────────────────────
+		# CARD SYSTEM (Phase 2)
+		# ─────────────────────────────
+			"cards": {
+				"owned": [],        # ALL cards the player has ever obtained
+				"deck": [],         # playable cards (subset of owned)
+				"hand": [],
+				"discard": [],
+				"memory": [],       # permanent narrative cards (subset of owned)
+				"connections": []   # active connection cards (subset of owned)
+},
 		},
-
-		## Player board position (board game layer)
+		# ─────────────────────────────
+		# BOARD POSITION (turn-based layer)
+		# ─────────────────────────────
 		"position": {
 			"board_id": "level_0",
 			"cell": Vector2i(0, 0)
 		},
+
+		# ─────────────────────────────
+		# PROGRESS FLAGS
+		# ─────────────────────────────
 		"progress": {
 			"boards_visited": [],
-			"npcs_met": {},
-			"secrets_found": {},
+			"npcs_met": {},       # { npc_id : true }
+			"secrets_found": {}   # { secret_id : true }
 		}
 	},
+
+	# ─────────────────────────────
+	# WORLD STATE
+	# ─────────────────────────────
 	"world": {
-		"visited_tiles": {},
-		"quests": {},
+		"visited_tiles": {},     # { Vector2i : true }
+		"quests": {},            # { quest_id : state }
 		"time_of_day": "morning",
 		"level_name": "level_0",
+
+		# Side-scroll persistence (Phase 1 minimal)
 		"sidescroll": {
 			"active_scene": "",
 			"spawn_point": "default",
-			"scene_state": {},
+			"scene_state": {}   # { scene_id : { position, flags } }
 		}
 	}
 }
 
 #endregion
 
-#region PLAYER IDENTITY
+#region PLAYER NAME | ELEMENT AFFINITY | TAGS
 
 func get_player_name() -> String:
 	return save_data["player"]["identity"]["name"]
@@ -86,26 +125,23 @@ func get_player_name() -> String:
 func set_player_name(new_name: String):
 	save_data["player"]["identity"]["name"] = new_name
 
-
 func get_element_affinity() -> String:
 	return save_data["player"]["identity"]["element_affinity"]
 
 func set_element_affinity(affinity: String):
 	save_data["player"]["identity"]["element_affinity"] = affinity
 
-
 func add_player_tag(tag: String):
 	var tags = save_data["player"]["identity"]["tags"]
 	if not tags.has(tag):
 		tags.append(tag)
-
 
 func has_player_tag(tag: String) -> bool:
 	return save_data["player"]["identity"]["tags"].has(tag)
 
 #endregion
 
-#region PLAYER MANAGEMENT
+#region PLAYER STAT MANAGEMENT
 
 ## Heals the player by a given amount.
 ## Health is clamped between 0 and max HP.
@@ -130,7 +166,7 @@ func set_stat(stat_name: String, value):
 		return
 
 	save_data["player"]["stats"][stat_name] = value
-	
+
 func modify_stat(stat_name: String, delta):
 	if not save_data["player"]["stats"].has(stat_name):
 		push_warning("Attempted to modify unknown stat: %s" % stat_name)
@@ -139,26 +175,15 @@ func modify_stat(stat_name: String, delta):
 	save_data["player"]["stats"][stat_name] += delta
 #endregion
 
-
 #region INVENTORY
 
 ## Adds an item to the player's inventory.
 ## @param id Item ID from ItemDB.
 ## @param amount Number of items to add.
+
 func add_item(id: int, amount: int = 1):
-	if not ItemDB.ITEMS.has(id):
-		push_error("Invalid item ID: %s" % id)
-		return
-
-	var inv = save_data["player"]["inventory"]["items"]
-
-	if inv.has(id):
-		inv[id] += amount
-	else:
-		inv[id] = amount
-
-	print("Inventory now:", inv)
-
+	var items = save_data["player"]["inventory"]["items"]
+	items[id] = items.get(id, 0) + amount
 
 ## Removes an item from the player's inventory.
 ## Automatically removes the entry if the count reaches zero.
@@ -193,9 +218,8 @@ func get_inventory() -> Dictionary:
 
 
 func get_inventory_items() -> Dictionary:
-	return save_data["player"]["inventory"].get("items", {})
+	return save_data["player"]["inventory"]["items"]
 #endregion
-
 
 #region QUESTS
 
@@ -231,7 +255,6 @@ func is_tile_visited(cell: Vector2i) -> bool:
 	return save_data["world"]["visited_tiles"].get(cell, false)
 
 #endregion
-
 
 #region TIME AND DATE
 
@@ -282,7 +305,6 @@ func set_state(new_state: GameState):
 	
 #endregion
 
-
 #region SIGNALS
 
 ## Emitted when the Wunderpal should be toggled.
@@ -301,7 +323,6 @@ func request_toggle_wunderpal():
 
 #endregion
 
-
 #region DEBUG SEED INVENTORY
 
 ## Populates the player's inventory with test items.
@@ -313,4 +334,125 @@ func debug_seed_inventory():
 		3: 12
 	}
 	print("[GameManager] Debug inventory seeded")
+#endregion
+
+
+#region SIDESCROLL PERSISTENCE
+
+func set_active_sidescroll(scene_id: String):
+	save_data["world"]["sidescroll"]["active_scene"] = scene_id
+
+func set_sidescroll_position(scene_id: String, pos: Vector2) -> void:
+	save_data["world"]["sidescroll"]["scene_state"][scene_id] = {
+		"player_pos": pos
+	}
+
+func get_sidescroll_position(scene_id: String) -> Vector2:
+	var state = save_data["world"]["sidescroll"]["scene_state"]
+	if state.has(scene_id):
+		return state[scene_id].get("player_pos", Vector2.ZERO)
+	return Vector2.ZERO
+
+func clear_sidescroll_state(scene_id: String) -> void:
+	save_data["world"]["sidescroll"]["scene_state"].erase(scene_id)
+
+#endregion
+
+#region SIDESCROLL SCENE REGISTRY
+const SIDESCROLL_SCENES := {
+	"station_test": "res://scenes/sidescroller/test_scene.tscn"
+}
+
+func has_sidescroll_scene(scene_id: String) -> bool:
+	return SIDESCROLL_SCENES.has(scene_id)
+
+func get_sidescroll_path(scene_id: String) -> String:
+	if not has_sidescroll_scene(scene_id):
+		push_error("Unknown sidescroll scene_id: %s" % scene_id)
+		return ""
+	return SIDESCROLL_SCENES[scene_id]
+
+func enter_sidescroll(scene_id: String):
+	if not has_sidescroll_scene(scene_id):
+		return
+
+	save_data["world"]["sidescroll"]["active_scene"] = scene_id
+	set_state(GameState.SIDESCROLL)
+
+	hud.open_sidescroll(scene_id)
+	
+func resolve_scene_path(scene_id: String) -> String:
+	if not SIDESCROLL_SCENES.has(scene_id):
+		push_error("Unknown scene_id: %s" % scene_id)
+		return ""
+	return SIDESCROLL_SCENES[scene_id]
+#endregion
+
+
+#region CARDS — OWNERSHIP (Phase 2)
+
+func add_card(card_id: String) -> void:
+	if not CardRegistry.has_card(card_id):
+		push_error("Unknown card_id: %s" % card_id)
+		return
+
+	var cards = save_data["player"]["inventory"]["cards"]
+
+	if not cards["owned"].has(card_id):
+		cards["owned"].append(card_id)
+
+	var card = CardRegistry.get_card(card_id)
+	match card.type:
+		"memory":
+			if not cards["memory"].has(card_id):
+				cards["memory"].append(card_id)
+
+		"connection":
+			if not cards["connections"].has(card_id):
+				cards["connections"].append(card_id)
+
+	print("[Cards] Added:", card_id)
+func remove_card(card_id: String, pile := "deck") -> void:
+	var cards = save_data["player"]["inventory"]["cards"]
+
+	if not cards.has(pile):
+		push_warning("Unknown card pile: %s" % pile)
+		return
+
+	cards[pile].erase(card_id)
+
+func get_cards(pile := "deck") -> Array:
+	return save_data["player"]["inventory"]["cards"].get(pile, [])
+
+#endregion
+
+#region CARDS — INSTANCE ADAPTER (Phase 2)
+
+func build_card_instance(card_id: String) -> Dictionary:
+	if not CardRegistry.has_card(card_id):
+		push_error("Invalid card_id: %s" % card_id)
+		return {}
+
+	var base := CardRegistry.get_card(card_id)
+
+	return {
+		"id": card_id,
+		"name": base.get("name", ""),
+		"type": base.get("type", ""),
+		"element": base.get("element", ""),
+		"description": base.get("description", ""),
+		"tags": base.get("tags", []).duplicate(),
+		"stats": base.get("stats", {}).duplicate(),
+		"flags": base.get("flags", {}).duplicate(),
+		"meta": base.get("meta", {}).duplicate()
+	}
+
+func get_card_instances(pile := "deck") -> Array:
+	var instances := []
+
+	for card_id in get_cards(pile):
+		instances.append(build_card_instance(card_id))
+
+	return instances
+
 #endregion
