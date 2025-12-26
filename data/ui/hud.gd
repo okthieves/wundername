@@ -265,6 +265,7 @@ func _hide_all_screens():
 
 	
 func show_section(section: String):
+	
 	if not WUNDERPAL_SECTIONS.has(section):
 		push_warning("Unknown section: %s" % section)
 		return
@@ -321,6 +322,11 @@ func build_main_menu():
 		)
 
 		main_menu_vbox.add_child(btn)
+
+func clear_active_panel() -> void:
+	for c in $Wunderpal/Frame/ScreenArea/MENU_HUB.get_children():
+		if c is Control:
+			c.visible = false
 
 #endregion
 

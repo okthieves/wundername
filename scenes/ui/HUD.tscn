@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dcnsq4bmlbv0g"]
+[gd_scene load_steps=31 format=3 uid="uid://dcnsq4bmlbv0g"]
 
 [ext_resource type="Texture2D" uid="uid://drrj205apacx8" path="res://assets/wunder/Sprite-WunderPhone2.png" id="1_atyv1"]
 [ext_resource type="Script" uid="uid://d4heo84ssypby" path="res://data/ui/hud.gd" id="1_l20r4"]
@@ -88,6 +88,8 @@ _data = {
 &"close_wunderpal": SubResource("Animation_38nk3"),
 &"open_wunderpal": SubResource("Animation_l20r4")
 }
+
+[sub_resource type="Theme" id="Theme_oteo6"]
 
 [node name="HUD" type="Control" groups=["hud"]]
 custom_minimum_size = Vector2(1280, 720)
@@ -333,9 +335,12 @@ render_target_update_mode = 4
 script = ExtResource("2_6ll6g")
 
 [node name="MENU_HUB" type="Control" parent="Wunderpal/Frame/ScreenArea"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
 visible = false
@@ -421,14 +426,22 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Main_Menu" type="Control" parent="Wunderpal/Frame/ScreenArea/MENU_HUB"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Wunderpal/Frame/ScreenArea/MENU_HUB/Main_Menu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_oteo6")
+theme_override_constants/separation = 8
 
 [node name="Tooltip" parent="." instance=ExtResource("2_e8r00")]
 visible = false
